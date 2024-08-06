@@ -1,0 +1,16 @@
+services:
+  php:
+    build:
+      context: ./
+      dockerfile: ./docker/php/Dockerfile
+    restart: always
+    volumes:
+      - .:/var/www/app.dev
+    tty: true
+    ports:
+      - "9060:9000"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    environment:
+      - PHP_IDE_CONFIG=serverName=php.erp-adapter-sales
+      - XDEBUG_MODE=${XDEBUG_MODE}
