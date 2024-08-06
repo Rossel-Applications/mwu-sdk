@@ -24,3 +24,9 @@ phpstan.neon
 .phpunit.result.cache
 .phpunit.cache/
 ###< phpunit/phpunit ###
+
+###> phpdoc/phpdoc ###
+.phpdoc/
+###< phpunit/phpunit ###
+
+docs/

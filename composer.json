@@ -18,16 +18,20 @@
   ],
   "autoload": {
     "psr-4": {
-      "MwuSdk\\": "src"
+      "MwuSdk\\": "src/",
+      "MwuSdkTest\\": "tests/"
     },
     "autoload-dev": {
       "psr-4": {
-        "Doctrine\\Bundle\\DoctrineBundle\\Tests\\": "tests"
+        "Doctrine\\Bundle\\DoctrineBundle\\Tests\\": "tests/"
       }
     }
   },
   "require": {
-    "php": "^8.2"
+    "php": "^8.2",
+    "symfony/validator": "^7.1",
+    "symfony/yaml": "^7.1",
+    "symfony/options-resolver": "^7.1"
   },
   "require-dev": {
     "phpunit/phpunit": "^11",
