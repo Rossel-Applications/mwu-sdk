@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Client\Interface;
+namespace MwuSdk\Client;
 
 interface MwuClientInterface
 {
@@ -10,4 +10,8 @@ interface MwuClientInterface
      * @return array<array-key, MwuSwitchInterface>
      */
     public function getSwitches(): array;
+
+    public function addSwitch(MwuSwitchInterface $switch): self;
+
+    public function removeSwitch(MwuSwitchInterface $switch): self;
 }
