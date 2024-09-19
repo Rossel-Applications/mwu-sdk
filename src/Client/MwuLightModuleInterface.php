@@ -49,5 +49,5 @@ interface MwuLightModuleInterface
     /**
      * Disconnect the Light Module from the attached switch.
      */
-    public function disconnectSwitch(): self;
+    public function disconnectSwitch(): static;
 }
