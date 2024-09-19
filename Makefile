@@ -3,6 +3,7 @@ DOCKER_COMP = docker compose
 
 # Docker containers
 PHP_CONT = $(DOCKER_COMP) exec php
+PHPDOC_CONT = $(DOCKER_COMP) run -it phpdoc
 
 # Executables
 PHP      = $(PHP_CONT) php
@@ -11,7 +12,7 @@ SYMFONY  = $(PHP) bin/console
 
 # Misc
 .DEFAULT_GOAL = help
-.PHONY        : help build up start down logs sh composer vendor sf cc test install init_hooks phpstan-dry-run phpstan-fix phpunit tests qa code_coverage
+.PHONY        : help build up start down logs sh composer vendor sf cc test install init_hooks phpstan-dry-run phpstan-fix phpunit tests qa code_coverage phpdoc
 
 ## —— 🎵 🐳 The Symfony Docker Makefile 🐳 🎵 ——————————————————————————————————
 help: ## Outputs this help screen
@@ -83,6 +84,10 @@ code_coverage: ## Execute unit tests.
 sf: ## List all Symfony commands or pass the parameter "c=" to run a given command, example: make sf c=about
 	@$(eval c ?=)
 	@$(SYMFONY) $(c)
+
+## —— PhpDocumentor 🗒️ —————————————————————————————————————————————————————————
+phpdoc: ## Generate the documentation.
+	@$(PHPDOC_CONT) run -s template.color=indigo -d src/ -t docs/reference --title="MWU SDK - Documentation"
 
 cc: c=c:c ## Clear the cache
 cc: sf

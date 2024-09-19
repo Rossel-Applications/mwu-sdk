@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+echo "===== QA pre-commit hook start ====="
+
+PHPSTAN="vendor/bin/phpstan"
+PHP_CS_FIXER="tools/php-cs-fixer/vendor/bin/php-cs-fixer"
+PHPDoc="make phpdoc"
+
+if [ ! -x "$PHPSTAN" ]; then
+    echo ""
+    echo "Please install phpstan, e.g.:"
+    echo ""
+    echo "  composer require --dev phpstan/phpstan"
+    echo ""
+    exit 1
+fi
+
+if [ ! -x "$PHP_CS_FIXER" ]; then
+    echo ""
+    echo "Please install php-cs-fixer, e.g.:"
+    echo ""
+    echo "  composer require --dev --working-dir=tools/php-cs-fixer friendsofphp/php-cs-fixer"
+    echo ""
+    exit 1
+fi
+
+FILES=$(git diff HEAD --name-only | grep -e '.php$')
+
+if [ -z "$FILES" ]; then
+	echo ""
+    echo "! No php files found in commit."
+    echo ""
+else
+    # PHPStan
+    echo ""
+    echo "==============="
+    echo "PHPStan"
+    echo "==============="
+    echo ""
+    PHPSTAN_TEST=$($PHPSTAN analyze ${FILES})
+
+    if [ "$PHPSTAN_TEST" = "" ]; then
+        echo 'passed'
+    else
+        echo "$PHPSTAN_TEST"
+    fi
+
+    # PHPCSFixer
+    echo ""
+    echo "==============="
+    echo "PHPCSFixer"
+    echo "==============="
+    echo ""
+    $PHP_CS_FIXER fix --config=.php-cs-fixer.dist.php --verbose ${FILES}
+    git add ${FILES}
+
+    if [[ "$PHPSTAN_TEST" = "" ]]; then
+      exit 1
+    fi
+
+    # PHPDocumentor
+    echo ""
+    echo "==============="
+    echo "PHPDocumentor"
+    echo "==============="
+    echo ""
+    $PHPDoc
+    git add docs/
+fi
+
+echo "===== QA pre-commit hook finish ====="

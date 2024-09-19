@@ -12,5 +12,9 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     environment:
-      - PHP_IDE_CONFIG=serverName=php.erp-adapter-sales
+      - PHP_IDE_CONFIG=serverName=php.mwu-sdk
       - XDEBUG_MODE=${XDEBUG_MODE}
+  phpdoc:
+    image: phpdoc/phpdoc:stable
+    volumes:
+      - ./:/data
