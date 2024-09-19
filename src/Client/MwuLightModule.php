@@ -102,7 +102,7 @@ final class MwuLightModule implements MwuLightModuleInterface
         if (null !== $switch
             && \in_array($this, $switch->getLightModules(), true)
         ) {
-            $switch->removeLightModule($this);
+            $switch->disconnectLightModule($this);
         }
 
         if (null !== $this->switch) {
@@ -118,7 +118,7 @@ final class MwuLightModule implements MwuLightModuleInterface
 
     private function setSwitch(?MwuSwitchInterface $switch): self
     {
-        $switch?->addLightModule($this);
+        $switch?->connectLightModule($this);
         $this->switch = $switch;
 
         return $this;

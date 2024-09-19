@@ -6,7 +6,7 @@ namespace MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class LightModulesGeneratorConfig implements LightModulesGeneratorConfigInterface
+final class LightModulesGeneratorConfig implements LightModulesGeneratorConfigInterface
 {
     #[Assert\GreaterThanOrEqual(0)]
     private int $firstLightModuleId;

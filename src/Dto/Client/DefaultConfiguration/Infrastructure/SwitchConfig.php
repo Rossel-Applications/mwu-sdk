@@ -6,7 +6,7 @@ namespace MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class SwitchConfig implements SwitchConfigInterface
+final class SwitchConfig implements SwitchConfigInterface
 {
     public const MIN_PORT_VALUE = 1;
     public const MAX_PORT_VALUE = 65535;
