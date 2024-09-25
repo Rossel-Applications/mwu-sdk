@@ -5,106 +5,79 @@ declare(strict_types=1);
 namespace MwuSdk\Client;
 
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
-use MwuSdk\Exception\Configuration\CannotAssignIdOnSwitchException;
+use MwuSdk\Entity\Command\CommandInterface;
 
 /**
- * Interface implemented by MWU Switches.
+ * Interface for MWU Switches.
+ *
+ * Defines methods for managing switches and connected light modules.
  */
 interface MwuSwitchInterface
 {
-    /** Returns the switch configuration object (used to instantiate the Switch client). */
+    /** Gets the switch configuration. */
     public function getConfig(): SwitchConfigInterface;
 
-    /** Returns the IP address of the Switch. */
+    /** Gets the IP address of the switch. */
     public function getIpAddress(): string;
 
-    /** Returns the port used on the Switch to communicate with the MWU system. */
+    /** Gets the communication port used by the switch. */
     public function getPort(): int;
 
-    /** Returns a unique identifier representing the Switch (e.g., its IP address and attached port). */
+    /** Gets the unique identifier for the switch. */
     public function getUniqueIdentifier(): string;
 
     /**
-     * Returns all the Light Modules currently connected to the Switch.
+     * Gets the connected light modules.
      *
-     * @return array<array-key, MwuLightModuleInterface> list of connected Light Modules
+     * @return array<int, MwuLightModuleInterface>
      */
     public function getLightModules(): array;
 
-    /**
-     * Connect a new Light Module to the Switch.
-     *
-     * @note The Light Module <b>MUST</b> already have an ID value at this stage. This method is responsible for validating its availability before connecting it to the Switch.
-     *
-     * @param MwuLightModuleInterface $lightModule the Light Module to be connected
-     *
-     * @see MwuSwitchInterface::connectLightModules()
-     */
+    /** Connects a light module to the switch. */
     public function connectLightModule(MwuLightModuleInterface $lightModule): self;
 
     /**
-     * Connect multiple Light Modules to the Switch.
+     * Connects multiple light modules to the switch.
      *
-     * @param list<MwuLightModuleInterface> $lightModules list of Light Modules to be connected
-     *
-     * @see MwuSwitchInterface::connectLightModule()
+     * @param list<MwuLightModuleInterface> $lightModules
      */
     public function connectLightModules(array $lightModules): self;
 
-    /**
-     * Disconnect a Light Module from the Switch.
-     *
-     * @param MwuLightModuleInterface $lightModule the Light Module to be disconnected
-     *
-     * @see MwuSwitchInterface::disconnectLightModules()
-     */
+    /** Disconnects a light module from the switch. */
     public function disconnectLightModule(MwuLightModuleInterface $lightModule): self;
 
     /**
-     * Disconnect multiple Light Modules from the Switch.
+     * Disconnects multiple light modules from the switch.
      *
-     * @param list<MwuLightModuleInterface> $lightModules list of Light Modules to be disconnected
-     *
-     * @see MwuSwitchInterface::disconnectLightModule()
+     * @param list<MwuLightModuleInterface> $lightModules
      */
     public function disconnectLightModules(array $lightModules): self;
 
-    /**
-     * Creates a new Light Module and assigns the specified ID to it, if available.
-     *
-     * @param int $id the ID to assign to the new Light Module
-     *
-     * @throws CannotAssignIdOnSwitchException if the ID cannot be assigned
-     */
+    /** Defines and assigns an ID to a light module. */
     public function defineLightModule(int $id): self;
 
     /**
-     * Creates new Light Modules and assigns the specified IDs to them.
+     * Defines and assigns IDs to multiple light modules.
      *
-     * @param list<int> $lightModuleIds list of IDs to assign to the Light Modules
+     * @param list<int> $lightModuleIds
      */
     public function defineLightModules(array $lightModuleIds): self;
 
-    /**
-     * Disconnect a Light Module by its ID.
-     *
-     * @param int $id the ID of the Light Module to disconnect
-     */
+    /** Disconnects a light module by its ID. */
     public function disconnectLightModuleById(int $id): self;
 
     /**
-     * Disconnect multiple Light Modules by their IDs.
+     * Disconnects multiple light modules by their IDs.
      *
-     * @param list<int> $lightModuleIds list of Light Module IDs to disconnect
+     * @param list<int> $lightModuleIds
      */
     public function disconnectLightModulesById(array $lightModuleIds): self;
 
-    /**
-     * Checks if a given Light Module ID is available.
-     *
-     * @param int $id the ID to check
-     *
-     * @return bool true if the ID is available, false otherwise
-     */
+    /** Checks if a light module ID is available. */
     public function isLightModuleIdAvailable(int $id): bool;
+
+    /**
+     * Sends a command to the switch.
+     */
+    public function send(CommandInterface $command): ?string;
 }

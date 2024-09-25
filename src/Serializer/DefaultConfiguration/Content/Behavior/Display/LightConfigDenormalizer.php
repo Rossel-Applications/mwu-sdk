@@ -11,6 +11,13 @@ use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\LightConfigKe
 use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Behavior\Display\LightConfigValidator;
 
+/**
+ * Class LightConfigDenormalizer.
+ *
+ * This class is responsible for denormalizing an array of light configuration data
+ * into a LightConfig object. It validates the input data and extracts light color
+ * and light mode configurations using the respective enum classes.
+ */
 final readonly class LightConfigDenormalizer implements DenormalizerInterface
 {
     public function __construct(
@@ -18,6 +25,7 @@ final readonly class LightConfigDenormalizer implements DenormalizerInterface
     ) {
     }
 
+    /** {@inheritDoc} */
     public function denormalize(array $data): LightConfig
     {
         $this->lightConfigValidator->validate($data);

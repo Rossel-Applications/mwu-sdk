@@ -20,6 +20,9 @@ help: ## Outputs this help screen
 
 ## —— Docker 🐳 ————————————————————————————————————————————————————————————————
 build: ## Builds the Docker images
+	@$(DOCKER_COMP) build
+
+build-no-cache: ## Builds the Docker images without cache
 	@$(DOCKER_COMP) build --pull --no-cache
 
 up: ## Start the docker hub in detached mode (no logs)
@@ -87,7 +90,7 @@ sf: ## List all Symfony commands or pass the parameter "c=" to run a given comma
 
 ## —— PhpDocumentor 🗒️ —————————————————————————————————————————————————————————
 phpdoc: ## Generate the documentation.
-	@$(PHPDOC_CONT) run -s template.color=indigo -d src/ -t docs/reference --title="MWU SDK - Documentation"
+	@$(PHPDOC_CONT) run -s template.color=indigo -d src/ -d docs -t docs/reference --title="MWU SDK - Documentation"
 
 cc: c=c:c ## Clear the cache
 cc: sf

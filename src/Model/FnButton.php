@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace MwuSdk\Model;
 
+/**
+ * Class representing the fn button of a light module.
+ */
 final class FnButton implements FnButtonInterface
 {
     private bool $enabled = false;
@@ -28,11 +31,17 @@ final class FnButton implements FnButtonInterface
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
@@ -40,11 +49,17 @@ final class FnButton implements FnButtonInterface
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getText(): string
     {
         return $this->text;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setText(string $text): self
     {
         $this->text = $text;
@@ -52,11 +67,17 @@ final class FnButton implements FnButtonInterface
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function isUseAsDecrement(): bool
     {
         return $this->useAsDecrement;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setUseAsDecrement(bool $useAsDecrement): self
     {
         $this->useAsDecrement = $useAsDecrement;

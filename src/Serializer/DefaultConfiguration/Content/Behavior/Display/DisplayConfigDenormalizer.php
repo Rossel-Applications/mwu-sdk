@@ -9,6 +9,13 @@ use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\DisplayConfig
 use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Behavior\Display\DisplayConfigValidator;
 
+/**
+ * Class DisplayConfigDenormalizer.
+ *
+ * This class is responsible for denormalizing an array of display configuration data
+ * into a DisplayConfig object. It validates the input data and extracts light and screen
+ * configurations using their respective denormalizers.
+ */
 final readonly class DisplayConfigDenormalizer implements DenormalizerInterface
 {
     public function __construct(

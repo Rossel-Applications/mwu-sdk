@@ -10,6 +10,13 @@ use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\QuantityKeysC
 use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\QuantityKeysConfigValidator;
 
+/**
+ * Class QuantityKeysConfigDenormalizer.
+ *
+ * This class is responsible for denormalizing an array of quantity keys configuration data
+ * into a QuantityKeysConfig object. It validates the input data to ensure it conforms
+ * to the expected structure and values, particularly for the quantity keys mode.
+ */
 final readonly class QuantityKeysConfigDenormalizer implements DenormalizerInterface
 {
     public function __construct(

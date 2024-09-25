@@ -2,11 +2,17 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory;
+namespace MwuSdk\Factory\Client;
 
 use MwuSdk\Client\MwuSwitch;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
 
+/**
+ * Factory class for creating MwuSwitch instances.
+ *
+ * This class constructs MwuSwitch objects based on configuration and manages the
+ * generation of associated light modules.
+ */
 final readonly class MwuSwitchFactory implements MwuSwitchFactoryInterface
 {
     public function __construct(
@@ -29,7 +35,7 @@ final readonly class MwuSwitchFactory implements MwuSwitchFactoryInterface
     /**
      * @param array<array-key, SwitchConfigInterface> $configs
      *
-     * @return list<MwuSwitch>
+     * @return array<array-key, MwuSwitch>
      */
     public function createCollection(array $configs): array
     {

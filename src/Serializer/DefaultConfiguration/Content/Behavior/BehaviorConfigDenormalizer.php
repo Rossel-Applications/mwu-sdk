@@ -11,6 +11,13 @@ use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display\DisplayConfi
 use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Behavior\BehaviorConfigValidator;
 
+/**
+ * Class BehaviorConfigDenormalizer.
+ *
+ * This class is responsible for denormalizing an array of behavior configuration data
+ * into a BehaviorConfig object. It validates the input data and extracts the display
+ * configurations and buttons configurations using their respective denormalizers.
+ */
 final readonly class BehaviorConfigDenormalizer implements DenormalizerInterface
 {
     public function __construct(

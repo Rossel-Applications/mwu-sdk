@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory;
+namespace MwuSdk\Factory\Client;
 
 use MwuSdk\Client\MwuLightModule;
 use MwuSdk\Client\MwuSwitchInterface;
@@ -11,11 +11,17 @@ use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\FnButtonConfigInterf
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\QuantityKeysConfigInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\DisplayConfigInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfigInterface;
-use MwuSdk\Factory\MwuLightModule\ConfirmButtonFactoryInterface;
-use MwuSdk\Factory\MwuLightModule\DisplayStatusFactoryInterface;
-use MwuSdk\Factory\MwuLightModule\FnButtonFactoryInterface;
-use MwuSdk\Factory\MwuLightModule\QuantityKeysFactoryInterface;
+use MwuSdk\Factory\Client\MwuLightModule\ConfirmButtonFactoryInterface;
+use MwuSdk\Factory\Client\MwuLightModule\DisplayStatusFactoryInterface;
+use MwuSdk\Factory\Client\MwuLightModule\FnButtonFactoryInterface;
+use MwuSdk\Factory\Client\MwuLightModule\QuantityKeysFactoryInterface;
 
+/**
+ * Factory class for creating MwuLightModule instances.
+ *
+ * This class constructs MwuLightModule objects using various configuration interfaces
+ * and generates collections of light modules based on specified generator configurations.
+ */
 final readonly class MwuLightModuleFactory implements MwuLightModuleFactoryInterface
 {
     public function __construct(
@@ -48,7 +54,7 @@ final readonly class MwuLightModuleFactory implements MwuLightModuleFactoryInter
         );
     }
 
-    /** @return list<MwuLightModule> */
+    /** @return array<int, MwuLightModule> */
     public function generateCollection(
         LightModulesGeneratorConfigInterface $config,
         MwuSwitchInterface $switch,
@@ -67,7 +73,7 @@ final readonly class MwuLightModuleFactory implements MwuLightModuleFactoryInter
 
         for ($i = 0; $i < $numberOfModules; ++$i) {
             $lightModuleId = $firstLightModuleId + $i * $increment;
-            $lightModules[] = $this->create(
+            $lightModules[$lightModuleId] = $this->create(
                 $switch,
                 $lightModuleId,
                 $displayStatusConfig,

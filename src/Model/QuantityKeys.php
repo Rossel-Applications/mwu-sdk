@@ -6,6 +6,9 @@ namespace MwuSdk\Model;
 
 use MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
 
+/**
+ * Class representing the quantity keys of a light module.
+ */
 final class QuantityKeys implements QuantityKeysInterface
 {
     private bool $enabled = false;
@@ -24,11 +27,17 @@ final class QuantityKeys implements QuantityKeysInterface
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
@@ -36,11 +45,17 @@ final class QuantityKeys implements QuantityKeysInterface
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getMode(): QuantityKeysMode
     {
         return $this->mode;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setMode(QuantityKeysMode $mode): self
     {
         $this->mode = $mode;

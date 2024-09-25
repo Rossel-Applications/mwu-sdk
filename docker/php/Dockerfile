@@ -52,10 +52,11 @@ RUN docker-php-ext-install \
   intl \
   xsl \
   exif \
-  soap
+  soap \
+  sockets
 
 # Install pecl
-RUN pear config-set http_proxy http://fproxyp.srv.lvdn.net:3128
+#RUN pear config-set http_proxy http://fproxyp.srv.lvdn.net:3128
 #RUN pecl install xdebug && docker-php-ext-enable xdebug
 #RUN pecl -v install redis && docker-php-ext-enable redis
 #RUN pecl -v install rar && docker-php-ext-enable rar

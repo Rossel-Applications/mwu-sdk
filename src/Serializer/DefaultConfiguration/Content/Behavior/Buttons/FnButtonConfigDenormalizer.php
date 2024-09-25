@@ -9,6 +9,13 @@ use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\FnButtonConfi
 use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\FnButtonConfigValidator;
 
+/**
+ * Class FnButtonConfigDenormalizer.
+ *
+ * This class is responsible for denormalizing an array of function button configuration data
+ * into a FnButtonConfig object. It validates the input data to ensure it adheres
+ * to the expected structure and format.
+ */
 final readonly class FnButtonConfigDenormalizer implements DenormalizerInterface
 {
     public function __construct(
@@ -16,6 +23,7 @@ final readonly class FnButtonConfigDenormalizer implements DenormalizerInterface
     ) {
     }
 
+    /** {@inheritDoc} */
     public function denormalize(array $data): FnButtonConfig
     {
         $this->fnButtonConfigValidator->validate($data);
