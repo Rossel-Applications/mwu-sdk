@@ -8,6 +8,9 @@ use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
 
+/**
+ * Class representing the display status of a light module.
+ */
 final class DisplayStatus implements DisplayStatusInterface
 {
     private LightMode $lightMode = LightMode::OFF;
@@ -38,11 +41,17 @@ final class DisplayStatus implements DisplayStatusInterface
         }
     }
 
-    public function getText(): ?string
+    /**
+     * {@inheritDoc}
+     */
+    public function getText(): string
     {
         return $this->text;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setText(string $text): self
     {
         $this->text = $text;
@@ -50,11 +59,17 @@ final class DisplayStatus implements DisplayStatusInterface
         return $this;
     }
 
-    public function getLightColor(): ?LightColor
+    /**
+     * {@inheritDoc}
+     */
+    public function getLightColor(): LightColor
     {
         return $this->lightColor;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setLightColor(LightColor $lightColor): self
     {
         $this->lightColor = $lightColor;
@@ -62,11 +77,17 @@ final class DisplayStatus implements DisplayStatusInterface
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getScreenDisplayMode(): ScreenDisplayMode
     {
         return $this->screenDisplayMode;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setScreenDisplayMode(ScreenDisplayMode $screenDisplayMode): self
     {
         $this->screenDisplayMode = $screenDisplayMode;
@@ -74,11 +95,17 @@ final class DisplayStatus implements DisplayStatusInterface
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getLightMode(): LightMode
     {
         return $this->lightMode;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setLightMode(LightMode $lightMode): self
     {
         $this->lightMode = $lightMode;

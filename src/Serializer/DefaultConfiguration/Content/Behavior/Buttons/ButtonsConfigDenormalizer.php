@@ -9,6 +9,13 @@ use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\ButtonsConfig
 use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\ButtonsConfigValidator;
 
+/**
+ * Class ButtonsConfigDenormalizer.
+ *
+ * This class is responsible for denormalizing an array of button configuration data
+ * into a ButtonsConfig object. It utilizes various denormalizers for specific button
+ * configurations and validates the data before processing.
+ */
 final readonly class ButtonsConfigDenormalizer implements DenormalizerInterface
 {
     public function __construct(

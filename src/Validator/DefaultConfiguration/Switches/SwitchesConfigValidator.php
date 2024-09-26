@@ -8,6 +8,14 @@ use MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\SwitchesConfigKeysEnu
 use MwuSdk\Validator\DefaultConfiguration\ConfigValidatorInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Validates the configuration for switches settings.
+ *
+ * This validator ensures that the switches configuration options
+ * are correctly defined and of the expected types. It requires
+ * that certain keys exist and that their values conform to the
+ * specified types.
+ */
 final readonly class SwitchesConfigValidator implements ConfigValidatorInterface
 {
     /**

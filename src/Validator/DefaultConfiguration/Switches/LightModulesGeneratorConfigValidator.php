@@ -8,6 +8,13 @@ use MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\LightModulesGenerator
 use MwuSdk\Validator\DefaultConfiguration\ConfigValidatorInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Validates the configuration for light modules generator settings.
+ *
+ * This validator ensures that the light modules generator configuration options
+ * are correctly defined and of the expected types. It requires certain keys to exist
+ * and validates their values against the specified types.
+ */
 final class LightModulesGeneratorConfigValidator implements ConfigValidatorInterface
 {
     /**

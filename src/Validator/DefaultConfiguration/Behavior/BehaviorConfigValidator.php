@@ -8,6 +8,14 @@ use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\BehaviorConfigKeysEnu
 use MwuSdk\Validator\DefaultConfiguration\AbstractConfigValidator;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Validates behavior configuration for the application.
+ *
+ * This validator ensures that the behavior configuration options
+ * are correctly defined and of the expected types. It requires
+ * that certain keys exist and that their values conform to the
+ * specified types.
+ */
 final readonly class BehaviorConfigValidator extends AbstractConfigValidator
 {
     public function getOptionsResolver(): OptionsResolver

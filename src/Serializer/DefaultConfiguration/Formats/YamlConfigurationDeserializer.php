@@ -12,7 +12,13 @@ use MwuSdk\Serializer\AbstractDeserializer;
 use MwuSdk\Serializer\DefaultConfiguration\Content\ConfigDenormalizer;
 use Symfony\Component\Yaml\Yaml;
 
-/** @extends AbstractDeserializer<MwuConfig> */
+/**
+ * Class YamlConfigurationDeserializer.
+ *
+ * Responsible for deserializing YAML configuration files into MwuConfig objects.
+ *
+ * @extends AbstractDeserializer<MwuConfig>
+ */
 final readonly class YamlConfigurationDeserializer extends AbstractDeserializer
 {
     public function __construct(
@@ -20,6 +26,16 @@ final readonly class YamlConfigurationDeserializer extends AbstractDeserializer
     ) {
     }
 
+    /**
+     * Parses a configuration file and returns a MwuConfig object.
+     *
+     * @param string $path the path to the configuration file
+     *
+     * @throws ConfigurationFileNotFoundException if the file cannot be found
+     * @throws InvalidConfigurationFileException  if the file is invalid
+     *
+     * @return MwuConfig the deserialized MwuConfig object
+     */
     public function parseConfigurationFile(string $path): MwuConfig
     {
         if (false === ($fileContent = file_get_contents($path))) {
@@ -33,6 +49,15 @@ final readonly class YamlConfigurationDeserializer extends AbstractDeserializer
         }
     }
 
+    /**
+     * Parses a configuration string and returns a MwuConfig object.
+     *
+     * @param string $data the configuration string to parse
+     *
+     * @throws InvalidConfigurationException if the configuration is invalid
+     *
+     * @return MwuConfig the deserialized MwuConfig object
+     */
     public function parseConfiguration(string $data): MwuConfig
     {
         try {
@@ -43,7 +68,13 @@ final readonly class YamlConfigurationDeserializer extends AbstractDeserializer
     }
 
     /**
-     * @return array<array-key, mixed>
+     * Decodes a YAML string into an associative array.
+     *
+     * @param string $data the YAML string to decode
+     *
+     * @throws InvalidConfigurationException if the decoded data is not an array
+     *
+     * @return array<array-key, mixed> the decoded configuration data
      */
     public function decode(string $data): array
     {
@@ -56,6 +87,13 @@ final readonly class YamlConfigurationDeserializer extends AbstractDeserializer
         return $decoded;
     }
 
+    /**
+     * Denormalizes the given data into a MwuConfig object.
+     *
+     * @param array<array-key, mixed> $data the data to denormalize
+     *
+     * @return MwuConfig the denormalized MwuConfig object
+     */
     public function denormalize(mixed $data): MwuConfig
     {
         return $this->mwuConfigDenormalizer->denormalize($data);

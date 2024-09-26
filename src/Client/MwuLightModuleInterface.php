@@ -10,44 +10,44 @@ use MwuSdk\Model\FnButtonInterface;
 use MwuSdk\Model\QuantityKeysInterface;
 
 /**
- * Interface implemented by MWU Light Modules.
+ * Interface for MWU Light Modules.
  */
 interface MwuLightModuleInterface
 {
-    /** Returns the ID used to identify the Light Module from the Switch side, and communicate with it. */
+    /** Gets the ID of the Light Module. */
     public function getId(): ?int;
 
-    /** Returns the display status applied by default. */
+    /** Gets the default display status. */
     public function getDisplayStatus(): DisplayStatusInterface;
 
-    /** Returns the display status applied after pressing the "Fn" button. */
+    /** Gets the display status after the "Fn" button is pressed. */
     public function getDisplayStatusAfterFn(): DisplayStatusInterface;
 
-    /** Returns the display status applied after pressing the "Confirm" button. */
+    /** Gets the display status after the "Confirm" button is pressed. */
     public function getDisplayStatusAfterConfirm(): DisplayStatusInterface;
 
-    /** Returns an object representing the "Confirm" button. */
+    /** Gets the "Confirm" button. */
     public function getConfirmButton(): ConfirmButtonInterface;
 
-    /** Returns an object representing the "Fn" button. */
+    /** Gets the "Fn" button. */
     public function getFnButton(): FnButtonInterface;
 
-    /** Returns an object representing the 3 quantity keys. */
+    /** Gets the 3 quantity keys. */
     public function getQuantityKeys(): QuantityKeysInterface;
 
-    /** Returns the eventually connected Switch. */
+    /** Gets the connected switch, if any. */
     public function getSwitch(): ?MwuSwitchInterface;
 
     /**
-     * Connect the Light Module to a switch by specifying the switch and requesting an id.
+     * Connects the Light Module to a switch.
      *
      * @param MwuSwitchInterface $switch the switch to connect to
-     * @param int                $id     the requested ID for the Light Module
+     * @param int                $id     the ID to assign to the Light Module
      */
     public function connectSwitch(MwuSwitchInterface $switch, int $id): self;
 
     /**
-     * Disconnect the Light Module from the attached switch.
+     * Disconnects the Light Module from the switch.
      */
     public function disconnectSwitch(): self;
 }

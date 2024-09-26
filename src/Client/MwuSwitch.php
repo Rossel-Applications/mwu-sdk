@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace MwuSdk\Client;
 
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
+use MwuSdk\Entity\Command\CommandInterface;
+use MwuSdk\Entity\Message;
 use MwuSdk\Exception\Configuration\CannotAssignIdOnSwitchException;
+use Random\RandomException;
 
 /**
  * This class represents a network switch that connects multiple MWU light modules.
@@ -17,14 +20,23 @@ final class MwuSwitch implements MwuSwitchInterface
     /** @var array<int, MwuLightModuleInterface> */
     private array $lightModules = [];
 
+    private TcpIpClient $tcpIpClient;
+
     /**
-     * @param list<int> $lightModuleIds
+     * @param ?list<int> $lightModuleIds
      */
     public function __construct(
         private readonly SwitchConfigInterface $config,
-        array $lightModuleIds = [],
+        ?array $lightModuleIds = null,
     ) {
-        $this->defineLightModules($lightModuleIds);
+        if (null !== $lightModuleIds) {
+            $this->defineLightModules($lightModuleIds);
+        }
+
+        $this->tcpIpClient = new TcpIpClient(
+            $this->getIpAddress(),
+            $this->getPort(),
+        );
     }
 
     /** {@inheritDoc} */
@@ -155,5 +167,18 @@ final class MwuSwitch implements MwuSwitchInterface
     public function isLightModuleIdAvailable(int $id): bool
     {
         return !\array_key_exists($id, $this->getLightModules());
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RandomException
+     * @throws \Exception
+     */
+    public function send(CommandInterface $command): ?string
+    {
+        $message = new Message($command);
+
+        return $this->tcpIpClient->sendMessage((string) $message);
     }
 }

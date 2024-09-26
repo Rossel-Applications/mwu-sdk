@@ -9,6 +9,13 @@ use MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\LightModulesGenerator
 use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Switches\LightModulesGeneratorConfigValidator;
 
+/**
+ * Class LightModulesGeneratorConfigDenormalizer.
+ *
+ * This class is responsible for denormalizing an array of light modules generator
+ * configuration data into a LightModulesGeneratorConfig object. It validates the input
+ * data and constructs the configuration object based on the provided parameters.
+ */
 final readonly class LightModulesGeneratorConfigDenormalizer implements DenormalizerInterface
 {
     public function __construct(

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MwuSdk\Exception\Configuration;
 
-/** Error thrown if the configuration file is invalid. */
-class InvalidConfigurationFileException extends \RuntimeException
+/** Error thrown if a specified configuration file is invalid. */
+class InvalidConfigurationFileException extends \RuntimeException implements ConfigurationExceptionInterface
 {
     public function __construct(string $path, ?\Throwable $previous = null)
     {

@@ -7,7 +7,7 @@ namespace MwuSdk\Exception\Builder;
 /**
  * Exception thrown when a builder fails to create an object.
  */
-class BuildException extends \RuntimeException
+class BuildException extends \RuntimeException implements BuilderExceptionInterface
 {
     private const MESSAGE = 'Cannot build the object of type %s.';
 

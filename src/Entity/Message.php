@@ -4,17 +4,29 @@ declare(strict_types=1);
 
 namespace MwuSdk\Entity;
 
+use MwuSdk\Entity\Command\CommandInterface;
 use Random\RandomException;
 
 /**
- * Message that encapsulates the Command.
+ * Encapsulates a Command into a Message to be transmitted to the MWU Light Module.
+ *
+ * This class wraps a Command object and appends metadata like sequence number,
+ * start of text (STX), and end of text (ETX) to create a complete message for transmission.
  */
 final readonly class Message implements MessageInterface
 {
-    /** @var string{1} */
+    /**
+     * Start of text marker (STX).
+     *
+     * @var string{1}
+     */
     public const STX = '';
 
-    /** @var string{1} */
+    /**
+     * End of text marker (ETX).
+     *
+     * @var string{1}
+     */
     public const ETX = '';
 
     /**
@@ -25,15 +37,21 @@ final readonly class Message implements MessageInterface
     private string $sequenceNumber;
 
     /**
+     * Creates a new Message instance encapsulating the provided Command.
+     *
+     * @param CommandInterface $command the Command to encapsulate in the Message
+     *
      * @throws RandomException if the sequence number initialization fails
      */
-    public function __construct(private Command $command)
+    public function __construct(private CommandInterface $command)
     {
         $this->sequenceNumber = $this->generateSequenceNumber();
     }
 
     /**
-     * {@inheritDoc}
+     * Converts the Message to its string representation.
+     *
+     * The format is: STX + sequence number + command length + command + ETX.
      *
      * @return string the string representation of the Message
      */
@@ -43,23 +61,30 @@ final readonly class Message implements MessageInterface
         $command = $this->getCommand();
         $commandLength = $command->length();
 
-        return self::STX.$sequenceNumber.$commandLength.$command.self::ETX;
+        return sprintf(
+            '%s%03s%04s%s%s',
+            self::STX,
+            $sequenceNumber,
+            $commandLength,
+            $command,
+            self::ETX,
+        );
     }
 
     /**
-     * {@inheritDoc}
+     * Retrieves the encapsulated Command.
      *
-     * @return Command the Command instance
+     * @return CommandInterface the Command instance
      */
-    public function getCommand(): Command
+    public function getCommand(): CommandInterface
     {
         return $this->command;
     }
 
     /**
-     * {@inheritDoc}
+     * Retrieves the sequence number of the Message.
      *
-     * @return string{3} The 3-digit sequence number
+     * @return string{3} The 3-digit numeric sequence number
      */
     public function getSequenceNumber(): string
     {
@@ -67,11 +92,11 @@ final readonly class Message implements MessageInterface
     }
 
     /**
-     * Generates a random sequence number as a 3-digit numeric string.
+     * Generates a random 3-digit numeric sequence number.
      *
-     * @throws RandomException if the random number generation fails
+     * @throws RandomException if random number generation fails
      *
-     * @return string{3} a random sequence number
+     * @return string{3} A randomly generated 3-digit numeric sequence number
      */
     private function generateSequenceNumber(): string
     {

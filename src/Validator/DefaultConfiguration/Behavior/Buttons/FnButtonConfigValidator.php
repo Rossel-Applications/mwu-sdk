@@ -8,6 +8,14 @@ use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\FnButtonConfi
 use MwuSdk\Validator\DefaultConfiguration\AbstractConfigValidator;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Validates the function button configuration.
+ *
+ * This class ensures that the configuration includes the required keys:
+ * - `enabled`: A boolean indicating if the button is active.
+ * - `text`: A string for the button's display text.
+ * - `use_as_decrement`: A boolean indicating if the button serves as a decrement function.
+ */
 final readonly class FnButtonConfigValidator extends AbstractConfigValidator
 {
     public function getOptionsResolver(): OptionsResolver

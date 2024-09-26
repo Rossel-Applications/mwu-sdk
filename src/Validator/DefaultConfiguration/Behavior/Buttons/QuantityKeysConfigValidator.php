@@ -9,6 +9,12 @@ use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\QuantityKeysC
 use MwuSdk\Validator\DefaultConfiguration\AbstractConfigValidator;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Validates the quantity keys configuration.
+ *
+ * This class ensures that the configuration includes the required key:
+ * - `mode`: Must be one of the predefined values from the QuantityKeysMode enum.
+ */
 final readonly class QuantityKeysConfigValidator extends AbstractConfigValidator
 {
     public function getOptionsResolver(): OptionsResolver

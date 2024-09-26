@@ -11,6 +11,12 @@ use MwuSdk\Serializer\DefaultConfiguration\Content\Switches\SwitchesConfigDenorm
 use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\ConfigValidator;
 
+/**
+ * Class ConfigDenormalizer.
+ *
+ * This class is responsible for denormalizing the configuration data into an MwuConfig object.
+ * It validates the input data and processes the switches and behavior configurations.
+ */
 final readonly class ConfigDenormalizer implements DenormalizerInterface
 {
     public function __construct(
@@ -20,7 +26,13 @@ final readonly class ConfigDenormalizer implements DenormalizerInterface
     ) {
     }
 
-    /** @param array<array-key, mixed> $data */
+    /**
+     * Denormalizes the provided data into an MwuConfig object.
+     *
+     * @param array<array-key, mixed> $data the configuration data to denormalize
+     *
+     * @return MwuConfig the denormalized MwuConfig object
+     */
     public function denormalize(array $data): MwuConfig
     {
         if (\array_key_exists(ConfigKeysEnum::OPTIONAL_ENCAPSULATING_KEY->value, $data)) {
@@ -29,7 +41,9 @@ final readonly class ConfigDenormalizer implements DenormalizerInterface
 
         $this->configValidator->validate($data);
 
+        /** @var array<array-key, array<array-key, mixed>> $normalizedSwitchesConfig */
         $normalizedSwitchesConfig = $data[ConfigKeysEnum::KEY_SWITCHES->value];
+        /** @var array<array-key, array<array-key, mixed>> $normalizedBehaviorConfig */
         $normalizedBehaviorConfig = $data[ConfigKeysEnum::KEY_BEHAVIOR->value];
 
         $switchesConfig = $this->switchesConfigDenormalizer->denormalize($normalizedSwitchesConfig);

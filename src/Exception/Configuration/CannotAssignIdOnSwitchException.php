@@ -6,7 +6,10 @@ namespace MwuSdk\Exception\Configuration;
 
 use MwuSdk\Client\MwuSwitchInterface;
 
-class CannotAssignIdOnSwitchException extends \RuntimeException
+/**
+ * Error thrown when it is not possible for a switch to assign an id to a light module.
+ */
+class CannotAssignIdOnSwitchException extends \RuntimeException implements ConfigurationExceptionInterface
 {
     public function __construct(MwuSwitchInterface $switch, ?int $id, ?\Throwable $previous = null)
     {

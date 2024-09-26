@@ -7,6 +7,12 @@ namespace MwuSdk\Validator\DefaultConfiguration;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\ConfigKeysEnum;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Validates the main configuration options.
+ *
+ * This validator checks that the configuration is an array
+ * and that the required keys for switches and behavior are present.
+ */
 final readonly class ConfigValidator implements ConfigValidatorInterface
 {
     public function validate(mixed $config): bool

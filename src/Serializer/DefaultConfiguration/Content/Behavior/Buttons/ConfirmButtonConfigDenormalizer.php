@@ -9,6 +9,13 @@ use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\ConfirmButton
 use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\ConfirmButtonConfigValidator;
 
+/**
+ * Class ConfirmButtonConfigDenormalizer.
+ *
+ * This class is responsible for denormalizing an array of confirm button configuration data
+ * into a ConfirmButtonConfig object. It validates the input data to ensure it adheres
+ * to the expected structure and format.
+ */
 final readonly class ConfirmButtonConfigDenormalizer implements DenormalizerInterface
 {
     public function __construct(

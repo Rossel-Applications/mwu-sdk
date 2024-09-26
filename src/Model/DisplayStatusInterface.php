@@ -8,21 +8,72 @@ use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
 
+/**
+ * Interface for the display status of a light module.
+ */
 interface DisplayStatusInterface
 {
-    public function getText(): ?string;
+    /**
+     * Gets the display text.
+     *
+     * @return string the text to be displayed
+     */
+    public function getText(): string;
 
+    /**
+     * Sets the display text.
+     *
+     * @param string $text the text to be displayed
+     *
+     * @return self returns the instance for method chaining
+     */
     public function setText(string $text): self;
 
-    public function getLightColor(): ?LightColor;
+    /**
+     * Gets the light color.
+     *
+     * @return LightColor the current light color
+     */
+    public function getLightColor(): LightColor;
 
+    /**
+     * Sets the light color.
+     *
+     * @param LightColor $lightColor the light color to set
+     *
+     * @return self returns the instance for method chaining
+     */
     public function setLightColor(LightColor $lightColor): self;
 
+    /**
+     * Gets the screen display mode.
+     *
+     * @return ScreenDisplayMode the current screen display mode
+     */
     public function getScreenDisplayMode(): ScreenDisplayMode;
 
+    /**
+     * Sets the screen display mode.
+     *
+     * @param ScreenDisplayMode $screenDisplayMode the screen display mode to set
+     *
+     * @return self returns the instance for method chaining
+     */
     public function setScreenDisplayMode(ScreenDisplayMode $screenDisplayMode): self;
 
+    /**
+     * Gets the light mode.
+     *
+     * @return LightMode the current light mode
+     */
     public function getLightMode(): LightMode;
 
+    /**
+     * Sets the light mode.
+     *
+     * @param LightMode $lightMode the light mode to set
+     *
+     * @return self returns the instance for method chaining
+     */
     public function setLightMode(LightMode $lightMode): self;
 }

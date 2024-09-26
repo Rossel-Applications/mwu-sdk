@@ -9,6 +9,14 @@ use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\ScreenConfigK
 use MwuSdk\Validator\DefaultConfiguration\AbstractConfigValidator;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Validates screen configuration settings.
+ *
+ * This class checks that the screen configuration has the required
+ * keys with the correct types and values:
+ * - `text`: A string for the display text.
+ * - `mode`: A predefined screen display mode.
+ */
 final readonly class ScreenConfigValidator extends AbstractConfigValidator
 {
     public function getOptionsResolver(): OptionsResolver

@@ -17,10 +17,10 @@ use MwuSdk\Model\QuantityKeysInterface;
  * This class is responsible for managing interactions with individual MWU light modules.
  * It provides methods to send specific commands to a light module.
  */
-final class MwuLightModule implements MwuLightModuleInterface
+class MwuLightModule implements MwuLightModuleInterface
 {
     private ?MwuSwitchInterface $switch;
-    private ?int $id;
+    private ?int $id = null;
     private DisplayStatusInterface $displayStatus;
     private DisplayStatusInterface $displayStatusAfterConfirm;
     private DisplayStatusInterface $displayStatusAfterFn;
@@ -48,53 +48,67 @@ final class MwuLightModule implements MwuLightModuleInterface
             ->setQuantityKeys($quantityKeys ?? new QuantityKeys());
     }
 
+    /** {@inheritDoc} */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /** {@inheritDoc} */
     public function getDisplayStatus(): DisplayStatusInterface
     {
         return $this->displayStatus;
     }
 
+    /** {@inheritDoc} */
     public function getDisplayStatusAfterFn(): DisplayStatusInterface
     {
         return $this->displayStatusAfterFn;
     }
 
+    /** {@inheritDoc} */
     public function getDisplayStatusAfterConfirm(): DisplayStatusInterface
     {
         return $this->displayStatusAfterConfirm;
     }
 
+    /** {@inheritDoc} */
     public function getSwitch(): ?MwuSwitchInterface
     {
         return $this->switch;
     }
 
+    /** {@inheritDoc} */
     public function getConfirmButton(): ConfirmButtonInterface
     {
         return $this->confirmButton;
     }
 
+    /** {@inheritDoc} */
     public function getFnButton(): FnButtonInterface
     {
         return $this->fnButton;
     }
 
+    /** {@inheritDoc} */
     public function getQuantityKeys(): QuantityKeysInterface
     {
         return $this->quantityKeys;
     }
 
+    /** {@inheritDoc} */
     public function connectSwitch(MwuSwitchInterface $switch, int $id): self
     {
-        return $this
-            ->setSwitch($switch)
-            ->setId($id);
+        if ($switch->isLightModuleIdAvailable($id)) {
+            $this
+                ->setId($id)
+                ->setSwitch($switch);
+        }
+
+        return $this;
     }
 
+    /** {@inheritDoc} */
     public function disconnectSwitch(): self
     {
         $switch = $this->getSwitch();

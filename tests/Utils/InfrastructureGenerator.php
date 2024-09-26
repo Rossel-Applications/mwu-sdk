@@ -7,6 +7,12 @@ namespace MwuSdkTest\Utils;
 use MwuSdk\Client\MwuSwitch;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfig;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig;
+use MwuSdk\Factory\Client\MwuLightModule\ConfirmButtonFactory;
+use MwuSdk\Factory\Client\MwuLightModule\DisplayStatusFactory;
+use MwuSdk\Factory\Client\MwuLightModule\FnButtonFactory;
+use MwuSdk\Factory\Client\MwuLightModule\QuantityKeysFactory;
+use MwuSdk\Factory\Client\MwuLightModuleFactory;
+use MwuSdk\Factory\Client\MwuSwitchFactory;
 use Random\RandomException;
 
 class InfrastructureGenerator
@@ -16,7 +22,16 @@ class InfrastructureGenerator
      */
     public static function generateMwuSwitch(): MwuSwitch
     {
-        return new MwuSwitch(
+        $switchFactory = new MwuSwitchFactory(
+            new MwuLightModuleFactory(
+                new ConfirmButtonFactory(),
+                new DisplayStatusFactory(),
+                new FnButtonFactory(),
+                new QuantityKeysFactory(),
+            ),
+        );
+
+        return $switchFactory->create(
             self::generateSwitchConfig(),
         );
     }

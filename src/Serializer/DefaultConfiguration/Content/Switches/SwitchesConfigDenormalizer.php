@@ -9,6 +9,13 @@ use MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\SwitchesConfigKeysEnu
 use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Switches\SwitchesConfigValidator;
 
+/**
+ * Class SwitchesConfigDenormalizer.
+ *
+ * This class is responsible for denormalizing an array of switches configuration data
+ * into an array of SwitchConfig objects. It validates the input data and constructs
+ * the configuration objects based on the provided parameters.
+ */
 final readonly class SwitchesConfigDenormalizer implements DenormalizerInterface
 {
     public function __construct(
@@ -20,7 +27,11 @@ final readonly class SwitchesConfigDenormalizer implements DenormalizerInterface
     /**
      * {@inheritDoc}
      *
-     * @return list<SwitchConfig>
+     * Denormalizes the given data into an array of SwitchConfig objects.
+     *
+     * @param array<array-key, array<array-key, mixed>> $data the configuration data for switches
+     *
+     * @return list<SwitchConfig> an array of denormalized SwitchConfig objects
      */
     public function denormalize(array $data): array
     {
@@ -36,7 +47,13 @@ final readonly class SwitchesConfigDenormalizer implements DenormalizerInterface
         );
     }
 
-    /** @param array<array-key, mixed> $itemConfig */
+    /**
+     * Denormalizes an individual switch configuration item into a SwitchConfig object.
+     *
+     * @param array<array-key, mixed> $itemConfig the configuration data for a single switch
+     *
+     * @return SwitchConfig the denormalized SwitchConfig object
+     */
     public function denormalizeItem(array $itemConfig): SwitchConfig
     {
         /** @var string $ipAddress */
