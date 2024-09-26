@@ -2,7 +2,7 @@
   "name": "rossel/mwu-sdk",
   "description": "A PHP library for connecting with MWU pick to light system",
   "type": "library",
-  "license": "",
+  "license": "MIT",
   "keywords": [
     "MWU",
     "pick to light",
