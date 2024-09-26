@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MwuSdk\Client;
 
+use MwuSdk\Entity\Command\Initialize\InitializeCommand;
+use MwuSdk\Entity\Message;
 use MwuSdk\Exception\Client\CannotCreateSocketException;
 use MwuSdk\Exception\Client\ConnectionFailedException;
 
@@ -40,7 +42,9 @@ final class TcpIpClient
         socket_write($this->socket, $message);
 
         // Get response from server
-        return socket_read($this->socket, 1024);
+        $response = socket_read($this->socket, 1024);
+
+        return false !== $response ? $response : null;
     }
 
     public function isConnected(): bool
@@ -52,8 +56,11 @@ final class TcpIpClient
     {
         try {
             socket_connect($this->socket, $this->serverIp, $this->serverPort);
+            $this->connected = true;
+
+            $this->sendMessage((string) new Message(new InitializeCommand()));
         } catch (\Exception $exception) {
-            throw new ConnectionFailedException($this->serverIp, $this->serverPort, $exception->getCode(), $exception->getMessage(), $exception->getCode());
+            throw new ConnectionFailedException($this->serverIp, $this->serverPort, $exception->getCode(), $exception->getMessage(), $exception);
         }
     }
 
