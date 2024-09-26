@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace MwuSdk\Client;
 
-use MwuSdk\Client\Interface\MwuLightModuleInterface;
-use MwuSdk\Client\Interface\MwuSwitchInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig;
-use MwuSdk\Factory\MwuLightModuleFactory;
+use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
+use MwuSdk\Exception\Configuration\CannotAssignIdOnSwitchException;
 
 /**
  * This class represents a network switch that connects multiple MWU light modules.
@@ -16,61 +14,146 @@ use MwuSdk\Factory\MwuLightModuleFactory;
  */
 final class MwuSwitch implements MwuSwitchInterface
 {
-    /** @var array<array-key, MwuLightModuleInterface> */
-    private array $lightModules;
+    /** @var array<int, MwuLightModuleInterface> */
+    private array $lightModules = [];
 
+    /**
+     * @param list<int> $lightModuleIds
+     */
     public function __construct(
-        private readonly SwitchConfig $config,
-        MwuLightModuleFactory $lightModuleFactory
+        private readonly SwitchConfigInterface $config,
+        array $lightModuleIds = [],
     ) {
-        $lightModuleFactory->createCollectionFromGenerator(
-            $this->config->getLightModulesGeneratorConfig(),
-            $this,
-        );
+        $this->defineLightModules($lightModuleIds);
     }
 
-    public function getConfig(): SwitchConfig
+    /** {@inheritDoc} */
+    public function getConfig(): SwitchConfigInterface
     {
         return $this->config;
     }
 
+    /** {@inheritDoc} */
     public function getIpAddress(): string
     {
-        return $this->config->getIpAddress();
+        return $this->getConfig()->getIpAddress();
     }
 
+    /** {@inheritDoc} */
     public function getPort(): int
     {
-        return $this->config->getPort();
+        return $this->getConfig()->getPort();
     }
 
     /**
-     * @return array<array-key, MwuLightModuleInterface>
+     * {@inheritDoc}
+     *
+     * @return array<int, MwuLightModuleInterface>
      */
     public function getLightModules(): array
     {
         return $this->lightModules;
     }
 
-    public function addLightModule(MwuLightModuleInterface $lightModule): self
+    /** {@inheritDoc} */
+    public function connectLightModule(MwuLightModuleInterface $lightModule): self
     {
-        $this->lightModules[] = $lightModule;
+        $requestedId = $lightModule->getId();
+
+        if (null === $requestedId || !$this->isLightModuleIdAvailable($requestedId)) {
+            throw new CannotAssignIdOnSwitchException($this, $requestedId);
+        }
+
+        $this->lightModules[$requestedId] = $lightModule;
 
         return $this;
     }
 
-    public function removeLightModule(MwuLightModuleInterface $lightModule): self
+    /** {@inheritDoc} */
+    public function connectLightModules(array $lightModules): self
     {
-        return $this->removeLightModules([$lightModule]);
+        foreach ($lightModules as $lightModule) {
+            $this->connectLightModule($lightModule);
+        }
+
+        return $this;
+    }
+
+    /** {@inheritDoc} */
+    public function disconnectLightModule(MwuLightModuleInterface $lightModule): self
+    {
+        $lightModuleId = $lightModule->getId();
+
+        if (null === $lightModuleId) {
+            return $this;
+        }
+
+        return $this->disconnectLightModuleById($lightModuleId);
     }
 
     /**
-     * @param array<array-key, MwuLightModuleInterface> $lightModules
+     * {@inheritDoc}
      */
-    public function removeLightModules(array $lightModules): self
+    public function disconnectLightModules(array $lightModules): self
     {
-        $this->lightModules = array_diff($this->lightModules, $lightModules);
+        foreach ($lightModules as $lightModule) {
+            $this->disconnectLightModule($lightModule);
+        }
 
         return $this;
+    }
+
+    /** {@inheritDoc} */
+    public function defineLightModule(int $id): self
+    {
+        $this->lightModules[$id] = new MwuLightModule($this, $id);
+
+        return $this;
+    }
+
+    /** {@inheritDoc} */
+    public function defineLightModules(array $lightModuleIds): self
+    {
+        foreach ($lightModuleIds as $lightModuleId) {
+            $this->defineLightModule($lightModuleId);
+        }
+
+        return $this;
+    }
+
+    /** {@inheritDoc} */
+    public function disconnectLightModuleById(int $id): self
+    {
+        $lightModule = $this->getLightModules()[$id];
+
+        if (null !== $lightModule && null !== $lightModule->getSwitch()) {
+            $lightModule->disconnectSwitch();
+        }
+
+        unset($this->getLightModules()[$id]);
+
+        return $this;
+    }
+
+    /** {@inheritDoc} */
+    public function disconnectLightModulesById(array $lightModuleIds): self
+    {
+        foreach ($lightModuleIds as $lightModuleId) {
+            $this->disconnectLightModuleById($lightModuleId);
+        }
+
+        return $this;
+    }
+
+    /** {@inheritDoc} */
+    public function getUniqueIdentifier(): string
+    {
+        return $this->getIpAddress().':'.$this->getPort();
+    }
+
+    /** {@inheritDoc} */
+    public function isLightModuleIdAvailable(int $id): bool
+    {
+        return !\array_key_exists($id, $this->getLightModules());
     }
 }
