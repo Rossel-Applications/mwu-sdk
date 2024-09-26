@@ -7,7 +7,6 @@ namespace MwuSdkTest\Utils;
 use MwuSdk\Client\MwuSwitch;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfig;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig;
-use MwuSdk\Factory\MwuLightModuleFactory;
 use Random\RandomException;
 
 class InfrastructureGenerator
@@ -19,7 +18,6 @@ class InfrastructureGenerator
     {
         return new MwuSwitch(
             self::generateSwitchConfig(),
-            new MwuLightModuleFactory(),
         );
     }
 
