@@ -108,3 +108,28 @@ classDiagram
 
 ### Sending a Command
 Currently, sending commands is done at the level of the `MwuSdk\Client\MwuSwitch` objects, using the `send(CommandInterface $command)` command.
+```php
+use MwuSdk\Builder\Command\Write\WriteCommandBuilder;
+use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
+
+// $switch = ... // Instance of MwuSwitchInterface
+// $lightModule = ... // Instance of MwuLightModuleInterface
+//
+// $factory = new WriteCommandModeArrayFactory(); // Or use Symfony dependency injection
+
+$writeCommandBuilder = new WriteCommandBuilder($factory);
+
+// Optional: override the default configuration
+$writeCommandBuilder
+  ->withLightColor(LightColor::RED)
+  ->withLightMode(LightMode::FLASH);
+
+// Build the command for a specific light module and text to display  
+$writeCommandBuilder->buildCommand($lightModule, 'FOO');
+
+// Encapsulate the command within a Message, which will be sent to the switch
+$message = new Message($command);
+
+// Send the message to the switch
+$switch->send($message);
+```
