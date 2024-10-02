@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MwuSdk\Client;
 
+use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
+use MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
 use MwuSdk\Model\ConfirmButton;
 use MwuSdk\Model\ConfirmButtonInterface;
 use MwuSdk\Model\DisplayStatus;
@@ -48,55 +50,73 @@ class MwuLightModule implements MwuLightModuleInterface
             ->setQuantityKeys($quantityKeys ?? new QuantityKeys());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getDisplayStatus(): DisplayStatusInterface
     {
         return $this->displayStatus;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getDisplayStatusAfterFn(): DisplayStatusInterface
     {
         return $this->displayStatusAfterFn;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getDisplayStatusAfterConfirm(): DisplayStatusInterface
     {
         return $this->displayStatusAfterConfirm;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getSwitch(): ?MwuSwitchInterface
     {
         return $this->switch;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getConfirmButton(): ConfirmButtonInterface
     {
         return $this->confirmButton;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getFnButton(): FnButtonInterface
     {
         return $this->fnButton;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getQuantityKeys(): QuantityKeysInterface
     {
         return $this->quantityKeys;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function connectSwitch(MwuSwitchInterface $switch, int $id): self
     {
         if ($switch->isLightModuleIdAvailable($id)) {
@@ -108,7 +128,9 @@ class MwuLightModule implements MwuLightModuleInterface
         return $this;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function disconnectSwitch(): self
     {
         $switch = $this->getSwitch();
@@ -128,6 +150,48 @@ class MwuLightModule implements MwuLightModuleInterface
         }
 
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function checkIfReachable(bool $throwErrors = false): bool
+    {
+        $switchDefined = null !== $this->getSwitch();
+        $idDefined = null !== $this->getId();
+
+        if (!$throwErrors) {
+            return $switchDefined && $idDefined;
+        }
+
+        if (!$switchDefined) {
+            throw new UnreachableLightModuleException($this, UnreachableLightModuleException::DETAILS_MISSING_SWITCH);
+        }
+
+        if (!$idDefined) {
+            throw new UnreachableLightModuleException($this, UnreachableLightModuleException::DETAILS_MISSING_ID);
+        }
+
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return string|null the response from the Light Module, or null if the command could not be sent
+     */
+    public function write(
+        WriteCommandBuilderInterface $commandBuilder,
+        string $text = '',
+    ): ?string {
+        $this->checkIfReachable(true);
+
+        /** @var MwuSwitchInterface $switch */
+        $switch = $this->switch;
+
+        $command = $commandBuilder->buildCommand($this, $text);
+
+        return $switch->send($command);
     }
 
     private function setSwitch(?MwuSwitchInterface $switch): self

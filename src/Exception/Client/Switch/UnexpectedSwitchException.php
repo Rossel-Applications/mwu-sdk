@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types=1);
+
+namespace MwuSdk\Exception\Client\Switch;
+
+use MwuSdk\Client\MwuSwitchInterface;
+
+final class UnexpectedSwitchException extends \RuntimeException implements SwitchClientExceptionInterface
+{
+    public function __construct(
+        private readonly MwuSwitchInterface $provided,
+        private readonly MwuSwitchInterface $expected,
+        ?\Throwable $previous = null
+    ) {
+        parent::__construct(
+            sprintf(
+                'Unexpected switch encountered. Expected switch ID: %s, but received switch ID: %s.',
+                $this->expected,
+                $this->provided,
+            ),
+            0,
+            $previous
+        );
+    }
+
+    public function getProvided(): MwuSwitchInterface
+    {
+        return $this->provided;
+    }
+
+    public function getExpected(): MwuSwitchInterface
+    {
+        return $this->expected;
+    }
+}

@@ -23,7 +23,9 @@ final readonly class FnButtonConfigDenormalizer implements DenormalizerInterface
     ) {
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function denormalize(array $data): FnButtonConfig
     {
         $this->fnButtonConfigValidator->validate($data);

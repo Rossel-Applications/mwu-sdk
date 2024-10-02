@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace MwuSdk\Builder\Command\Write;
 
 use MwuSdk\Client\MwuLightModuleInterface;
+use MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface;
 use MwuSdk\Entity\Command\Write\WriteCommand;
+use MwuSdk\Entity\Command\Write\WriteCommandInterface;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
+use MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
 use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactoryInterface;
 
 /**
@@ -28,11 +31,26 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
     private ?ScreenDisplayMode $screenDisplayMode = null;
 
     public function __construct(
+        private readonly MwuConfigInterface $defaultConfiguration,
         private readonly WriteCommandModeArrayFactoryInterface $modeArrayFactory,
     ) {
     }
 
-    /** {@inheritDoc} */
+    public function withConfig(MwuConfigInterface $config): self
+    {
+        $displayStatusConfig = $config->getBehavior()->getDisplayStatus();
+        $displayStatusLightConfig = $displayStatusConfig->getLight();
+        $displayStatusScreenConfig = $displayStatusConfig->getScreen();
+
+        return $this
+            ->withLightColor($displayStatusLightConfig->getColor())
+            ->withLightMode($displayStatusLightConfig->getMode())
+            ->withScreenDisplayMode($displayStatusScreenConfig->getMode());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function withFnData(?string $data): self
     {
         $this->fnData = $data;
@@ -40,7 +58,9 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
         return $this;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function withLightColor(?LightColor $color): self
     {
         $this->lightColor = $color;
@@ -48,7 +68,9 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
         return $this;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function withLightMode(?LightMode $mode): self
     {
         $this->lightMode = $mode;
@@ -56,7 +78,9 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
         return $this;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function withScreenDisplayMode(?ScreenDisplayMode $screenDisplayMode): self
     {
         $this->screenDisplayMode = $screenDisplayMode;
@@ -64,36 +88,75 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
         return $this;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getFnData(): ?string
     {
         return $this->fnData;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getLightColor(): ?LightColor
     {
         return $this->lightColor;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getLightMode(): ?LightMode
     {
         return $this->lightMode;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getScreenDisplayMode(): ?ScreenDisplayMode
     {
         return $this->screenDisplayMode;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     *
+     * @throws UnreachableLightModuleException
+     */
     public function buildCommand(MwuLightModuleInterface $lightModule, ?string $text = null): WriteCommand
     {
+        $lightModule->checkIfReachable(true);
+
         $template = $this->getCommandTemplate($lightModule);
 
-        return new WriteCommand(sprintf($template, $text));
+        return new WriteCommand($lightModule, sprintf($template, $text));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return array<int, WriteCommandInterface>
+     */
+    public function buildCommands(array $lightModules, ?string $text = null, array &$errors = []): array
+    {
+        $commands = [];
+
+        foreach ($lightModules as $lightModule) {
+            try {
+                /** @var int $lightModuleId */
+                $lightModuleId = $lightModule->getId();
+
+                $command = $this->buildCommand($lightModule, $text);
+
+                $commands[$lightModuleId] = $command;
+            } catch (UnreachableLightModuleException $exception) {
+                $errors[] = $exception;
+            }
+        }
+
+        return $commands;
     }
 
     /**

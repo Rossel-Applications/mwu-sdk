@@ -26,7 +26,9 @@ final readonly class ButtonsConfigDenormalizer implements DenormalizerInterface
     ) {
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function denormalize(array $data): ButtonsConfig
     {
         $this->buttonsConfigValidator->validate($data);

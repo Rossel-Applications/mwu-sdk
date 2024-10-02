@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MwuSdk\Client;
 
+use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
 use MwuSdk\Model\ConfirmButtonInterface;
 use MwuSdk\Model\DisplayStatusInterface;
 use MwuSdk\Model\FnButtonInterface;
@@ -50,4 +51,22 @@ interface MwuLightModuleInterface
      * Disconnects the Light Module from the switch.
      */
     public function disconnectSwitch(): self;
+
+    /**
+     * Checks if the Light Module is reachable (i.e. is connected to a switch and has an ID).
+     */
+    public function checkIfReachable(bool $throwErrors = false): bool;
+
+    /**
+     * Sends a write command to the Light Module.
+     *
+     * @param WriteCommandBuilderInterface $commandBuilder the builder used to create the write command
+     * @param string                       $text           the text to be written to the Light Module (optional)
+     *
+     * @return string|null the response from the Light Module, or null if the command could not be sent
+     */
+    public function write(
+        WriteCommandBuilderInterface $commandBuilder,
+        string $text = '',
+    ): ?string;
 }

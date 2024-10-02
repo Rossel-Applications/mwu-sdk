@@ -25,7 +25,9 @@ final readonly class DisplayConfigDenormalizer implements DenormalizerInterface
     ) {
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function denormalize(array $data): DisplayConfig
     {
         $this->displayConfigValidator->validate($data);

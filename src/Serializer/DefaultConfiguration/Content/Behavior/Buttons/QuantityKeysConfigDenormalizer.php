@@ -24,7 +24,9 @@ final readonly class QuantityKeysConfigDenormalizer implements DenormalizerInter
     ) {
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function denormalize(array $data): QuantityKeysConfig
     {
         $this->quantityKeysConfigValidator->validate($data);

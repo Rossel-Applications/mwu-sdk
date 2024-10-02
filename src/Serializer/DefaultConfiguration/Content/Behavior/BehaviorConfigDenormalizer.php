@@ -27,7 +27,9 @@ final readonly class BehaviorConfigDenormalizer implements DenormalizerInterface
     ) {
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function denormalize(array $data): BehaviorConfig
     {
         $this->behaviorConfigValidator->validate($data);

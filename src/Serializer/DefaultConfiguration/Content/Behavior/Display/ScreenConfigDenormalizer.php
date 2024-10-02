@@ -24,7 +24,9 @@ final readonly class ScreenConfigDenormalizer implements DenormalizerInterface
     ) {
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function denormalize(array $data): ScreenConfig
     {
         $this->screenConfigValidator->validate($data);
