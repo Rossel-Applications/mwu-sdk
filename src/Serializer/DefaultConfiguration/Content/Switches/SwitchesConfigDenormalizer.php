@@ -6,17 +6,14 @@ namespace MwuSdk\Serializer\DefaultConfiguration\Content\Switches;
 
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\SwitchesConfigKeysEnum;
-use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Switches\SwitchesConfigValidator;
 
 /**
- * Class SwitchesConfigDenormalizer.
- *
  * This class is responsible for denormalizing an array of switches configuration data
  * into an array of SwitchConfig objects. It validates the input data and constructs
  * the configuration objects based on the provided parameters.
  */
-final readonly class SwitchesConfigDenormalizer implements DenormalizerInterface
+final readonly class SwitchesConfigDenormalizer implements SwitchesConfigDenormalizerInterface
 {
     public function __construct(
         private SwitchesConfigValidator $switchesConfigValidator,

@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace MwuSdk\Client;
 
 use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
+use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
 use MwuSdk\Entity\Command\CommandInterface;
 use MwuSdk\Entity\Command\TargetedLightModuleCommandInterface;
 use MwuSdk\Entity\Command\TargetedSwitchCommandInterface;
 use MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
 use MwuSdk\Exception\Configuration\CannotAssignIdOnSwitchException;
+use MwuSdk\Factory\Client\MwuLightModuleFactoryInterface;
 use MwuSdk\Factory\Entity\MessageFactoryInterface;
 use MwuSdk\Validator\Command\TargetedLightModuleCommandValidatorInterface;
 use MwuSdk\Validator\Command\TargetedSwitchCommandValidatorInterface;
@@ -28,21 +30,28 @@ final class MwuSwitch implements MwuSwitchInterface
 
     /**
      * @param SwitchConfigInterface $config         configuration of this Switch
-     * @param ?list<int>            $lightModuleIds
+     * @param ?list<int>            $lightModuleIds manual list of IDs for which to generate a LightModule. This parameter is optional and overrides the eventual light modules generator configuration.
      */
     public function __construct(
         private readonly SwitchConfigInterface $config,
+        private readonly ?BehaviorConfigInterface $defaultBehaviorConfig,
         private readonly TcpIpClientInterface $tcpIpClient,
         private readonly MessageFactoryInterface $messageFactory,
+        private readonly MwuLightModuleFactoryInterface $lightModuleFactory,
         private readonly TargetedSwitchCommandValidatorInterface $targetedSwitchCommandValidator,
         private readonly TargetedLightModuleCommandValidatorInterface $targetedLightModuleValidator,
         ?array $lightModuleIds = null,
     ) {
+        $this->tcpIpClient->configure($this);
+
         if (null !== $lightModuleIds) {
             $this->defineLightModules($lightModuleIds);
+
+            return;
         }
 
-        $this->tcpIpClient->configure($this);
+        $lightModulesGeneratorConfig = $this->config->getLightModulesGeneratorConfig();
+        $this->lightModuleFactory->generateCollection($lightModulesGeneratorConfig, $this);
     }
 
     public function __toString(): string
@@ -153,7 +162,7 @@ final class MwuSwitch implements MwuSwitchInterface
      */
     public function defineLightModule(int $id): self
     {
-        $this->lightModules[$id] = new MwuLightModule($this, $id);
+        $this->lightModules[$id] = $this->lightModuleFactory->create($this, $id, $this->defaultBehaviorConfig);
 
         return $this;
     }

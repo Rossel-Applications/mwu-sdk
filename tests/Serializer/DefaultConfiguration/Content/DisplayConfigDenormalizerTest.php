@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace MwuSdkTest\Serializer\DefaultConfiguration\Content;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\DisplayConfig;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\LightConfig;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\ScreenConfig;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\DisplayConfigKeysEnum;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\LightConfigKeysEnum;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\ScreenConfigKeysEnum;
+use MwuSdk\Model\DisplayStatus;
 use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display\DisplayConfigDenormalizer;
 use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display\LightConfigDenormalizer;
 use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display\ScreenConfigDenormalizer;
@@ -50,9 +48,11 @@ class DisplayConfigDenormalizerTest extends TestCase
         );
 
         $this->assertEquals(
-            new DisplayConfig(
-                new LightConfig(LightMode::ON, LightColor::GREEN),
-                new ScreenConfig(ScreenDisplayMode::ON, '9999'),
+            new DisplayStatus(
+                LightMode::ON,
+                ScreenDisplayMode::ON,
+                LightColor::GREEN,
+                '9999',
             ),
             $result,
         );

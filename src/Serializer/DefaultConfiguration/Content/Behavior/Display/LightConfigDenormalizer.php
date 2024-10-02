@@ -8,7 +8,6 @@ use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\LightConfig;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\LightConfigKeysEnum;
-use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Behavior\Display\LightConfigValidator;
 
 /**
@@ -18,7 +17,7 @@ use MwuSdk\Validator\DefaultConfiguration\Behavior\Display\LightConfigValidator;
  * into a LightConfig object. It validates the input data and extracts light color
  * and light mode configurations using the respective enum classes.
  */
-final readonly class LightConfigDenormalizer implements DenormalizerInterface
+final readonly class LightConfigDenormalizer implements LightConfigDenormalizerInterface
 {
     public function __construct(
         private LightConfigValidator $lightConfigValidator

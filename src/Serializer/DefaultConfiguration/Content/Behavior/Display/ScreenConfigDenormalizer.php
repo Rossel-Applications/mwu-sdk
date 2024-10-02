@@ -7,17 +7,14 @@ namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display;
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\ScreenConfig;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\ScreenConfigKeysEnum;
-use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Behavior\Display\ScreenConfigValidator;
 
 /**
- * Class ScreenConfigDenormalizer.
- *
  * This class is responsible for denormalizing an array of screen configuration data
  * into a ScreenConfig object. It validates the input data and extracts the screen display
  * mode and associated text configuration using the respective enum class.
  */
-final readonly class ScreenConfigDenormalizer implements DenormalizerInterface
+final readonly class ScreenConfigDenormalizer implements ScreenConfigDenormalizerInterface
 {
     public function __construct(
         private ScreenConfigValidator $screenConfigValidator

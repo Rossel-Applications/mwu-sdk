@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons;
 
+use MwuSdk\Model\ConfirmButtonInterface;
+use MwuSdk\Model\FnButtonInterface;
+use MwuSdk\Model\QuantityKeysInterface;
+
 interface ButtonsConfigInterface
 {
-    public function getConfirm(): ConfirmButtonConfigInterface;
+    public function getConfirmButton(): ConfirmButtonInterface;
 
-    public function getFn(): FnButtonConfigInterface;
+    public function getFnButton(): FnButtonInterface;
 
-    public function getQuantityKeys(): QuantityKeysConfigInterface;
+    public function getQuantityKeys(): QuantityKeysInterface;
 }

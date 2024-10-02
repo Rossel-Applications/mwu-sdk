@@ -6,7 +6,7 @@ namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons;
 
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\FnButtonConfig;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\FnButtonConfigKeysEnum;
-use MwuSdk\Serializer\DenormalizerInterface;
+use MwuSdk\Model\FnButton;
 use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\FnButtonConfigValidator;
 
 /**
@@ -16,7 +16,7 @@ use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\FnButtonConfigValidat
  * into a FnButtonConfig object. It validates the input data to ensure it adheres
  * to the expected structure and format.
  */
-final readonly class FnButtonConfigDenormalizer implements DenormalizerInterface
+final readonly class FnButtonConfigDenormalizer implements FnButtonConfigDenormalizerInterface
 {
     public function __construct(
         private FnButtonConfigValidator $fnButtonConfigValidator,
@@ -26,7 +26,7 @@ final readonly class FnButtonConfigDenormalizer implements DenormalizerInterface
     /**
      * {@inheritDoc}
      */
-    public function denormalize(array $data): FnButtonConfig
+    public function denormalize(array $data): FnButton
     {
         $this->fnButtonConfigValidator->validate($data);
 
@@ -37,6 +37,6 @@ final readonly class FnButtonConfigDenormalizer implements DenormalizerInterface
         /** @var bool $useAsDecrement */
         $useAsDecrement = $data[FnButtonConfigKeysEnum::KEY_USE_AS_DECREMENT->value];
 
-        return new FnButtonConfig($enabled, $text, $useAsDecrement);
+        return new FnButton($enabled, $text, $useAsDecrement);
     }
 }

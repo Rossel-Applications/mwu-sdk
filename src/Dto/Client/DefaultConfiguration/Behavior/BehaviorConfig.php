@@ -4,48 +4,70 @@ declare(strict_types=1);
 
 namespace MwuSdk\Dto\Client\DefaultConfiguration\Behavior;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\ButtonsConfigInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\DisplayConfigInterface;
+use MwuSdk\Model\ConfirmButton;
+use MwuSdk\Model\ConfirmButtonInterface;
+use MwuSdk\Model\DisplayStatus;
+use MwuSdk\Model\DisplayStatusInterface;
+use MwuSdk\Model\FnButton;
+use MwuSdk\Model\FnButtonInterface;
+use MwuSdk\Model\QuantityKeys;
+use MwuSdk\Model\QuantityKeysInterface;
 
 final readonly class BehaviorConfig implements BehaviorConfigInterface
 {
-    private DisplayConfigInterface $displayStatus;
+    private DisplayStatusInterface $displayStatus;
 
-    private DisplayConfigInterface $displayStatusAfterConfirm;
+    private DisplayStatusInterface $displayStatusAfterConfirm;
 
-    private DisplayConfigInterface $displayStatusAfterFn;
+    private DisplayStatusInterface $displayStatusAfterFn;
 
-    private ButtonsConfigInterface $buttons;
+    private ConfirmButtonInterface $confirmButton;
+    private FnButtonInterface $fnButton;
+    private QuantityKeysInterface $quantityKeys;
 
     public function __construct(
-        DisplayConfigInterface $displayStatus,
-        DisplayConfigInterface $displayStatusAfterConfirm,
-        DisplayConfigInterface $displayStatusAfterFn,
-        ButtonsConfigInterface $buttons,
+        ?DisplayStatusInterface $displayStatus = null,
+        ?DisplayStatusInterface $displayStatusAfterConfirm = null,
+        ?DisplayStatusInterface $displayStatusAfterFn = null,
+        ?ConfirmButtonInterface $confirmButton = null,
+        ?FnButtonInterface $fnButton = null,
+        ?QuantityKeysInterface $quantityKeys = null,
     ) {
-        $this->displayStatus = $displayStatus;
-        $this->displayStatusAfterConfirm = $displayStatusAfterConfirm;
-        $this->displayStatusAfterFn = $displayStatusAfterFn;
-        $this->buttons = $buttons;
+        $this->displayStatus = $displayStatus ?? new DisplayStatus();
+        $this->displayStatusAfterConfirm = $displayStatusAfterConfirm ?? new DisplayStatus();
+        $this->displayStatusAfterFn = $displayStatusAfterFn ?? new DisplayStatus();
+        $this->confirmButton = $confirmButton ?? new ConfirmButton();
+        $this->fnButton = $fnButton ?? new FnButton();
+        $this->quantityKeys = $quantityKeys ?? new QuantityKeys();
     }
 
-    public function getDisplayStatus(): DisplayConfigInterface
+    public function getDisplayStatus(): DisplayStatusInterface
     {
         return $this->displayStatus;
     }
 
-    public function getDisplayStatusAfterConfirm(): DisplayConfigInterface
+    public function getDisplayStatusAfterConfirm(): DisplayStatusInterface
     {
         return $this->displayStatusAfterConfirm;
     }
 
-    public function getDisplayStatusAfterFn(): DisplayConfigInterface
+    public function getDisplayStatusAfterFn(): DisplayStatusInterface
     {
         return $this->displayStatusAfterFn;
     }
 
-    public function getButtons(): ButtonsConfigInterface
+    public function getConfirmButton(): ConfirmButtonInterface
     {
-        return $this->buttons;
+        return $this->confirmButton;
+    }
+
+    public function getFnButton(): FnButtonInterface
+    {
+        return $this->fnButton;
+    }
+
+    public function getQuantityKeys(): QuantityKeysInterface
+    {
+        return $this->quantityKeys;
     }
 }
