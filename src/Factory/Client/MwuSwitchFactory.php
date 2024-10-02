@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace MwuSdk\Factory\Client;
 
 use MwuSdk\Client\MwuSwitch;
+use MwuSdk\Client\TcpIpClient;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
+use MwuSdk\Factory\Entity\MessageFactory;
+use MwuSdk\Validator\Command\TargetedLightModuleCommandValidatorInterface;
+use MwuSdk\Validator\Command\TargetedSwitchCommandValidatorInterface;
 
 /**
  * Factory class for creating MwuSwitch instances.
@@ -16,13 +20,21 @@ use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
 final readonly class MwuSwitchFactory implements MwuSwitchFactoryInterface
 {
     public function __construct(
-        private MwuLightModuleFactory $lightModuleFactory
+        private MwuLightModuleFactory $lightModuleFactory,
+        private TargetedSwitchCommandValidatorInterface $targetedSwitchCommandValidator,
+        private TargetedLightModuleCommandValidatorInterface $targetLightModuleValidator,
     ) {
     }
 
     public function create(SwitchConfigInterface $config): MwuSwitch
     {
-        $switch = new MwuSwitch($config);
+        $switch = new MwuSwitch(
+            $config,
+            new TcpIpClient(),
+            new MessageFactory(),
+            $this->targetedSwitchCommandValidator,
+            $this->targetLightModuleValidator,
+        );
 
         $this->lightModuleFactory->generateCollection(
             $config->getLightModulesGeneratorConfig(),

@@ -6,7 +6,7 @@ namespace MwuSdk\Entity\Command\Initialize;
 
 use MwuSdk\Entity\Command\AbstractCommand;
 
-final readonly class InitializeCommand extends AbstractCommand
+final readonly class InitializeCommand extends AbstractCommand implements InitializeCommandInterface
 {
     public function __construct()
     {

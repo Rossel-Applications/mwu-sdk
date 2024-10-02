@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MwuSdk\Builder\Command\Write;
 
-use MwuSdk\Builder\Command\CommandBuilderInterface;
+use MwuSdk\Builder\Command\TargetedLightModuleCommandBuilderInterface;
 use MwuSdk\Client\MwuLightModuleInterface;
 use MwuSdk\Entity\Command\Write\WriteCommandInterface;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
@@ -14,7 +14,7 @@ use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
 /**
  * This interface defines methods to be implemented by write command builders.
  */
-interface WriteCommandBuilderInterface extends CommandBuilderInterface
+interface WriteCommandBuilderInterface extends TargetedLightModuleCommandBuilderInterface
 {
     /**
      * Specify data to display after pressing the Fn key.
@@ -81,4 +81,15 @@ interface WriteCommandBuilderInterface extends CommandBuilderInterface
      * @return WriteCommandInterface the generated command
      */
     public function buildCommand(MwuLightModuleInterface $lightModule, ?string $text = null): WriteCommandInterface;
+
+    /**
+     * Generate write commands to the specified light modules.
+     *
+     * @param ?string                                   $text         optional text to be displayed on the screens of the light modules, or null if no text is to be displayed
+     * @param array<array-key, MwuLightModuleInterface> $lightModules an array of light modules to which the commands will be sent
+     * @param list<\Exception>                          $errors       reference to capture errors
+     *
+     * @return array<int, WriteCommandInterface> an array of generated write commands
+     */
+    public function buildCommands(array $lightModules, ?string $text = null, array &$errors = []): array;
 }

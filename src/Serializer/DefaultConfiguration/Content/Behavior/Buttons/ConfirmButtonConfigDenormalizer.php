@@ -23,7 +23,9 @@ final readonly class ConfirmButtonConfigDenormalizer implements DenormalizerInte
     ) {
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function denormalize(array $data): ConfirmButtonConfig
     {
         $this->confirmButtonConfigValidator->validate($data);

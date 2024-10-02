@@ -23,7 +23,9 @@ final readonly class LightModulesGeneratorConfigDenormalizer implements Denormal
     ) {
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function denormalize(array $data): LightModulesGeneratorConfig
     {
         $this->lightModulesGeneratorConfigValidator->validate($data);

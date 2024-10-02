@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Client;
+namespace MwuSdk\Exception\Client\TcpIp;
 
 /**
  * Exception thrown when a connection fails.
  */
-final class ConnectionFailedException extends \RuntimeException implements ConnectionExceptionInterface
+final class ConnectionFailedException extends \RuntimeException implements TcpIpClientExceptionInterface
 {
     public function __construct(string $serverIp, int $serverPort, int $errorCode, string $errorMessage, ?\Throwable $previous = null)
     {

@@ -4,10 +4,16 @@ declare(strict_types=1);
 
 namespace MwuSdk\Client;
 
+use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
 use MwuSdk\Entity\Command\CommandInterface;
-use MwuSdk\Entity\Message;
+use MwuSdk\Entity\Command\TargetedLightModuleCommandInterface;
+use MwuSdk\Entity\Command\TargetedSwitchCommandInterface;
+use MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
 use MwuSdk\Exception\Configuration\CannotAssignIdOnSwitchException;
+use MwuSdk\Factory\Entity\MessageFactoryInterface;
+use MwuSdk\Validator\Command\TargetedLightModuleCommandValidatorInterface;
+use MwuSdk\Validator\Command\TargetedSwitchCommandValidatorInterface;
 use Random\RandomException;
 
 /**
@@ -20,38 +26,59 @@ final class MwuSwitch implements MwuSwitchInterface
     /** @var array<int, MwuLightModuleInterface> */
     private array $lightModules = [];
 
-    private TcpIpClient $tcpIpClient;
-
     /**
-     * @param ?list<int> $lightModuleIds
+     * @param SwitchConfigInterface $config         configuration of this Switch
+     * @param ?list<int>            $lightModuleIds
      */
     public function __construct(
         private readonly SwitchConfigInterface $config,
+        private readonly TcpIpClientInterface $tcpIpClient,
+        private readonly MessageFactoryInterface $messageFactory,
+        private readonly TargetedSwitchCommandValidatorInterface $targetedSwitchCommandValidator,
+        private readonly TargetedLightModuleCommandValidatorInterface $targetedLightModuleValidator,
         ?array $lightModuleIds = null,
     ) {
         if (null !== $lightModuleIds) {
             $this->defineLightModules($lightModuleIds);
         }
 
-        $this->tcpIpClient = new TcpIpClient(
-            $this->getIpAddress(),
-            $this->getPort(),
-        );
+        $this->tcpIpClient->configure($this);
     }
 
-    /** {@inheritDoc} */
+    public function __toString(): string
+    {
+        return $this->getIpAddress().':'.$this->getPort();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function equals(?MwuSwitchInterface $switch): bool
+    {
+        return null !== $switch
+            && $this->getIpAddress() === $switch->getIpAddress()
+            && $this->getPort() === $switch->getPort();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getConfig(): SwitchConfigInterface
     {
         return $this->config;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getIpAddress(): string
     {
         return $this->getConfig()->getIpAddress();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getPort(): int
     {
         return $this->getConfig()->getPort();
@@ -67,7 +94,9 @@ final class MwuSwitch implements MwuSwitchInterface
         return $this->lightModules;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function connectLightModule(MwuLightModuleInterface $lightModule): self
     {
         $requestedId = $lightModule->getId();
@@ -81,7 +110,9 @@ final class MwuSwitch implements MwuSwitchInterface
         return $this;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function connectLightModules(array $lightModules): self
     {
         foreach ($lightModules as $lightModule) {
@@ -91,16 +122,18 @@ final class MwuSwitch implements MwuSwitchInterface
         return $this;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function disconnectLightModule(MwuLightModuleInterface $lightModule): self
     {
         $lightModuleId = $lightModule->getId();
 
-        if (null === $lightModuleId) {
-            return $this;
+        if (null !== $lightModuleId) {
+            $this->disconnectLightModuleById($lightModuleId);
         }
 
-        return $this->disconnectLightModuleById($lightModuleId);
+        return $this;
     }
 
     /**
@@ -115,7 +148,9 @@ final class MwuSwitch implements MwuSwitchInterface
         return $this;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function defineLightModule(int $id): self
     {
         $this->lightModules[$id] = new MwuLightModule($this, $id);
@@ -123,7 +158,9 @@ final class MwuSwitch implements MwuSwitchInterface
         return $this;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function defineLightModules(array $lightModuleIds): self
     {
         foreach ($lightModuleIds as $lightModuleId) {
@@ -133,21 +170,25 @@ final class MwuSwitch implements MwuSwitchInterface
         return $this;
     }
 
-    /** {@inheritDoc} */
-    public function disconnectLightModuleById(int $id): self
+    /**
+     * {@inheritDoc}
+     */
+    public function disconnectLightModuleById(int $id): bool
     {
-        $lightModule = $this->getLightModules()[$id];
+        $lightModule = $this->lightModules[$id] ?? null;
 
         if (null !== $lightModule && null !== $lightModule->getSwitch()) {
             $lightModule->disconnectSwitch();
         }
 
-        unset($this->getLightModules()[$id]);
+        unset($this->lightModules[$id]);
 
-        return $this;
+        return true;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function disconnectLightModulesById(array $lightModuleIds): self
     {
         foreach ($lightModuleIds as $lightModuleId) {
@@ -157,13 +198,17 @@ final class MwuSwitch implements MwuSwitchInterface
         return $this;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getUniqueIdentifier(): string
     {
-        return $this->getIpAddress().':'.$this->getPort();
+        return (string) $this;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function isLightModuleIdAvailable(int $id): bool
     {
         return !\array_key_exists($id, $this->getLightModules());
@@ -173,12 +218,72 @@ final class MwuSwitch implements MwuSwitchInterface
      * {@inheritDoc}
      *
      * @throws RandomException
-     * @throws \Exception
+     * @throws TcpIpClientExceptionInterface
      */
     public function send(CommandInterface $command): ?string
     {
-        $message = new Message($command);
+        $this->validateCommand($command);
+
+        $message = $this->messageFactory->create($command);
 
         return $this->tcpIpClient->sendMessage((string) $message);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws TcpIpClientExceptionInterface
+     * @throws RandomException
+     *
+     * @return array<int, string|null> responses from light modules, indexed by light module IDs
+     */
+    public function write(
+        array $lightModules,
+        WriteCommandBuilderInterface $commandBuilder,
+        string $text = '',
+        array &$errors = [],
+    ): array {
+        $responses = [];
+        $commands = $commandBuilder->buildCommands($lightModules, $text, $errors);
+
+        foreach ($commands as $id => $command) {
+            $responses[$id] = $this->send($command);
+        }
+
+        return $responses;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws TcpIpClientExceptionInterface
+     * @throws RandomException
+     *
+     * @return array<int, string|null> responses from light modules, indexed by light module IDs
+     */
+    public function broadcastWrite(
+        WriteCommandBuilderInterface $commandBuilder,
+        string $text = '',
+        array &$errors = [],
+    ): array {
+        return $this->write(
+            $this->getLightModules(),
+            $commandBuilder,
+            $text,
+            $errors,
+        );
+    }
+
+    private function validateCommand(CommandInterface $command): void
+    {
+        if ($command instanceof TargetedLightModuleCommandInterface) {
+            $this->targetedLightModuleValidator->validate($command, $this);
+
+            return;
+        }
+
+        if ($command instanceof TargetedSwitchCommandInterface) {
+            $this->targetedSwitchCommandValidator->validate($command, $this);
+        }
     }
 }

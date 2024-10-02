@@ -23,7 +23,7 @@ class BuildException extends \RuntimeException implements BuilderExceptionInterf
 
         // Optionally include missing property in the message
         if (null !== $missingProperty) {
-            $message .= sprintf(' Missing property: %s.', $missingProperty);
+            $message .= sprintf('Missing property: %s.', $missingProperty);
         }
 
         parent::__construct($message, previous: $previous);

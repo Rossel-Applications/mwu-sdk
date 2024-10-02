@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Client;
+namespace MwuSdk\Exception\Client\TcpIp;
 
 /**
  * Interface implemented by connection-related exceptions.
  */
-interface ConnectionExceptionInterface extends \Throwable
+interface TcpIpClientExceptionInterface extends \Throwable
 {
 }

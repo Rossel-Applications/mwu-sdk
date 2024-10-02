@@ -26,19 +26,25 @@ final readonly class WriteCommandModeArray implements WriteCommandModeArrayInter
     ) {
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getM1(): ?string
     {
         return $this->m1;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getM2(): ?string
     {
         return $this->m2;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function getM3(): ?string
     {
         return $this->m3;

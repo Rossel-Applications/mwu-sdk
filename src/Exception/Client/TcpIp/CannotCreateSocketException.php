@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Client;
+namespace MwuSdk\Exception\Client\TcpIp;
 
-class CannotCreateSocketException extends \RuntimeException implements ConnectionExceptionInterface
+final class CannotCreateSocketException extends \RuntimeException implements TcpIpClientExceptionInterface
 {
     public function __construct(?\Throwable $previous = null)
     {

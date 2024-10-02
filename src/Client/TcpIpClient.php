@@ -6,36 +6,53 @@ namespace MwuSdk\Client;
 
 use MwuSdk\Entity\Command\Initialize\InitializeCommand;
 use MwuSdk\Entity\Message;
-use MwuSdk\Exception\Client\CannotCreateSocketException;
-use MwuSdk\Exception\Client\ConnectionFailedException;
+use MwuSdk\Exception\Client\TcpIp\CannotCreateSocketException;
+use MwuSdk\Exception\Client\TcpIp\ConnectionFailedException;
+use MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
+use Random\RandomException;
 
 /**
- * TCP/IP client to send messages to a server.
+ * TCP/IP client to send messages to a specified Switch.
  */
-final class TcpIpClient
+final class TcpIpClient implements TcpIpClientInterface
 {
+    private string $switchIp;
+    private int $switchPort;
+
     private \Socket $socket;
-    private bool $connected = false;
+    private bool $socketConnectionOpen = false;
 
     public function __construct(
-        private readonly string $serverIp,
-        private readonly int $serverPort,
-        private readonly int $timeout = 10,
     ) {
         $this->initialize();
     }
 
+    public function configure(MwuSwitchInterface $switch, int $timeout = 10): void
+    {
+        if ($this->isSocketConnectionOpen()) {
+            $this->closeSocketConnection();
+        }
+
+        $switchConfig = $switch->getConfig();
+
+        $this->switchIp = $switchConfig->getIpAddress();
+        $this->switchPort = $switchConfig->getPort();
+
+        $timeout1 = $timeout;
+        ini_set('default_socket_timeout', $timeout1);
+
+        $this->initialize();
+    }
+
     /**
-     * Send a message to the server.
+     * {@inheritDoc}
      *
-     * @throws \Exception if the connection fails
-     *
-     * @return string|null the response from the server, or null if an error occurred
+     * @return string|null the response from the Switch, or null if an error occurred
      */
     public function sendMessage(string $message): ?string
     {
-        if (!$this->isConnected()) {
-            $this->openConnection();
+        if (!$this->isSocketConnectionOpen()) {
+            $this->openSocketConnection();
         }
 
         // Send message
@@ -47,21 +64,36 @@ final class TcpIpClient
         return false !== $response ? $response : null;
     }
 
-    public function isConnected(): bool
-    {
-        return $this->connected;
-    }
-
-    private function openConnection(): void
+    /**
+     * {@inheritDoc}
+     */
+    public function openSocketConnection(): void
     {
         try {
-            socket_connect($this->socket, $this->serverIp, $this->serverPort);
-            $this->connected = true;
+            socket_connect($this->socket, $this->switchIp, $this->switchPort);
+            $this->socketConnectionOpen = true;
 
             $this->sendMessage((string) new Message(new InitializeCommand()));
-        } catch (\Exception $exception) {
-            throw new ConnectionFailedException($this->serverIp, $this->serverPort, $exception->getCode(), $exception->getMessage(), $exception);
+        } catch (TcpIpClientExceptionInterface|RandomException $exception) {
+            throw new ConnectionFailedException($this->switchIp, $this->switchPort, $exception->getCode(), $exception->getMessage(), $exception);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function closeSocketConnection(): void
+    {
+        socket_close($this->socket);
+        $this->socketConnectionOpen = false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isSocketConnectionOpen(): bool
+    {
+        return $this->socketConnectionOpen;
     }
 
     private function initialize(): void
@@ -73,7 +105,5 @@ final class TcpIpClient
         }
 
         $this->socket = $socket;
-
-        ini_set('default_socket_timeout', $this->timeout);
     }
 }

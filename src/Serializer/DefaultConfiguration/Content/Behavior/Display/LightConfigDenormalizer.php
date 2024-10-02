@@ -25,7 +25,9 @@ final readonly class LightConfigDenormalizer implements DenormalizerInterface
     ) {
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function denormalize(array $data): LightConfig
     {
         $this->lightConfigValidator->validate($data);

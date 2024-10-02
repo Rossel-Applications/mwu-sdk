@@ -13,6 +13,8 @@ use MwuSdk\Factory\Client\MwuLightModule\FnButtonFactory;
 use MwuSdk\Factory\Client\MwuLightModule\QuantityKeysFactory;
 use MwuSdk\Factory\Client\MwuLightModuleFactory;
 use MwuSdk\Factory\Client\MwuSwitchFactory;
+use MwuSdk\Validator\Command\TargetedLightModuleCommandValidator;
+use MwuSdk\Validator\Command\TargetedSwitchCommandValidator;
 use Random\RandomException;
 
 class InfrastructureGenerator
@@ -29,6 +31,8 @@ class InfrastructureGenerator
                 new FnButtonFactory(),
                 new QuantityKeysFactory(),
             ),
+            $targetedSwitchCommandValidator = new TargetedSwitchCommandValidator(),
+            new TargetedLightModuleCommandValidator($targetedSwitchCommandValidator),
         );
 
         return $switchFactory->create(
