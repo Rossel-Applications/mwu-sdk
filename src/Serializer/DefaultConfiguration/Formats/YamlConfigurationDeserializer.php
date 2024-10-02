@@ -19,7 +19,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @extends AbstractDeserializer<MwuConfig>
  */
-final readonly class YamlConfigurationDeserializer extends AbstractDeserializer
+final readonly class YamlConfigurationDeserializer extends AbstractDeserializer implements YamlConfigurationDeserializerInterface
 {
     public function __construct(
         private ConfigDenormalizer $mwuConfigDenormalizer,
@@ -27,9 +27,7 @@ final readonly class YamlConfigurationDeserializer extends AbstractDeserializer
     }
 
     /**
-     * Parses a configuration file and returns a MwuConfig object.
-     *
-     * @param string $path the path to the configuration file
+     * {@inheritDoc}
      *
      * @throws ConfigurationFileNotFoundException if the file cannot be found
      * @throws InvalidConfigurationFileException  if the file is invalid

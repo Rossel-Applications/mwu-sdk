@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MwuSdk\Builder\Command\Write;
 
 use MwuSdk\Client\MwuLightModuleInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface;
 use MwuSdk\Entity\Command\Write\WriteCommand;
 use MwuSdk\Entity\Command\Write\WriteCommandInterface;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
@@ -31,21 +30,8 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
     private ?ScreenDisplayMode $screenDisplayMode = null;
 
     public function __construct(
-        private readonly MwuConfigInterface $defaultConfiguration,
         private readonly WriteCommandModeArrayFactoryInterface $modeArrayFactory,
     ) {
-    }
-
-    public function withConfig(MwuConfigInterface $config): self
-    {
-        $displayStatusConfig = $config->getBehavior()->getDisplayStatus();
-        $displayStatusLightConfig = $displayStatusConfig->getLight();
-        $displayStatusScreenConfig = $displayStatusConfig->getScreen();
-
-        return $this
-            ->withLightColor($displayStatusLightConfig->getColor())
-            ->withLightMode($displayStatusLightConfig->getMode())
-            ->withScreenDisplayMode($displayStatusScreenConfig->getMode());
     }
 
     /**
@@ -127,6 +113,8 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
      */
     public function buildCommand(MwuLightModuleInterface $lightModule, ?string $text = null): WriteCommand
     {
+        // todo: set defaults from lightModule
+
         $lightModule->checkIfReachable(true);
 
         $template = $this->getCommandTemplate($lightModule);

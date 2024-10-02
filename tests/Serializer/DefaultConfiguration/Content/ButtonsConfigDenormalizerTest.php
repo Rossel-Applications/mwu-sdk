@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace MwuSdkTest\Serializer\DefaultConfiguration\Content;
 
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\ButtonsConfig;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\ConfirmButtonConfig;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\FnButtonConfig;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\QuantityKeysConfig;
 use MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\ButtonsConfigKeysEnum;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\ConfirmButtonConfigKeysEnum;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\FnButtonConfigKeysEnum;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\QuantityKeysConfigKeysEnum;
+use MwuSdk\Model\ConfirmButton;
+use MwuSdk\Model\FnButton;
+use MwuSdk\Model\QuantityKeys;
 use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\ButtonsConfigDenormalizer;
 use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\ConfirmButtonConfigDenormalizer;
 use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\FnButtonConfigDenormalizer;
@@ -55,11 +55,17 @@ class ButtonsConfigDenormalizerTest extends TestCase
             ]
         );
 
+        $res = new ButtonsConfig(
+            new ConfirmButton(true),
+            new FnButton(true, '----', false),
+            new QuantityKeys(false, QuantityKeysMode::OFF),
+        );
+
         $this->assertEquals(
             new ButtonsConfig(
-                new ConfirmButtonConfig(true),
-                new FnButtonConfig(true, '----', false),
-                new QuantityKeysConfig(QuantityKeysMode::OFF),
+                new ConfirmButton(true),
+                new FnButton(true, '----', false),
+                new QuantityKeys(false, QuantityKeysMode::OFF),
             ),
             $result,
         );

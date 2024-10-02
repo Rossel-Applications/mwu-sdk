@@ -30,10 +30,13 @@ final readonly class WriteCommand extends AbstractCommand implements WriteComman
 
     public function getSwitch(): MwuSwitchInterface
     {
+        $lightModule = $this->getLightModule();
+        $lightModule->checkIfReachable(true);
+
         $switch = $this->getLightModule()->getSwitch();
 
         if (null === $switch) {
-            throw new UnreachableLightModuleException($this->getLightModule(), UnreachableLightModuleException::DETAILS_MISSING_SWITCH);
+            throw new UnreachableLightModuleException($lightModule, UnreachableLightModuleException::DETAILS_MISSING_SWITCH);
         }
 
         return $switch;

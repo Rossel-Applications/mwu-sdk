@@ -6,7 +6,6 @@ namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons;
 
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\ButtonsConfig;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\ButtonsConfigKeysEnum;
-use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\ButtonsConfigValidator;
 
 /**
@@ -16,7 +15,7 @@ use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\ButtonsConfigValidato
  * into a ButtonsConfig object. It utilizes various denormalizers for specific button
  * configurations and validates the data before processing.
  */
-final readonly class ButtonsConfigDenormalizer implements DenormalizerInterface
+final readonly class ButtonsConfigDenormalizer implements ButtonsConfigDenormalizerInterface
 {
     public function __construct(
         private ButtonsConfigValidator $buttonsConfigValidator,

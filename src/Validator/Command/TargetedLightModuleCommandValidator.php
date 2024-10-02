@@ -32,7 +32,7 @@ final readonly class TargetedLightModuleCommandValidator implements TargetedLigh
         $lightModuleSwitch = $lightModule->getSwitch();
 
         // Ensure the light module is attached to the correct switch
-        if ($commandSwitch->equals($lightModuleSwitch)) {
+        if (!$commandSwitch->equals($lightModuleSwitch)) {
             throw new UnexpectedSwitchException($sendTo, $commandSwitch);
         }
 

@@ -6,7 +6,6 @@ namespace MwuSdk\Serializer\DefaultConfiguration\Content\Switches;
 
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfig;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\LightModulesGeneratorConfigKeysEnum;
-use MwuSdk\Serializer\DenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Switches\LightModulesGeneratorConfigValidator;
 
 /**
@@ -16,7 +15,7 @@ use MwuSdk\Validator\DefaultConfiguration\Switches\LightModulesGeneratorConfigVa
  * configuration data into a LightModulesGeneratorConfig object. It validates the input
  * data and constructs the configuration object based on the provided parameters.
  */
-final readonly class LightModulesGeneratorConfigDenormalizer implements DenormalizerInterface
+final readonly class LightModulesGeneratorConfigDenormalizer implements LightModulesGeneratorConfigDenormalizerInterface
 {
     public function __construct(
         private LightModulesGeneratorConfigValidator $lightModulesGeneratorConfigValidator,

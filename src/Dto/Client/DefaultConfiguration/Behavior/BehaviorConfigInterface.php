@@ -4,16 +4,22 @@ declare(strict_types=1);
 
 namespace MwuSdk\Dto\Client\DefaultConfiguration\Behavior;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\ButtonsConfigInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\DisplayConfigInterface;
+use MwuSdk\Model\ConfirmButtonInterface;
+use MwuSdk\Model\DisplayStatusInterface;
+use MwuSdk\Model\FnButtonInterface;
+use MwuSdk\Model\QuantityKeysInterface;
 
 interface BehaviorConfigInterface
 {
-    public function getDisplayStatus(): DisplayConfigInterface;
+    public function getDisplayStatus(): DisplayStatusInterface;
 
-    public function getDisplayStatusAfterConfirm(): DisplayConfigInterface;
+    public function getDisplayStatusAfterConfirm(): DisplayStatusInterface;
 
-    public function getDisplayStatusAfterFn(): DisplayConfigInterface;
+    public function getDisplayStatusAfterFn(): DisplayStatusInterface;
 
-    public function getButtons(): ButtonsConfigInterface;
+    public function getConfirmButton(): ConfirmButtonInterface;
+
+    public function getFnButton(): FnButtonInterface;
+
+    public function getQuantityKeys(): QuantityKeysInterface;
 }

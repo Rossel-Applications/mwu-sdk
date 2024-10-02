@@ -7,7 +7,7 @@ namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons;
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\QuantityKeysConfig;
 use MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\QuantityKeysConfigKeysEnum;
-use MwuSdk\Serializer\DenormalizerInterface;
+use MwuSdk\Model\QuantityKeys;
 use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\QuantityKeysConfigValidator;
 
 /**
@@ -17,7 +17,7 @@ use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\QuantityKeysConfigVal
  * into a QuantityKeysConfig object. It validates the input data to ensure it conforms
  * to the expected structure and values, particularly for the quantity keys mode.
  */
-final readonly class QuantityKeysConfigDenormalizer implements DenormalizerInterface
+final readonly class QuantityKeysConfigDenormalizer implements QuantityKeysConfigDenormalizerInterface
 {
     public function __construct(
         private QuantityKeysConfigValidator $quantityKeysConfigValidator,
@@ -27,15 +27,17 @@ final readonly class QuantityKeysConfigDenormalizer implements DenormalizerInter
     /**
      * {@inheritDoc}
      */
-    public function denormalize(array $data): QuantityKeysConfig
+    public function denormalize(array $data): QuantityKeys
     {
         $this->quantityKeysConfigValidator->validate($data);
 
-        /** @var string $normalizedModeConfig */
-        $normalizedModeConfig = $data[QuantityKeysConfigKeysEnum::KEY_MODE->value];
-        /** @var QuantityKeysMode $modeConfig */
-        $modeConfig = QuantityKeysMode::findInstanceByStringValue($normalizedModeConfig);
+        /** @var string $normalizedMode */
+        $normalizedMode = $data[QuantityKeysConfigKeysEnum::KEY_MODE->value];
+        /** @var QuantityKeysMode $mode */
+        $mode = QuantityKeysMode::findInstanceByStringValue($normalizedMode);
 
-        return new QuantityKeysConfig($modeConfig);
+        $enabled = QuantityKeysMode::OFF !== $mode;
+
+        return new QuantityKeys($enabled, $mode);
     }
 }

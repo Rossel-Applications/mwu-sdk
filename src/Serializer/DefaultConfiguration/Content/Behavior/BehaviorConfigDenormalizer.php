@@ -6,9 +6,8 @@ namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior;
 
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfig;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\BehaviorConfigKeysEnum;
-use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\ButtonsConfigDenormalizer;
-use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display\DisplayConfigDenormalizer;
-use MwuSdk\Serializer\DenormalizerInterface;
+use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\ButtonsConfigDenormalizerInterface;
+use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display\DisplayConfigDenormalizerInterface;
 use MwuSdk\Validator\DefaultConfiguration\Behavior\BehaviorConfigValidator;
 
 /**
@@ -18,12 +17,12 @@ use MwuSdk\Validator\DefaultConfiguration\Behavior\BehaviorConfigValidator;
  * into a BehaviorConfig object. It validates the input data and extracts the display
  * configurations and buttons configurations using their respective denormalizers.
  */
-final readonly class BehaviorConfigDenormalizer implements DenormalizerInterface
+final readonly class BehaviorConfigDenormalizer implements BehaviorConfigDenormalizerInterface
 {
     public function __construct(
         private BehaviorConfigValidator $behaviorConfigValidator,
-        private ButtonsConfigDenormalizer $buttonsConfigDenormalizer,
-        private DisplayConfigDenormalizer $displayConfigDenormalizer,
+        private ButtonsConfigDenormalizerInterface $buttonsConfigDenormalizer,
+        private DisplayConfigDenormalizerInterface $displayConfigDenormalizer,
     ) {
     }
 
@@ -48,6 +47,13 @@ final readonly class BehaviorConfigDenormalizer implements DenormalizerInterface
         $displayStatusAfterFnConfig = $this->displayConfigDenormalizer->denormalize($normalizedDisplayStatusAfterFnConfig);
         $buttonsConfig = $this->buttonsConfigDenormalizer->denormalize($normalizedButtonsConfig);
 
-        return new BehaviorConfig($displayStatus, $displayStatusAfterConfirmConfig, $displayStatusAfterFnConfig, $buttonsConfig);
+        return new BehaviorConfig(
+            $displayStatus,
+            $displayStatusAfterConfirmConfig,
+            $displayStatusAfterFnConfig,
+            $buttonsConfig->getConfirmButton(),
+            $buttonsConfig->getFnButton(),
+            $buttonsConfig->getQuantityKeys(),
+        );
     }
 }

@@ -14,7 +14,7 @@ class TargetedSwitchCommandValidator implements TargetedSwitchCommandValidatorIn
     {
         $commandSwitch = $command->getSwitch();
 
-        if ($sendTo->equals($commandSwitch)) {
+        if (!$sendTo->equals($commandSwitch)) {
             throw new UnexpectedSwitchException($commandSwitch, $sendTo);
         }
     }

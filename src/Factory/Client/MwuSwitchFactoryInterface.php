@@ -6,6 +6,7 @@ namespace MwuSdk\Factory\Client;
 
 use MwuSdk\Client\MwuSwitch;
 use MwuSdk\Client\MwuSwitchInterface;
+use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
 
 /**
@@ -16,7 +17,7 @@ use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
  */
 interface MwuSwitchFactoryInterface
 {
-    public function create(SwitchConfigInterface $config): MwuSwitchInterface;
+    public function create(SwitchConfigInterface $config, BehaviorConfigInterface $behaviorConfig): MwuSwitchInterface;
 
     /**
      * @param array<array-key, SwitchConfigInterface> $configs

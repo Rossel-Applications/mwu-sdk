@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MwuSdk\Client;
 
 use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
+use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
 use MwuSdk\Model\ConfirmButton;
 use MwuSdk\Model\ConfirmButtonInterface;
@@ -33,21 +34,16 @@ class MwuLightModule implements MwuLightModuleInterface
     public function __construct(
         MwuSwitchInterface $switch,
         int $id,
-        ?DisplayStatusInterface $displayStatus = null,
-        ?DisplayStatusInterface $displayStatusAfterConfirm = null,
-        ?DisplayStatusInterface $displayStatusAfterFn = null,
-        ?ConfirmButtonInterface $confirmButton = null,
-        ?FnButtonInterface $fnButton = null,
-        ?QuantityKeysInterface $quantityKeys = null,
+        ?BehaviorConfigInterface $behaviorConfig = null,
     ) {
         $this
             ->connectSwitch($switch, $id)
-            ->setDisplayStatus($displayStatus ?? new DisplayStatus())
-            ->setDisplayStatusAfterConfirm($displayStatusAfterConfirm ?? new DisplayStatus())
-            ->setDisplayStatusAfterFn($displayStatusAfterFn ?? new DisplayStatus())
-            ->setConfirmButton($confirmButton ?? new ConfirmButton())
-            ->setFnButton($fnButton ?? new FnButton())
-            ->setQuantityKeys($quantityKeys ?? new QuantityKeys());
+            ->setDisplayStatus($behaviorConfig?->getDisplayStatus() ?? new DisplayStatus())
+            ->setDisplayStatusAfterConfirm($behaviorConfig?->getDisplayStatusAfterConfirm() ?? new DisplayStatus())
+            ->setDisplayStatusAfterFn($behaviorConfig?->getDisplayStatusAfterFn() ?? new DisplayStatus())
+            ->setConfirmButton($behaviorConfig?->getConfirmButton() ?? new ConfirmButton())
+            ->setFnButton($behaviorConfig?->getFnButton() ?? new FnButton())
+            ->setQuantityKeys($behaviorConfig?->getQuantityKeys() ?? new QuantityKeys());
     }
 
     /**

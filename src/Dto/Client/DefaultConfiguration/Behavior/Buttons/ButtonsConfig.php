@@ -4,26 +4,30 @@ declare(strict_types=1);
 
 namespace MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons;
 
+use MwuSdk\Model\ConfirmButtonInterface;
+use MwuSdk\Model\FnButtonInterface;
+use MwuSdk\Model\QuantityKeysInterface;
+
 final readonly class ButtonsConfig implements ButtonsConfigInterface
 {
     public function __construct(
-        private ConfirmButtonConfigInterface $confirm,
-        private FnButtonConfigInterface $fn,
-        private QuantityKeysConfigInterface $quantityKeys,
+        private ConfirmButtonInterface $confirm,
+        private FnButtonInterface $fn,
+        private QuantityKeysInterface $quantityKeys,
     ) {
     }
 
-    public function getConfirm(): ConfirmButtonConfigInterface
+    public function getConfirmButton(): ConfirmButtonInterface
     {
         return $this->confirm;
     }
 
-    public function getFn(): FnButtonConfigInterface
+    public function getFnButton(): FnButtonInterface
     {
         return $this->fn;
     }
 
-    public function getQuantityKeys(): QuantityKeysConfigInterface
+    public function getQuantityKeys(): QuantityKeysInterface
     {
         return $this->quantityKeys;
     }

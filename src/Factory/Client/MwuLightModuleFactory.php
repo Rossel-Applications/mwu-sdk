@@ -6,15 +6,8 @@ namespace MwuSdk\Factory\Client;
 
 use MwuSdk\Client\MwuLightModule;
 use MwuSdk\Client\MwuSwitchInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\ConfirmButtonConfigInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\FnButtonConfigInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\QuantityKeysConfigInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\DisplayConfigInterface;
+use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfigInterface;
-use MwuSdk\Factory\Client\MwuLightModule\ConfirmButtonFactoryInterface;
-use MwuSdk\Factory\Client\MwuLightModule\DisplayStatusFactoryInterface;
-use MwuSdk\Factory\Client\MwuLightModule\FnButtonFactoryInterface;
-use MwuSdk\Factory\Client\MwuLightModule\QuantityKeysFactoryInterface;
 
 /**
  * Factory class for creating MwuLightModule instances.
@@ -24,33 +17,19 @@ use MwuSdk\Factory\Client\MwuLightModule\QuantityKeysFactoryInterface;
  */
 final readonly class MwuLightModuleFactory implements MwuLightModuleFactoryInterface
 {
-    public function __construct(
-        private ConfirmButtonFactoryInterface $confirmButtonFactory,
-        private DisplayStatusFactoryInterface $displayStatusFactory,
-        private FnButtonFactoryInterface $fnButtonFactory,
-        private QuantityKeysFactoryInterface $quantityKeysFactory,
-    ) {
+    public function __construct()
+    {
     }
 
     public function create(
         MwuSwitchInterface $switch,
         int $lightModuleId,
-        ?DisplayConfigInterface $displayStatusConfig = null,
-        ?DisplayConfigInterface $displayStatusAfterConfirmConfig = null,
-        ?DisplayConfigInterface $displayStatusAfterFnConfig = null,
-        ?ConfirmButtonConfigInterface $confirmButtonConfig = null,
-        ?FnButtonConfigInterface $fnButtonConfig = null,
-        ?QuantityKeysConfigInterface $quantityKeysConfig = null,
+        ?BehaviorConfigInterface $behaviorConfig = null,
     ): MwuLightModule {
         return new MwuLightModule(
             $switch,
             $lightModuleId,
-            $this->displayStatusFactory->create($displayStatusConfig),
-            $this->displayStatusFactory->create($displayStatusAfterConfirmConfig),
-            $this->displayStatusFactory->create($displayStatusAfterFnConfig),
-            $this->confirmButtonFactory->create($confirmButtonConfig),
-            $this->fnButtonFactory->create($fnButtonConfig),
-            $this->quantityKeysFactory->create($quantityKeysConfig),
+            $behaviorConfig,
         );
     }
 
@@ -58,12 +37,7 @@ final readonly class MwuLightModuleFactory implements MwuLightModuleFactoryInter
     public function generateCollection(
         LightModulesGeneratorConfigInterface $config,
         MwuSwitchInterface $switch,
-        ?DisplayConfigInterface $displayStatusConfig = null,
-        ?DisplayConfigInterface $displayStatusAfterConfirmConfig = null,
-        ?DisplayConfigInterface $displayStatusAfterFnConfig = null,
-        ?ConfirmButtonConfigInterface $confirmButtonConfig = null,
-        ?FnButtonConfigInterface $fnButtonConfig = null,
-        ?QuantityKeysConfigInterface $quantityKeysConfig = null,
+        ?BehaviorConfigInterface $behaviorConfig = null,
     ): array {
         $firstLightModuleId = $config->getFirstLightModuleId();
         $increment = $config->getIncrementBetweenLightModuleIds();
@@ -76,12 +50,7 @@ final readonly class MwuLightModuleFactory implements MwuLightModuleFactoryInter
             $lightModules[$lightModuleId] = $this->create(
                 $switch,
                 $lightModuleId,
-                $displayStatusConfig,
-                $displayStatusAfterConfirmConfig,
-                $displayStatusAfterFnConfig,
-                $confirmButtonConfig,
-                $fnButtonConfig,
-                $quantityKeysConfig,
+                $behaviorConfig,
             );
         }
 

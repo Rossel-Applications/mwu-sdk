@@ -6,7 +6,7 @@ namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons;
 
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\ConfirmButtonConfig;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\ConfirmButtonConfigKeysEnum;
-use MwuSdk\Serializer\DenormalizerInterface;
+use MwuSdk\Model\ConfirmButton;
 use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\ConfirmButtonConfigValidator;
 
 /**
@@ -16,7 +16,7 @@ use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\ConfirmButtonConfigVa
  * into a ConfirmButtonConfig object. It validates the input data to ensure it adheres
  * to the expected structure and format.
  */
-final readonly class ConfirmButtonConfigDenormalizer implements DenormalizerInterface
+final readonly class ConfirmButtonConfigDenormalizer implements ConfirmButtonConfigDenormalizerInterface
 {
     public function __construct(
         private ConfirmButtonConfigValidator $confirmButtonConfigValidator,
@@ -26,13 +26,13 @@ final readonly class ConfirmButtonConfigDenormalizer implements DenormalizerInte
     /**
      * {@inheritDoc}
      */
-    public function denormalize(array $data): ConfirmButtonConfig
+    public function denormalize(array $data): ConfirmButton
     {
         $this->confirmButtonConfigValidator->validate($data);
 
         /** @var bool $enabled */
         $enabled = $data[ConfirmButtonConfigKeysEnum::KEY_ENABLED->value];
 
-        return new ConfirmButtonConfig($enabled);
+        return new ConfirmButton($enabled);
     }
 }
