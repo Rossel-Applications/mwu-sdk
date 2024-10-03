@@ -40,6 +40,16 @@ interface MwuLightModuleInterface
     public function getSwitch(): ?MwuSwitchInterface;
 
     /**
+     * Gets the maximum length of texts displayed on the screen.
+     */
+    public function getTextMaxLength(): int;
+
+    /**
+     * Sets the maximum length of texts displayed on the screen.
+     */
+    public function setTextMaxLength(int $textMaxLength): self;
+
+    /**
      * Connects the Light Module to a switch.
      *
      * @param MwuSwitchInterface $switch the switch to connect to

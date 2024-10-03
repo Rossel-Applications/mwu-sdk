@@ -13,10 +13,14 @@ use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
  */
 final class DisplayStatus implements DisplayStatusInterface
 {
-    private LightMode $lightMode = LightMode::OFF;
-    private ScreenDisplayMode $screenDisplayMode = ScreenDisplayMode::OFF;
-    private LightColor $lightColor = LightColor::WHITE;
-    private string $text = '';
+    private const DEFAULT_LIGHT_MODE = LightMode::ON;
+    private const DEFAULT_SCREEN_DISPLAY_MODE = ScreenDisplayMode::ON;
+    private const DEFAULT_LIGHT_COLOR = LightColor::WHITE;
+
+    private LightMode $lightMode = self::DEFAULT_LIGHT_MODE;
+    private ScreenDisplayMode $screenDisplayMode = self::DEFAULT_SCREEN_DISPLAY_MODE;
+    private LightColor $lightColor = self::DEFAULT_LIGHT_COLOR;
+    private string $defaultText = '----';
 
     public function __construct(
         ?LightMode $lightMode = null,
@@ -37,24 +41,24 @@ final class DisplayStatus implements DisplayStatusInterface
         }
 
         if (null !== $text) {
-            $this->text = $text;
+            $this->defaultText = $text;
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getText(): string
+    public function getDefaultText(): string
     {
-        return $this->text;
+        return $this->defaultText;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setText(string $text): self
+    public function setDefaultText(string $defaultText): self
     {
-        $this->text = $text;
+        $this->defaultText = $defaultText;
 
         return $this;
     }

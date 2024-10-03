@@ -7,6 +7,9 @@ namespace MwuSdk\Factory\Entity;
 use MwuSdk\Entity\Command\CommandInterface;
 use MwuSdk\Entity\MessageInterface;
 
+/**
+ * Interface for factories that create Message instances from Command objects.
+ */
 interface MessageFactoryInterface
 {
     public function create(CommandInterface $command): MessageInterface;

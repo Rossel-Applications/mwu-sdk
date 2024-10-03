@@ -9,6 +9,10 @@ use MwuSdk\Entity\Command\TargetedLightModuleCommandInterface;
 use MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
 use MwuSdk\Exception\Client\Switch\UnexpectedSwitchException;
 
+/**
+ * Validator class for ensuring the validity of targeted light module commands.
+ * It checks that the light module is attached to the correct switch and has a valid ID.
+ */
 final readonly class TargetedLightModuleCommandValidator implements TargetedLightModuleCommandValidatorInterface
 {
     public function __construct(

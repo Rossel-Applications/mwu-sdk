@@ -51,7 +51,7 @@ final class MwuSwitch implements MwuSwitchInterface
         }
 
         $lightModulesGeneratorConfig = $this->config->getLightModulesGeneratorConfig();
-        $this->lightModuleFactory->generateCollection($lightModulesGeneratorConfig, $this);
+        $this->lightModuleFactory->generateCollection($lightModulesGeneratorConfig, $this, $this->defaultBehaviorConfig);
     }
 
     public function __toString(): string
@@ -249,7 +249,7 @@ final class MwuSwitch implements MwuSwitchInterface
     public function write(
         array $lightModules,
         WriteCommandBuilderInterface $commandBuilder,
-        string $text = '',
+        ?string $text = null,
         array &$errors = [],
     ): array {
         $responses = [];
@@ -272,7 +272,7 @@ final class MwuSwitch implements MwuSwitchInterface
      */
     public function broadcastWrite(
         WriteCommandBuilderInterface $commandBuilder,
-        string $text = '',
+        ?string $text = null,
         array &$errors = [],
     ): array {
         return $this->write(

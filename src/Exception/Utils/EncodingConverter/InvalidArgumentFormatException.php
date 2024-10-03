@@ -7,7 +7,7 @@ namespace MwuSdk\Exception\Utils\EncodingConverter;
 /**
  * Exception for invalid argument format.
  */
-class InvalidArgumentFormatException extends \RuntimeException
+final class InvalidArgumentFormatException extends \RuntimeException
 {
     public function __construct(string $parameterName, string $details, ?\Throwable $previous = null)
     {

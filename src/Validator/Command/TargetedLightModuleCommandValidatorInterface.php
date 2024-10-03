@@ -7,6 +7,9 @@ namespace MwuSdk\Validator\Command;
 use MwuSdk\Client\MwuSwitchInterface;
 use MwuSdk\Entity\Command\TargetedLightModuleCommandInterface;
 
+/**
+ * Interface for validators that ensure targeted light module commands are valid.
+ */
 interface TargetedLightModuleCommandValidatorInterface extends CommandValidatorInterface
 {
     /**

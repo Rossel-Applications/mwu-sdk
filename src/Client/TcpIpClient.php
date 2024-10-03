@@ -27,6 +27,9 @@ final class TcpIpClient implements TcpIpClientInterface
         $this->initialize();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configure(MwuSwitchInterface $switch, int $timeout = 10): void
     {
         if ($this->isSocketConnectionOpen()) {
@@ -38,8 +41,7 @@ final class TcpIpClient implements TcpIpClientInterface
         $this->switchIp = $switchConfig->getIpAddress();
         $this->switchPort = $switchConfig->getPort();
 
-        $timeout1 = $timeout;
-        ini_set('default_socket_timeout', $timeout1);
+        ini_set('default_socket_timeout', $timeout);
 
         $this->initialize();
     }

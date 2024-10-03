@@ -55,12 +55,6 @@ class ButtonsConfigDenormalizerTest extends TestCase
             ]
         );
 
-        $res = new ButtonsConfig(
-            new ConfirmButton(true),
-            new FnButton(true, '----', false),
-            new QuantityKeys(false, QuantityKeysMode::OFF),
-        );
-
         $this->assertEquals(
             new ButtonsConfig(
                 new ConfirmButton(true),

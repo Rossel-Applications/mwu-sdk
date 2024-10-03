@@ -20,9 +20,9 @@ interface MwuSwitchFactoryInterface
     public function create(SwitchConfigInterface $config, BehaviorConfigInterface $behaviorConfig): MwuSwitchInterface;
 
     /**
-     * @param array<array-key, SwitchConfigInterface> $configs
+     * @param array<array-key, SwitchConfigInterface> $switchConfigs
      *
      * @return array<array-key, MwuSwitch>
      */
-    public function createCollection(array $configs): array;
+    public function createCollection(array $switchConfigs, ?BehaviorConfigInterface $behaviorConfig): array;
 }

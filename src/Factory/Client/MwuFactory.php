@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MwuSdk\Factory\Client;
 
 use MwuSdk\Client\Mwu;
+use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface;
 
 /**
@@ -19,9 +20,9 @@ final readonly class MwuFactory implements MwuFactoryInterface
     ) {
     }
 
-    public function create(MwuConfigInterface $config): Mwu
+    public function create(MwuConfigInterface $config, ?BehaviorConfigInterface $behaviorConfig): Mwu
     {
-        $switches = $this->switchFactory->createCollection($config->getSwitches());
+        $switches = $this->switchFactory->createCollection($config->getSwitches(), $behaviorConfig);
 
         return new Mwu($switches);
     }

@@ -6,6 +6,9 @@ namespace MwuSdk\Exception\Client\LightModule;
 
 use MwuSdk\Client\MwuLightModuleInterface;
 
+/**
+ * Exception thrown when a light module cannot be reached.
+ */
 final class UnreachableLightModuleException extends \RuntimeException implements LightModuleClientException
 {
     public const DETAILS_MISSING_ID = 'Light module id is missing';
