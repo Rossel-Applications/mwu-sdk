@@ -8,12 +8,8 @@ use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
 use MwuSdk\Entity\Command\BroadcastReadyCommandInterface;
 
 /**
- * Interface for the MWU Client.
- *
- * This interface serves as the main entry point for communication
- * with the MWU system, allowing for the management of switches and
- * light modules connected to them. It supports sending commands
- * to individual or multiple switches.
+ * MwuClientInterface defines methods for managing switches and sending commands.
+ * It supports operations like adding/removing switches, sending and broadcasting commands, and writing data to light modules.
  */
 interface MwuClientInterface
 {

@@ -8,6 +8,9 @@ use MwuSdk\Entity\Command\CommandInterface;
 use MwuSdk\Entity\Message;
 use Random\RandomException;
 
+/**
+ * Factory class for creating Message instances, encapsulating Command objects.
+ */
 final class MessageFactory implements MessageFactoryInterface
 {
     /**

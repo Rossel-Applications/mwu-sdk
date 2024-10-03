@@ -32,8 +32,12 @@ final readonly class WriteCommandModeArrayFactory implements WriteCommandModeArr
         ?LightMode $lightMode = null,
         ?ScreenDisplayMode $screenDisplayMode = null,
     ): WriteCommandModeArray {
+        $lightColor = $lightColor ?? $lightModule->getDisplayStatus()->getLightColor();
+        $lightMode = $lightMode ?? $lightModule->getDisplayStatus()->getLightMode();
+        $screenDisplayMode = $screenDisplayMode ?? $lightModule->getDisplayStatus()->getScreenDisplayMode();
+
         return new WriteCommandModeArray(
-            $this->buildM1Section($lightModule, $lightColor, $lightMode, $screenDisplayMode),
+            $this->buildM1Section($lightColor, $lightMode, $screenDisplayMode),
             $this->buildM2Section($lightModule, $lightColor, $lightMode, $screenDisplayMode),
             $this->buildM3Section($lightModule, $lightColor, $lightMode, $screenDisplayMode),
         );
@@ -42,23 +46,17 @@ final readonly class WriteCommandModeArrayFactory implements WriteCommandModeArr
     /**
      * Builds the M1 section of the command mode array.
      *
-     * @param MwuLightModuleInterface $lightModule       the light module to use for retrieving status
-     * @param LightColor|null         $lightColor        the light color to use; defaults to the module's current color if not provided
-     * @param LightMode|null          $lightMode         the light mode to use; defaults to the module's current mode if not provided
-     * @param ScreenDisplayMode|null  $screenDisplayMode the screen display mode to use; defaults to the module's current mode if not provided
+     * @param LightColor        $lightColor        the light color to use; defaults to the module's current color if not provided
+     * @param LightMode         $lightMode         the light mode to use; defaults to the module's current mode if not provided
+     * @param ScreenDisplayMode $screenDisplayMode the screen display mode to use; defaults to the module's current mode if not provided
      *
      * @return string the M1 section as a string
      */
     private function buildM1Section(
-        MwuLightModuleInterface $lightModule,
-        ?LightColor $lightColor = null,
-        ?LightMode $lightMode = null,
-        ?ScreenDisplayMode $screenDisplayMode = null,
+        LightColor $lightColor,
+        LightMode $lightMode,
+        ScreenDisplayMode $screenDisplayMode,
     ): string {
-        $lightColor = $lightColor ?? $lightModule->getDisplayStatus()->getLightColor();
-        $lightMode = $lightMode ?? $lightModule->getDisplayStatus()->getLightMode();
-        $screenDisplayMode = $screenDisplayMode ?? $lightModule->getDisplayStatus()->getScreenDisplayMode();
-
         // A binary string representing 20 bits
         $modeArrayBinValues = sprintf(
             '%s%012b%04b%04b',

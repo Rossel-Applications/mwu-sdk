@@ -8,9 +8,8 @@ use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
 use MwuSdk\Entity\Command\BroadcastReadyCommandInterface;
 
 /**
- * The MWU client class serves as the primary implementation for managing and interacting with
- * MWU light modules and switches. It allows for adding, removing, and sending commands to switches
- * either individually or in bulk.
+ * The Mwu class manages a collection of switches and allows sending commands to them.
+ * It supports broadcasting commands and writing data to switches and light modules.
  */
 final class Mwu implements MwuClientInterface
 {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MwuSdk\Factory\Client;
 
 use MwuSdk\Client\MwuSwitch;
-use MwuSdk\Client\TcpIpClient;
+use MwuSdk\Client\TcpIpClientInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
 use MwuSdk\Factory\Entity\MessageFactory;
@@ -21,7 +21,9 @@ use MwuSdk\Validator\Command\TargetedSwitchCommandValidatorInterface;
 final readonly class MwuSwitchFactory implements MwuSwitchFactoryInterface
 {
     public function __construct(
+        private TcpIpClientInterface $tcpIpClient,
         private MwuLightModuleFactory $lightModuleFactory,
+        private MessageFactory $messageFactory,
         private TargetedSwitchCommandValidatorInterface $targetedSwitchCommandValidator,
         private TargetedLightModuleCommandValidatorInterface $targetLightModuleValidator,
     ) {
@@ -32,8 +34,8 @@ final readonly class MwuSwitchFactory implements MwuSwitchFactoryInterface
         return new MwuSwitch(
             $config,
             $behaviorConfig,
-            new TcpIpClient(),
-            new MessageFactory(),
+            $this->tcpIpClient,
+            $this->messageFactory,
             $this->lightModuleFactory,
             $this->targetedSwitchCommandValidator,
             $this->targetLightModuleValidator,
@@ -41,15 +43,18 @@ final readonly class MwuSwitchFactory implements MwuSwitchFactoryInterface
     }
 
     /**
-     * @param array<array-key, SwitchConfigInterface> $configs
+     * @param array<array-key, SwitchConfigInterface> $switchConfigs
      *
      * @return array<array-key, MwuSwitch>
      */
-    public function createCollection(array $configs): array
+    public function createCollection(array $switchConfigs, ?BehaviorConfigInterface $behaviorConfig): array
     {
-        return array_map(
-            [$this, 'create'],
-            $configs,
-        );
+        $results = [];
+
+        foreach ($switchConfigs as $switchConfig) {
+            $results[] = $this->create($switchConfig, $behaviorConfig);
+        }
+
+        return $results;
     }
 }

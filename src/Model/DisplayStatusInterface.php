@@ -18,16 +18,16 @@ interface DisplayStatusInterface
      *
      * @return string the text to be displayed
      */
-    public function getText(): string;
+    public function getDefaultText(): string;
 
     /**
      * Sets the display text.
      *
-     * @param string $text the text to be displayed
+     * @param string $defaultText the text to be displayed
      *
      * @return self returns the instance for method chaining
      */
-    public function setText(string $text): self;
+    public function setDefaultText(string $defaultText): self;
 
     /**
      * Gets the light color.

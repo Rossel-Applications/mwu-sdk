@@ -20,8 +20,10 @@ use MwuSdk\Model\QuantityKeysInterface;
  * This class is responsible for managing interactions with individual MWU light modules.
  * It provides methods to send specific commands to a light module.
  */
-class MwuLightModule implements MwuLightModuleInterface
+final class MwuLightModule implements MwuLightModuleInterface
 {
+    private const DEFAULT_TEXT_MAX_LENGTH = 4;
+
     private ?MwuSwitchInterface $switch;
     private ?int $id = null;
     private DisplayStatusInterface $displayStatus;
@@ -30,6 +32,7 @@ class MwuLightModule implements MwuLightModuleInterface
     private ConfirmButtonInterface $confirmButton;
     private FnButtonInterface $fnButton;
     private QuantityKeysInterface $quantityKeys;
+    private int $textMaxLength = self::DEFAULT_TEXT_MAX_LENGTH;
 
     public function __construct(
         MwuSwitchInterface $switch,
@@ -108,6 +111,24 @@ class MwuLightModule implements MwuLightModuleInterface
     public function getQuantityKeys(): QuantityKeysInterface
     {
         return $this->quantityKeys;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTextMaxLength(): int
+    {
+        return $this->textMaxLength;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setTextMaxLength(int $textMaxLength): self
+    {
+        $this->textMaxLength = $textMaxLength;
+
+        return $this;
     }
 
     /**

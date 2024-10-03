@@ -10,6 +10,7 @@ use MwuSdk\Entity\Command\Write\WriteCommandInterface;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
+use MwuSdk\Exception\Builder\LightModuleTextMaxLengthExceededException;
 use MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
 use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactoryInterface;
 
@@ -113,9 +114,14 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
      */
     public function buildCommand(MwuLightModuleInterface $lightModule, ?string $text = null): WriteCommand
     {
-        // todo: set defaults from lightModule
-
         $lightModule->checkIfReachable(true);
+
+        $text = $text ?? $lightModule->getDisplayStatus()->getDefaultText();
+        $textMaxLength = $lightModule->getTextMaxLength();
+
+        if (\strlen($text) > $textMaxLength) {
+            throw new LightModuleTextMaxLengthExceededException($lightModule, $text);
+        }
 
         $template = $this->getCommandTemplate($lightModule);
 

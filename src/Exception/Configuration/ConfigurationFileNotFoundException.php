@@ -7,7 +7,7 @@ namespace MwuSdk\Exception\Configuration;
 /**
  * Error thrown when a specified configuration file cannot be found.
  */
-class ConfigurationFileNotFoundException extends \RuntimeException implements ConfigurationExceptionInterface
+final class ConfigurationFileNotFoundException extends \RuntimeException implements ConfigurationExceptionInterface
 {
     public function __construct(string $path, ?\Throwable $previous = null)
     {

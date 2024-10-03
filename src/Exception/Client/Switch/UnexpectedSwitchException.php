@@ -6,6 +6,9 @@ namespace MwuSdk\Exception\Client\Switch;
 
 use MwuSdk\Client\MwuSwitchInterface;
 
+/**
+ * Exception thrown when the provided switch does not match the expected switch.
+ */
 final class UnexpectedSwitchException extends \RuntimeException implements SwitchClientExceptionInterface
 {
     public function __construct(

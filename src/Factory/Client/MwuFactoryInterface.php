@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MwuSdk\Factory\Client;
 
 use MwuSdk\Client\MwuClientInterface;
+use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface;
 
 /**
@@ -14,5 +15,5 @@ use MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface;
  */
 interface MwuFactoryInterface
 {
-    public function create(MwuConfigInterface $config): MwuClientInterface;
+    public function create(MwuConfigInterface $config, ?BehaviorConfigInterface $behaviorConfig): MwuClientInterface;
 }

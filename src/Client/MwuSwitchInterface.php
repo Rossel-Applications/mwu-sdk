@@ -124,7 +124,7 @@ interface MwuSwitchInterface
     public function write(
         array $lightModules,
         WriteCommandBuilderInterface $commandBuilder,
-        string $text = '',
+        ?string $text = null,
         array &$errors = [],
     ): array;
 
@@ -139,7 +139,7 @@ interface MwuSwitchInterface
      */
     public function broadcastWrite(
         WriteCommandBuilderInterface $commandBuilder,
-        string $text = '',
+        ?string $text = null,
         array &$errors = [],
     ): array;
 }
