@@ -6,6 +6,7 @@ namespace MwuSdk\Client;
 
 use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
 use MwuSdk\Entity\Command\BroadcastReadyCommandInterface;
+use MwuSdk\Exception\Client\Mwu\SwitchNotFoundException;
 
 /**
  * The Mwu class manages a collection of switches and allows sending commands to them.
@@ -14,20 +15,18 @@ use MwuSdk\Entity\Command\BroadcastReadyCommandInterface;
 final class Mwu implements MwuClientInterface
 {
     /**
-     * @var array<string, MwuSwitchInterface> Associative array where the keys are switch identifiers (e.g., IP addresses or unique IDs)
-     *                                        and the values are instances of MwuSwitchInterface.
+     * @var list<MwuSwitchInterface> list of switches
      */
     private array $switches;
 
     /**
      * Initializes the MWU client with a set of switches.
      *
-     * @param array<string, MwuSwitchInterface> $switches an array of switches to be managed by the client, where the keys are switch identifiers
-     *                                                    and the values are MwuSwitchInterface objects
+     * @param array<array-key, MwuSwitchInterface> $switches an array of switches to be managed by the client, where the values are MwuSwitchInterface objects
      */
     public function __construct(array $switches)
     {
-        $this->switches = $switches;
+        $this->switches = array_values($switches);
     }
 
     /**
@@ -41,9 +40,33 @@ final class Mwu implements MwuClientInterface
     /**
      * {@inheritDoc}
      */
+    public function getSwitchById(int $id): MwuSwitchInterface
+    {
+        return $this->getSwitches()[$id] ?? throw new SwitchNotFoundException($id);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return array<int, MwuSwitchInterface>
+     */
+    public function getSwitchesByIds(array $ids): array
+    {
+        $switches = [];
+
+        foreach ($ids as $id) {
+            $switches[$id] = $this->getSwitchById($id);
+        }
+
+        return $switches;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function addSwitch(MwuSwitchInterface $switch): self
     {
-        $this->switches[$switch->getUniqueIdentifier()] = $switch;
+        $this->switches[] = $switch;
 
         return $this;
     }
@@ -53,7 +76,7 @@ final class Mwu implements MwuClientInterface
      */
     public function removeSwitch(MwuSwitchInterface $switch): self
     {
-        unset($this->switches[$switch->getUniqueIdentifier()]);
+        unset($this->switches[array_search($switch, $this->switches, true)]);
 
         return $this;
     }

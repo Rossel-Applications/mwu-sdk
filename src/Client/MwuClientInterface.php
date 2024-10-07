@@ -16,10 +16,23 @@ interface MwuClientInterface
     /**
      * Gets the list of switches managed by the client.
      *
-     * @return array<array-key, MwuSwitchInterface> An associative array where the keys are switch identifiers (e.g., IP addresses or IDs)
-     *                                              and the values are instances of MwuSwitchInterface representing the connected switches.
+     * @return list<MwuSwitchInterface> list of the connected switches
      */
     public function getSwitches(): array;
+
+    /**
+     * Returns the switch corresponding to the specified ID.
+     */
+    public function getSwitchById(int $id): MwuSwitchInterface;
+
+    /**
+     * Returns switches corresponding to the specified IDs.
+     *
+     * @param list<int> $ids
+     *
+     * @return array<int, MwuSwitchInterface>
+     */
+    public function getSwitchesByIds(array $ids): array;
 
     /**
      * Adds a switch to the client.
@@ -42,9 +55,8 @@ interface MwuClientInterface
     /**
      * Sends the specified command to the provided switches.
      *
-     * @param BroadcastReadyCommandInterface    $command  the command to send to each switch
-     * @param array<string, MwuSwitchInterface> $switches an associative array of switches where the key is the switch identifier
-     *                                                    and the value is the instance of MwuSwitchInterface
+     * @param BroadcastReadyCommandInterface $command  the command to send to each switch
+     * @param list<MwuSwitchInterface>       $switches list of switches
      *
      * @return array<array-key, string|null> responses from switches
      */
