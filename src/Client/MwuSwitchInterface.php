@@ -50,6 +50,20 @@ interface MwuSwitchInterface
     public function getLightModules(): array;
 
     /**
+     * Returns the light module corresponding to the specified ID.
+     */
+    public function getLightModuleById(int $id): ?MwuLightModuleInterface;
+
+    /**
+     * Returns an array containing the light modules corresponding to the specified IDs.
+     *
+     * @param list<int> $ids
+     *
+     * @return array<int, MwuLightModuleInterface>
+     */
+    public function getLightModulesByIds(array $ids): array;
+
+    /**
      * Connects a light module to the switch.
      */
     public function connectLightModule(MwuLightModuleInterface $lightModule): self;

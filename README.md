@@ -107,15 +107,49 @@ classDiagram
 * **MWU Light Module:** Set consisting of a screen with buttons, one of which is equipped with an LED. Each light module has a unique ID when connected to a switch.
 
 ### Sending a Command
-Currently, sending commands is done at the level of the `MwuSdk\Client\MwuSwitch` objects, using the `send(CommandInterface $command)` command.
+
+#### Write command
+
+##### Write text on an individual light module
+```php
+use MwuSdk\Builder\Command\Write\WriteCommandBuilder;
+use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
+use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
+
+// $lightModule = ... // Instance of MwuLightModuleInterface, that you can get for example from MwuSwitchInterface::getLightModules() or MwuSwitchInterface::getLightModule(int $id) methods.
+
+$commandBuilder = new WriteCommandBuilder(new WriteCommandModeArrayFactory());
+$commandBuilder
+    ->withLightColor(LightColor::GREEN); // Configure as desired
+
+$lightModule->write($commandBuilder, '0001');
+```
+
+##### Write text on multiple light modules, from a specific switch
+```php
+use MwuSdk\Builder\Command\Write\WriteCommandBuilder;
+use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
+use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
+
+// $switch = ... // Instance of MwuSwitchInterface, that you can get from Mwu::getSwitches().
+
+$commandBuilder = new WriteCommandBuilder(new WriteCommandModeArrayFactory());
+$commandBuilder
+    ->withLightColor(LightColor::GREEN); // Configure as desired
+
+// Write on all light modules connected to a specific switch
+$switch->broadcastWrite($commandBuilder, '0001');
+
+// Write on multiple light modules
+$switch->write($switch->getLightModulesById([1, 2, 3]), $commandBuilder, '0001');
+```
+
+##### Write text on multiple light modules, from multiple switches
 ```php
 use MwuSdk\Builder\Command\Write\WriteCommandBuilder;
 use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
 
-// $switch = ... // Instance of MwuSwitchInterface
-// $lightModule = ... // Instance of MwuLightModuleInterface
-//
-// $factory = new WriteCommandModeArrayFactory(); // Or use Symfony dependency injection
+// $mwu = ... // Instance of MwuClientInterface
 
 $writeCommandBuilder = new WriteCommandBuilder($factory);
 
@@ -124,12 +158,16 @@ $writeCommandBuilder
   ->withLightColor(LightColor::RED)
   ->withLightMode(LightMode::FLASH);
 
-// Build the command for a specific light module and text to display  
-$writeCommandBuilder->buildCommand($lightModule, 'FOO');
+// Write on light modules of specified switches
+$mwu->write(
+    [
+        $mwu->getSwitchById(0),
+        $mwu->getSwitchById(1),
+    ],
+    $commandBuilder,
+    '0001'
+);
 
-// Encapsulate the command within a Message, which will be sent to the switch
-$message = new Message($command);
-
-// Send the message to the switch
-$switch->send($message);
+// Write on light modules of all connected switches
+$mwu->broadcastWrite($commandBuilder, $commandBuilder, '0001');
 ```

@@ -10,6 +10,7 @@ use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
 use MwuSdk\Entity\Command\CommandInterface;
 use MwuSdk\Entity\Command\TargetedLightModuleCommandInterface;
 use MwuSdk\Entity\Command\TargetedSwitchCommandInterface;
+use MwuSdk\Exception\Client\Switch\LightModuleNotFoundException;
 use MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
 use MwuSdk\Exception\Configuration\CannotAssignIdOnSwitchException;
 use MwuSdk\Factory\Client\MwuLightModuleFactoryInterface;
@@ -101,6 +102,40 @@ final class MwuSwitch implements MwuSwitchInterface
     public function getLightModules(): array
     {
         return $this->lightModules;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLightModuleById(int $id): ?MwuLightModuleInterface
+    {
+        return $this->lightModules[$id] ?? null;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws LightModuleNotFoundException
+     *
+     * @return array<int, MwuLightModuleInterface>
+     */
+    public function getLightModulesByIds(array $ids): array
+    {
+        $lightModules = [];
+
+        foreach ($ids as $id) {
+            $lightModule = $this->getLightModuleById($id);
+
+            if (null !== $lightModule) {
+                $lightModules[$id] = $lightModule;
+
+                continue;
+            }
+
+            throw new LightModuleNotFoundException($id);
+        }
+
+        return $lightModules;
     }
 
     /**
