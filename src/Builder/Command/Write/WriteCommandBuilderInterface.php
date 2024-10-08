@@ -40,9 +40,51 @@ interface WriteCommandBuilderInterface extends TargetedLightModuleCommandBuilder
     /**
      * Specify the screen display mode.
      *
-     * @param ?ScreenDisplayMode $screenDisplayMode the screen display mode, or null to use the default mode
+     * @param ?ScreenDisplayMode $mode the screen display mode, or null to use the default mode
      */
-    public function withScreenDisplayMode(?ScreenDisplayMode $screenDisplayMode): self;
+    public function withScreenDisplayMode(?ScreenDisplayMode $mode): self;
+
+    /**
+     * Specify the light color for the "confirm" button after pressing it.
+     *
+     * @param ?LightColor $color the light color for the "confirm" button, or null to use the default configured value
+     */
+    public function withLightColorAfterConfirm(?LightColor $color): self;
+
+    /**
+     * Specify the light mode for the "confirm" button after pressing it.
+     *
+     * @param ?LightMode $mode the light mode for the "confirm" button, or null to use the default mode
+     */
+    public function withLightModeAfterConfirm(?LightMode $mode): self;
+
+    /**
+     * Specify the screen display mode after pressing the "confirm" button.
+     *
+     * @param ?ScreenDisplayMode $mode the screen display mode, or null to use the default mode
+     */
+    public function withScreenDisplayModeAfterConfirm(?ScreenDisplayMode $mode): self;
+
+    /**
+     * Specify the light color for the "confirm" button after pressing the "fn" key.
+     *
+     * @param ?LightColor $color the light color for the "confirm" button, or null to use the default configured value
+     */
+    public function withLightColorAfterFn(?LightColor $color): self;
+
+    /**
+     * Specify the light mode for the "confirm" button after pressing the "fn" key.
+     *
+     * @param ?LightMode $mode the light mode for the "confirm" button, or null to use the default mode
+     */
+    public function withLightModeAfterFn(?LightMode $mode): self;
+
+    /**
+     * Specify the screen display mode after pressing the "fn" key.
+     *
+     * @param ?ScreenDisplayMode $mode the screen display mode, or null to use the default mode
+     */
+    public function withScreenDisplayModeAfterFn(?ScreenDisplayMode $mode): self;
 
     /**
      * Get the data to be displayed after pressing the Fn key.
@@ -71,6 +113,48 @@ interface WriteCommandBuilderInterface extends TargetedLightModuleCommandBuilder
      * @return ?ScreenDisplayMode the screen display mode, or null if not specified
      */
     public function getScreenDisplayMode(): ?ScreenDisplayMode;
+
+    /**
+     * Get the light color for the "confirm" button after pressing it.
+     *
+     * @return ?LightColor the light color, or null if not specified
+     */
+    public function getLightColorAfterConfirm(): ?LightColor;
+
+    /**
+     * Get the light mode for the "confirm" button after pressing it.
+     *
+     * @return ?LightMode the light mode, or null if not specified
+     */
+    public function getLightModeAfterConfirm(): ?LightMode;
+
+    /**
+     * Get the screen display mode after pressing the "confirm" button.
+     *
+     * @@return ?ScreenDisplayMode the screen display mode, or null if not specified
+     */
+    public function getScreenDisplayModeAfterConfirm(): ?ScreenDisplayMode;
+
+    /**
+     * Get the light color for the "confirm" button after pressing the "fn" key.
+     *
+     * @return ?LightColor the light color, or null if not specified
+     */
+    public function getLightColorAfterFn(): ?LightColor;
+
+    /**
+     * Get the light mode for the "confirm" button after pressing the "fn" key.
+     *
+     * @return ?LightMode the light mode, or null if not specified
+     */
+    public function getLightModeAfterFn(): ?LightMode;
+
+    /**
+     * Get the screen display mode after pressing the "fn" key.
+     *
+     * @@return ?ScreenDisplayMode the screen display mode, or null if not specified
+     */
+    public function getScreenDisplayModeAfterFn(): ?ScreenDisplayMode;
 
     /**
      * Generate the write command for the specified light module.
