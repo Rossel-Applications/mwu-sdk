@@ -17,12 +17,24 @@ use MwuSdk\Utils\EncodingConverter;
 final readonly class WriteCommandModeArrayFactory implements WriteCommandModeArrayFactoryInterface
 {
     private const M1_STATIC_PREFIX = 'm1';
-    private const M1_VALUES_STATIC_PREFIX = '0011';
-
+    private const M2_STATIC_PREFIX = 'm2';
+    private const M3_STATIC_PREFIX = 'm3';
+    private const VALUES_STATIC_PREFIX = '0011';
     private const BUZZER_MODE_OFF = 0b0001;
 
     /**
-     * {@inheritDoc}
+     * Creates a WriteCommandModeArray based on the light module and optional display settings.
+     *
+     * @param MwuLightModuleInterface $lightModule                   the light module to retrieve display statuses from
+     * @param LightColor|null         $lightColor                    the light color for M1 (optional)
+     * @param LightMode|null          $lightMode                     the light mode for M1 (optional)
+     * @param ScreenDisplayMode|null  $screenDisplayMode             the screen display mode for M1 (optional)
+     * @param LightColor|null         $lightColorAfterConfirm        the light color for M2 after confirmation (optional)
+     * @param LightMode|null          $lightModeAfterConfirm         the light mode for M2 after confirmation (optional)
+     * @param ScreenDisplayMode|null  $screenDisplayModeAfterConfirm the screen display mode for M2 after confirmation (optional)
+     * @param LightColor|null         $lightColorAfterFn             the light color for M3 after function key (optional)
+     * @param LightMode|null          $lightModeAfterFn              the light mode for M3 after function key (optional)
+     * @param ScreenDisplayMode|null  $screenDisplayModeAfterFn      the screen display mode for M3 after function key (optional)
      *
      * @return WriteCommandModeArray the constructed command mode array
      */
@@ -31,81 +43,112 @@ final readonly class WriteCommandModeArrayFactory implements WriteCommandModeArr
         ?LightColor $lightColor = null,
         ?LightMode $lightMode = null,
         ?ScreenDisplayMode $screenDisplayMode = null,
+        ?LightColor $lightColorAfterConfirm = null,
+        ?LightMode $lightModeAfterConfirm = null,
+        ?ScreenDisplayMode $screenDisplayModeAfterConfirm = null,
+        ?LightColor $lightColorAfterFn = null,
+        ?LightMode $lightModeAfterFn = null,
+        ?ScreenDisplayMode $screenDisplayModeAfterFn = null,
     ): WriteCommandModeArray {
-        $lightColor = $lightColor ?? $lightModule->getDisplayStatus()->getLightColor();
-        $lightMode = $lightMode ?? $lightModule->getDisplayStatus()->getLightMode();
-        $screenDisplayMode = $screenDisplayMode ?? $lightModule->getDisplayStatus()->getScreenDisplayMode();
-
         return new WriteCommandModeArray(
-            $this->buildM1Section($lightColor, $lightMode, $screenDisplayMode),
-            $this->buildM2Section($lightModule, $lightColor, $lightMode, $screenDisplayMode),
-            $this->buildM3Section($lightModule, $lightColor, $lightMode, $screenDisplayMode),
+            self::M1_STATIC_PREFIX.$this->createM1Value($lightModule, $lightColor, $lightMode, $screenDisplayMode),
+            self::M2_STATIC_PREFIX.$this->createM2Value($lightModule, $lightColorAfterConfirm, $lightModeAfterConfirm, $screenDisplayModeAfterConfirm),
+            self::M3_STATIC_PREFIX.$this->createM3Value($lightModule, $lightColorAfterFn, $lightModeAfterFn, $screenDisplayModeAfterFn)
         );
     }
 
     /**
-     * Builds the M1 section of the command mode array.
+     * Builds the M1 value based on the light module's display status or provided parameters.
      *
-     * @param LightColor        $lightColor        the light color to use; defaults to the module's current color if not provided
-     * @param LightMode         $lightMode         the light mode to use; defaults to the module's current mode if not provided
-     * @param ScreenDisplayMode $screenDisplayMode the screen display mode to use; defaults to the module's current mode if not provided
+     * @param MwuLightModuleInterface $lightModule       the light module to retrieve display statuses from
+     * @param LightColor|null         $lightColor        the light color for M1 (optional)
+     * @param LightMode|null          $lightMode         the light mode for M1 (optional)
+     * @param ScreenDisplayMode|null  $screenDisplayMode the screen display mode for M1 (optional)
      *
-     * @return string the M1 section as a string
+     * @return string the constructed M1 value
      */
-    private function buildM1Section(
+    private function createM1Value(
+        MwuLightModuleInterface $lightModule,
+        ?LightColor $lightColor,
+        ?LightMode $lightMode,
+        ?ScreenDisplayMode $screenDisplayMode
+    ): string {
+        return $this->buildModeArrayValue(
+            $lightColor ?? $lightModule->getDisplayStatus()->getLightColor(),
+            $lightMode ?? $lightModule->getDisplayStatus()->getLightMode(),
+            $screenDisplayMode ?? $lightModule->getDisplayStatus()->getScreenDisplayMode()
+        );
+    }
+
+    /**
+     * Builds the M2 value based on the light module's display status after confirmation or provided parameters.
+     *
+     * @param MwuLightModuleInterface $lightModule                   the light module to retrieve display statuses from
+     * @param LightColor|null         $lightColorAfterConfirm        the light color for M2 after confirmation (optional)
+     * @param LightMode|null          $lightModeAfterConfirm         the light mode for M2 after confirmation (optional)
+     * @param ScreenDisplayMode|null  $screenDisplayModeAfterConfirm the screen display mode for M2 after confirmation (optional)
+     *
+     * @return string the constructed M2 value
+     */
+    private function createM2Value(
+        MwuLightModuleInterface $lightModule,
+        ?LightColor $lightColorAfterConfirm,
+        ?LightMode $lightModeAfterConfirm,
+        ?ScreenDisplayMode $screenDisplayModeAfterConfirm
+    ): string {
+        return $this->buildModeArrayValue(
+            $lightColorAfterConfirm ?? $lightModule->getDisplayStatusAfterConfirm()->getLightColor(),
+            $lightModeAfterConfirm ?? $lightModule->getDisplayStatusAfterConfirm()->getLightMode(),
+            $screenDisplayModeAfterConfirm ?? $lightModule->getDisplayStatusAfterConfirm()->getScreenDisplayMode()
+        );
+    }
+
+    /**
+     * Builds the M3 value based on the light module's display status after function key or provided parameters.
+     *
+     * @param MwuLightModuleInterface $lightModule              the light module to retrieve display statuses from
+     * @param LightColor|null         $lightColorAfterFn        the light color for M3 after function key (optional)
+     * @param LightMode|null          $lightModeAfterFn         the light mode for M3 after function key (optional)
+     * @param ScreenDisplayMode|null  $screenDisplayModeAfterFn the screen display mode for M3 after function key (optional)
+     *
+     * @return string the constructed M3 value
+     */
+    private function createM3Value(
+        MwuLightModuleInterface $lightModule,
+        ?LightColor $lightColorAfterFn,
+        ?LightMode $lightModeAfterFn,
+        ?ScreenDisplayMode $screenDisplayModeAfterFn
+    ): string {
+        return $this->buildModeArrayValue(
+            $lightColorAfterFn ?? $lightModule->getDisplayStatusAfterFn()->getLightColor(),
+            $lightModeAfterFn ?? $lightModule->getDisplayStatusAfterFn()->getLightMode(),
+            $screenDisplayModeAfterFn ?? $lightModule->getDisplayStatusAfterFn()->getScreenDisplayMode()
+        );
+    }
+
+    /**
+     * Builds a value for the command mode array based on light color, light mode, and screen display mode.
+     *
+     * @param LightColor        $lightColor        the light color to use
+     * @param LightMode         $lightMode         the light mode to use
+     * @param ScreenDisplayMode $screenDisplayMode the screen display mode to use
+     *
+     * @return string the binary string representing the command mode array value
+     */
+    private function buildModeArrayValue(
         LightColor $lightColor,
         LightMode $lightMode,
-        ScreenDisplayMode $screenDisplayMode,
+        ScreenDisplayMode $screenDisplayMode
     ): string {
         // A binary string representing 20 bits
         $modeArrayBinValues = sprintf(
             '%s%012b%04b%04b',
-            self::M1_VALUES_STATIC_PREFIX,
+            self::VALUES_STATIC_PREFIX,
             $lightColor->getBinaryValueWithMode($lightMode),
             $screenDisplayMode->getBinaryValue(),
-            self::BUZZER_MODE_OFF,
+            self::BUZZER_MODE_OFF
         );
 
-        $modeArrayAsciiValues = EncodingConverter::binaryToAscii($modeArrayBinValues);
-
-        return self::M1_STATIC_PREFIX.$modeArrayAsciiValues;
-    }
-
-    /**
-     * Builds the M2 section of the command mode array.
-     *
-     * @param MwuLightModuleInterface $lightModule       the light module to use for retrieving status
-     * @param LightColor|null         $lightColor        the light color to use; defaults to the module's current color if not provided
-     * @param LightMode|null          $lightMode         the light mode to use; defaults to the module's current mode if not provided
-     * @param ScreenDisplayMode|null  $screenDisplayMode the screen display mode to use; defaults to the module's current mode if not provided
-     *
-     * @return string the M2 section as a string (currently returns an empty string)
-     */
-    private function buildM2Section(
-        MwuLightModuleInterface $lightModule,
-        ?LightColor $lightColor = null,
-        ?LightMode $lightMode = null,
-        ?ScreenDisplayMode $screenDisplayMode = null,
-    ): string {
-        return '';
-    }
-
-    /**
-     * Builds the M3 section of the command mode array.
-     *
-     * @param MwuLightModuleInterface $lightModule       the light module to use for retrieving status
-     * @param LightColor|null         $lightColor        the light color to use; defaults to the module's current color if not provided
-     * @param LightMode|null          $lightMode         the light mode to use; defaults to the module's current mode if not provided
-     * @param ScreenDisplayMode|null  $screenDisplayMode the screen display mode to use; defaults to the module's current mode if not provided
-     *
-     * @return string the M3 section as a string (currently returns an empty string)
-     */
-    private function buildM3Section(
-        MwuLightModuleInterface $lightModule,
-        ?LightColor $lightColor = null,
-        ?LightMode $lightMode = null,
-        ?ScreenDisplayMode $screenDisplayMode = null,
-    ): string {
-        return '';
+        return EncodingConverter::binaryToAscii($modeArrayBinValues);
     }
 }

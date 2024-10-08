@@ -26,9 +26,18 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
     ];
 
     private ?string $fnData = null;
+
     private ?LightColor $lightColor = null;
     private ?LightMode $lightMode = null;
     private ?ScreenDisplayMode $screenDisplayMode = null;
+
+    private ?LightColor $lightColorAfterConfirm = null;
+    private ?LightMode $lightModeAfterConfirm = null;
+    private ?ScreenDisplayMode $screenDisplayModeAfterConfirm = null;
+
+    private ?LightColor $lightColorAfterFn = null;
+    private ?LightMode $lightModeAfterFn = null;
+    private ?ScreenDisplayMode $screenDisplayModeAfterFn = null;
 
     public function __construct(
         private readonly WriteCommandModeArrayFactoryInterface $modeArrayFactory,
@@ -68,9 +77,69 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
     /**
      * {@inheritDoc}
      */
-    public function withScreenDisplayMode(?ScreenDisplayMode $screenDisplayMode): self
+    public function withScreenDisplayMode(?ScreenDisplayMode $mode): self
     {
-        $this->screenDisplayMode = $screenDisplayMode;
+        $this->screenDisplayMode = $mode;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function withLightColorAfterConfirm(?LightColor $color): self
+    {
+        $this->lightColorAfterConfirm = $color;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function withLightModeAfterConfirm(?LightMode $mode): self
+    {
+        $this->lightModeAfterConfirm = $mode;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function withScreenDisplayModeAfterConfirm(?ScreenDisplayMode $mode): self
+    {
+        $this->screenDisplayModeAfterConfirm = $mode;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function withLightColorAfterFn(?LightColor $color): self
+    {
+        $this->lightColorAfterFn = $color;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function withLightModeAfterFn(?LightMode $mode): self
+    {
+        $this->lightModeAfterFn = $mode;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function withScreenDisplayModeAfterFn(?ScreenDisplayMode $mode): self
+    {
+        $this->screenDisplayModeAfterFn = $mode;
 
         return $this;
     }
@@ -105,6 +174,54 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
     public function getScreenDisplayMode(): ?ScreenDisplayMode
     {
         return $this->screenDisplayMode;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLightColorAfterConfirm(): ?LightColor
+    {
+        return $this->lightColorAfterConfirm;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLightModeAfterConfirm(): ?LightMode
+    {
+        return $this->lightModeAfterConfirm;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getScreenDisplayModeAfterConfirm(): ?ScreenDisplayMode
+    {
+        return $this->screenDisplayModeAfterConfirm;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLightColorAfterFn(): ?LightColor
+    {
+        return $this->lightColorAfterFn;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLightModeAfterFn(): ?LightMode
+    {
+        return $this->lightModeAfterFn;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getScreenDisplayModeAfterFn(): ?ScreenDisplayMode
+    {
+        return $this->screenDisplayModeAfterFn;
     }
 
     /**
@@ -193,7 +310,7 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
         );
 
         return sprintf(
-            '%s%s%s%s%04s%% 5s%s',
+            '%s%s%s%s%04s%% 5s% 5s',
             $staticPrefix,
             self::MWU_COMMAND_OPTION_FN_VALUE_SPECIFIED[$fnDataSpecified],
             $blockNumber,
