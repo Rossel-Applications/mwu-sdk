@@ -3,12 +3,6 @@ mwu_default_config:
     - ip_address: "144.56.46.30"
       port: 5003
       light_modules_generator:
-        first_module_number: 1
-        increment_between_module_numbers: 1
-        number_of_modules: 4
-    - ip_address: "144.56.46.31"
-      port: 5003
-      light_modules_generator:
         first_module_id: 1
         increment_between_module_ids: 1
         number_of_modules: 4
@@ -19,27 +13,27 @@ mwu_default_config:
         color: yellow
       screen:
         mode: on
-        text: 0000
+        text: "0000"
     display_status_after_confirm:
       light:
         mode: on
         color: green
       screen:
         mode: on
-        text: 0000
+        text: "0000"
     display_status_after_fn:
       light:
         mode: fast_flash
         color: red
       screen:
         mode: on
-        text: 9999
+        text: "9999"
     buttons:
       confirm:
         enabled: true
       fn:
         enabled: true
-        text: ----
-        used_as_decrement: false
+        text: "----"
+        use_as_decrement: false
       quantity_keys:
         mode: off

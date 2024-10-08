@@ -1,0 +1,26 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  # Factories
+  MwuSdk\:
+    resource: '../../'
+    exclude:
+      - '../../DependencyInjection/'
+      - '../../Resources/'
+      - '../../Entity/'
+      - '../../Model'
+      - '../../Enum'
+      - '../../Builder'
+      - '../../Dto'
+      - '../../Exception'
+      - '../../MwuSdkBundle.php'
+
+  MwuSdk\Client\:
+    resource: '../../Client/'
+    exclude:
+      - '../../Client/MwuLightModule.php'
+      - '../../Client/MwuSwitch.php'
+      - '../../Client/TcpIpClient.php'

@@ -5,28 +5,49 @@ declare(strict_types=1);
 namespace MwuSdk\Client;
 
 use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
+use MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface;
 use MwuSdk\Entity\Command\BroadcastReadyCommandInterface;
 use MwuSdk\Exception\Client\Mwu\SwitchNotFoundException;
+use MwuSdk\Factory\Client\MwuSwitchFactoryInterface;
+use MwuSdk\Serializer\DefaultConfiguration\Formats\YamlConfigurationDeserializerInterface;
 
 /**
- * The Mwu class manages a collection of switches and allows sending commands to them.
- * It supports broadcasting commands and writing data to switches and light modules.
+ * Abstract class for managing a collection of switches and sending commands.
+ * Supports broadcasting commands and writing data to switches and light modules.
+ * This class is intended to be extended and serves as the main entry point for interacting with the MWU system.
  */
-final class Mwu implements MwuClientInterface
+class MwuService implements YamlConfigurableMwuServiceInterface
 {
     /**
-     * @var list<MwuSwitchInterface> list of switches
+     * @var list<MwuSwitchInterface> list of switches managed by the client
      */
-    private array $switches;
+    private array $switches = [];
+
+    public function __construct(
+        private readonly MwuSwitchFactoryInterface $switchFactory,
+        private readonly YamlConfigurationDeserializerInterface $yamlConfigurationDeserializer,
+    ) {
+        $this->loadYamlConfigurationFile(__DIR__.'/../../../../../config/mwu_sdk.yaml');
+    }
 
     /**
-     * Initializes the MWU client with a set of switches.
-     *
-     * @param array<array-key, MwuSwitchInterface> $switches an array of switches to be managed by the client, where the values are MwuSwitchInterface objects
+     * {@inheritDoc}
      */
-    public function __construct(array $switches)
+    public function loadConfiguration(MwuConfigInterface $config): self
     {
-        $this->switches = array_values($switches);
+        $this->switches = $this->switchFactory->createCollection($config->getSwitches(), $config->getBehavior());
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function loadYamlConfigurationFile(string $path): self
+    {
+        $config = $this->yamlConfigurationDeserializer->parseConfigurationFile($path);
+
+        return $this->loadConfiguration($config);
     }
 
     /**
@@ -74,9 +95,33 @@ final class Mwu implements MwuClientInterface
     /**
      * {@inheritDoc}
      */
+    public function addSwitches(array $switches): self
+    {
+        foreach ($switches as $switch) {
+            $this->addSwitch($switch);
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function removeSwitch(MwuSwitchInterface $switch): self
     {
         unset($this->switches[array_search($switch, $this->switches, true)]);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeSwitches(array $switches): self
+    {
+        foreach ($switches as $switch) {
+            $this->removeSwitch($switch);
+        }
 
         return $this;
     }

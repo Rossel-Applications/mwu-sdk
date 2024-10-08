@@ -8,12 +8,12 @@ use MwuSdk\Entity\Command\CommandInterface;
 use Random\RandomException;
 
 /**
- * Encapsulates a Command into a Message to be transmitted to the MWU Light Module.
+ * Encapsulates a Command into a Message to be transmitted to the MWU switch.
  *
  * This class wraps a Command object and appends metadata like sequence number,
  * start of text (STX), and end of text (ETX) to create a complete message for transmission.
  */
-final readonly class Message implements MessageInterface
+final readonly class ClientMessage implements ClientMessageInterface
 {
     /**
      * Start of text marker (STX).
@@ -43,9 +43,9 @@ final readonly class Message implements MessageInterface
      *
      * @throws RandomException if the sequence number initialization fails
      */
-    public function __construct(private CommandInterface $command)
+    public function __construct(private CommandInterface $command, ?string $sequenceNumber = null)
     {
-        $this->sequenceNumber = $this->generateSequenceNumber();
+        $this->sequenceNumber = $sequenceNumber ?? $this->generateSequenceNumber();
     }
 
     /**

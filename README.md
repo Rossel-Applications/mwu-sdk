@@ -1,25 +1,93 @@
 # MWU SDK
-MWU SDK is a PHP library for easy communication with the [MWU system distributed by Pick to light](https://web.archive.org/web/20240927094057/https://www.picktolightsystems.com/en/series-products/mwu-series).
+
+MWU SDK is a PHP library for easy communication with the [MWU Series product distributed by Pick to Light](https://web.archive.org/web/20240927094057/https://www.picktolightsystems.com/en/series-products/mwu-series).
 
 ## Compatibility
-| MWU SDK version | Implemented TCP-IP Command Reference |  
+
+### Pick to Light specifications
+
+The following table shows the compatibility between MWU SDK versions and the implemented TCP-IP command references provided by [Pick to Light](https://www.picktolightsystems.com).  
+
+| MWU SDK version | Implemented TCP-IP Command Reference |
+|-----------------|--------------------------------------|
 | `^1.0.0`        | `6.1`                                |
 
+### Supported languages and frameworks
+
+This library is compatible with vanilla PHP and provides a Symfony bundle for easier integration into your projects.
+
+| MWU SDK version | PHP compatibility | Symfony compatibility |
+|-----------------|-------------------|-----------------------|
+| `^1.0.0`        | `^8.2`            | `^6.4`                |
+
 ## Getting started
+
+### Overview of most used classes
+
+Below is a class diagram illustrating the relationships between the main classes used in the MWU SDK.  
+
+```mermaid
+classDiagram
+    direction LR
+    class AbstractMwuService {
+        -array switches
+        +getSwitches() array
+        +addSwitch(MwuSwitchInterface $switch) self
+        +removeSwitch(MwuSwitchInterface $switch) self
+    }
+    class MwuSwitch {
+        -string ip
+        -int port
+        +getIp() string
+        +getPort() int
+        +send(MessageInterface $message) void
+    }
+    class MwuLightModule {
+        +?int id
+        +getId() ?int
+    }
+    
+    Mwu "0..*" o-- "1,1" MwuSwitch
+    MwuSwitch "0..*" o-- "0..1" MwuLightModule
+    ```
+```
+* **MWU Service:** Entry point for communicating with the MWU pick-to-light system. It aggregates all the switches in the system.
+* **MWU Switch:** Device that groups several light modules, each identified by a unique ID per switch. Each switch is accessible via a specific IP address and port.
+* **MWU Light Module:** Set consisting of a screen with buttons, one of which is equipped with an LED. Each light module has a unique ID when connected to a switch.
+
+### Mwu service creation
+
+First, you can create a service to group switches in one place, allowing easy retrieval later.  
+To do so, extend the `\MwuSdk\Client\AbstractMwu` class, which provides a ready-to-use MWU client.
+
+```php
+class MwuService extends \MwuSdk\Client\MwuService {
+}
+```
+> **Note:** To prevent resetting the communication between your application and the MWU system, it's essential to always use the same instance of the service.  
+> In Symfony, this can be achieved by configuring the class as a [shared service](https://symfony.com/doc/current/service_container/shared.html), ensuring that the same instance is reused throughout your application.
+
+Once the service is created, you can add your switches :  
+* manually, with the `addSwitch(MwuSwitchInterface $switch)` method;
+* by loading a configuration object, with the `loadConfiguration(MwuConfigInterface $config)` method;
+* by loading a YAML configuration file, with the `loadYamlConfigurationFile(string $path)` method.
 
 ### Defining a default configuration
 
 #### YAML configuration file
 
 ##### Example of complete configuration
+
+Below is an example of a complete YAML configuration for setting up your MWU Service.
+
 ```yaml
 mwu_default_config:
   switches:
     - ip_address: "144.56.46.30"
       port: 5003
       light_modules_generator:
-        first_module_number: 1
-        increment_between_module_numbers: 1
+        first_module_id: 1
+        increment_between_module_ids: 1
         number_of_modules: 4
     - ip_address: "144.56.46.31"
       port: 5003
@@ -61,113 +129,130 @@ mwu_default_config:
 ```
 
 ##### Retrieving the YAML configuration
-To load the YAML configuration file, use the `parseConfigurationFile(string $path)` method of the `MwuSdk\SerializerDefaultConfiguration\Formats\YamlConfigurationDeserializer` class.
 
-#### Mwu client creation, with default configuration
-
-The default configuration is defined during instantiation of the Mwu client, which serves as the entry point for communication with the MWU system.
-
-```php
-// Instantiation of the MwuFactory (or use Symfony Dependency Injection)
-// $mwuFactory = new MwuFactory(...);
-
-$mwuClient = $mwuFactory->create($mwuConfig); // avec $mwuConfig une intance de MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface
-```
-
-From the generated Mwu client, it will be possible to communicate with switches, grouping together light modules.
-
-### Overview of available clients
-```mermaid
-classDiagram
-    direction LR
-    class Mwu {
-        -array switches
-        +getSwitches() array
-        +addSwitch(MwuSwitchInterface $switch) self
-        +removeSwitch(MwuSwitchInterface $switch) self
-    }
-    class MwuSwitch {
-        -string ip
-        -int port
-        +getIp() string
-        +getPort() int
-        +send(MessageInterface $message) void
-    }
-    class MwuLightModule {
-        +?int id
-        +getId() ?int
-    }
-    
-    Mwu "0..*" o-- "1,1" MwuSwitch
-    MwuSwitch "0..*" o-- "0..1" MwuLightModule
-    ```
-```
-* **MWU:** Entry point for communicating with the MWU pick-to-light system. It aggregates all the switches in the system.
-* **MWU Switch:** Device that groups several light modules, each identified by a unique ID per switch. Each switch is accessible via a specific IP address and port.
-* **MWU Light Module:** Set consisting of a screen with buttons, one of which is equipped with an LED. Each light module has a unique ID when connected to a switch.
+To configure your MWU Service using a YAML file, you can simply call `AbstractMwuService::loadYamlConfig(string $path)` with the path to your file.
 
 ### Sending a Command
 
-#### Write command
+This section outlines the process of sending commands within the MWU system.
+Commands can be issued from switches, light modules, or the MWU service, allowing flexible control over the system's operations.
+
+#### `Write` command
+
+The write command allows you to send text or data instructions to individual or multiple light modules within the MWU system.
+It provides configuration options to customize the light's appearance, such as color and display mode, facilitating communication and signaling in pick-to-light applications.
 
 ##### Write text on an individual light module
+
 ```php
 use MwuSdk\Builder\Command\Write\WriteCommandBuilder;
+use MwuSdk\Client\MwuLightModuleInterface;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
+use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
 
-// $lightModule = ... // Instance of MwuLightModuleInterface, that you can get for example from MwuSwitchInterface::getLightModules() or MwuSwitchInterface::getLightModule(int $id) methods.
+class MyClass {
+    public function __construct(
+        private WriteCommandModeArrayFactory $writeCommandModeArrayFactory,
+    ) {
+    }
 
-$commandBuilder = new WriteCommandBuilder(new WriteCommandModeArrayFactory());
-$commandBuilder
-    ->withLightColor(LightColor::GREEN); // Configure as desired
-
-$lightModule->write($commandBuilder, '0001');
+    public function myFunction(
+        MwuLightModuleInterface $lightModule,
+    ): void {
+        $commandBuilder = new WriteCommandBuilder($this->writeCommandModeArrayFactory);
+        
+        // Optional: Configure the builder as you want, so that the generated commands follow these specifications.
+        $commandBuilder
+            ->withLightColor(LightColor::RED)
+            ->withLightMode(LightMode::FLASH);
+            
+        // Send a "write" instruction to the light module.
+        $lightModule->write($commandBuilder, '0001');
+    }
+}
 ```
 
 ##### Write text on multiple light modules, from a specific switch
+
 ```php
 use MwuSdk\Builder\Command\Write\WriteCommandBuilder;
+use MwuSdk\Client\MwuSwitchInterface;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
+use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
 
-// $switch = ... // Instance of MwuSwitchInterface, that you can get from Mwu::getSwitches().
+class MyClass {
+    public function __construct(
+        private WriteCommandModeArrayFactory $writeCommandModeArrayFactory,
+    ) {
+    }
 
-$commandBuilder = new WriteCommandBuilder(new WriteCommandModeArrayFactory());
-$commandBuilder
-    ->withLightColor(LightColor::GREEN); // Configure as desired
-
-// Write on all light modules connected to a specific switch
-$switch->broadcastWrite($commandBuilder, '0001');
-
-// Write on multiple light modules
-$switch->write($switch->getLightModulesById([1, 2, 3]), $commandBuilder, '0001');
+    public function myFunction(
+        MwuSwitchInterface $switch,
+    ): void {
+        $commandBuilder = new WriteCommandBuilder($this->writeCommandModeArrayFactory);
+        
+        // Optional: Configure the builder as you want, so that the generated commands follow these specifications.
+        $commandBuilder
+            ->withLightColor(LightColor::RED)
+            ->withLightMode(LightMode::FLASH);
+            
+        // Method 1: Send a "write" instruction to the specified light modules connected to the switch.
+        $switch->write(
+            $switch->getLightModulesByIds([1, 2, 3])
+            $commandBuilder,
+            '0001',
+        );
+        
+        // Method 2: Send a "write" instruction to all the light modules connected to the switch.
+        $switch->broadcastWrite($commandBuilder, '0001');
+    }
+}
 ```
 
-##### Write text on multiple light modules, from multiple switches
+##### Write text on light modules of multiple switches
+
+```php
+class MwuService extends \MwuSdk\Client\MwuService {
+}
+```
+
 ```php
 use MwuSdk\Builder\Command\Write\WriteCommandBuilder;
+use MwuSdk\Client\MwuServiceInterface;
+use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
+use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
 
-// $mwu = ... // Instance of MwuClientInterface
+class MyClass {
+    public function __construct(
+        private WriteCommandModeArrayFactory $writeCommandModeArrayFactory,
+    ) {
+    }
 
-$writeCommandBuilder = new WriteCommandBuilder($factory);
-
-// Optional: override the default configuration
-$writeCommandBuilder
-  ->withLightColor(LightColor::RED)
-  ->withLightMode(LightMode::FLASH);
-
-// Write on light modules of specified switches
-$mwu->write(
-    [
-        $mwu->getSwitchById(0),
-        $mwu->getSwitchById(1),
-    ],
-    $commandBuilder,
-    '0001'
-);
-
-// Write on light modules of all connected switches
-$mwu->broadcastWrite($commandBuilder, $commandBuilder, '0001');
+    public function myFunction(
+        MwuServiceInterface $mwuService
+    ): void {
+        $commandBuilder = new WriteCommandBuilder($this->writeCommandModeArrayFactory);
+        
+        // Optional: Configure the builder as you want, so that the generated commands follow these specifications.
+        $commandBuilder
+            ->withLightColor(LightColor::RED)
+            ->withLightMode(LightMode::FLASH);
+            
+        // Method 1: Send a "write" instruction to all light modules connected to the specified switches.
+        $mwuService->write(
+            [
+                $mwu->getSwitchById(0),
+                $mwu->getSwitchById(1),
+            ],
+            $commandBuilder,
+            '0001'
+        );
+        
+        // Method 2: Send a "write" instruction to all light modules of all connected switches.
+        $mwuService->broadcastWrite($commandBuilder, $commandBuilder, '0001');
+    }
+}
 ```

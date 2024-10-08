@@ -10,7 +10,7 @@ use MwuSdk\Entity\MessageInterface;
 /**
  * Interface for factories that create Message instances from Command objects.
  */
-interface MessageFactoryInterface
+interface ClientMessageFactoryInterface
 {
     public function create(CommandInterface $command): MessageInterface;
 }
