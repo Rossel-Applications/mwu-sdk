@@ -11,7 +11,7 @@ use MwuSdk\Entity\Command\BroadcastReadyCommandInterface;
  * MwuClientInterface defines methods for managing switches and sending commands.
  * It supports operations like adding/removing switches, sending and broadcasting commands, and writing data to light modules.
  */
-interface MwuClientInterface
+interface MwuServiceInterface
 {
     /**
      * Gets the list of switches managed by the client.
@@ -44,6 +44,15 @@ interface MwuClientInterface
     public function addSwitch(MwuSwitchInterface $switch): self;
 
     /**
+     * Adds switches to the client.
+     *
+     * @param array<array-key, MwuSwitchInterface> $switches the switches to add to the client
+     *
+     * @return self returns the current instance for method chaining
+     */
+    public function addSwitches(array $switches): self;
+
+    /**
      * Removes a switch from the client.
      *
      * @param MwuSwitchInterface $switch the switch to remove from the client
@@ -51,6 +60,15 @@ interface MwuClientInterface
      * @return self returns the current instance for method chaining
      */
     public function removeSwitch(MwuSwitchInterface $switch): self;
+
+    /**
+     * Removes a switch from the client.
+     *
+     * @param array<array-key, MwuSwitchInterface> $switches the switches to remove from the client
+     *
+     * @return self returns the current instance for method chaining
+     */
+    public function removeSwitches(array $switches): self;
 
     /**
      * Sends the specified command to the provided switches.
