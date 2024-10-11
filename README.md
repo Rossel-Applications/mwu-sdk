@@ -86,8 +86,8 @@ mwu_default_config:
     - ip_address: "144.56.46.30"
       port: 5003
       light_modules_generator:
-        first_module_number: 1
-        increment_between_module_numbers: 1
+        first_module_id: 1
+        increment_between_module_ids: 1
         number_of_modules: 4
     - ip_address: "144.56.46.31"
       port: 5003

@@ -20,7 +20,6 @@ final class TcpIpClient implements TcpIpClientInterface
     private int $switchPort;
 
     private \Socket $socket;
-    private bool $socketConnectionOpen = false;
 
     public function __construct(
     ) {
@@ -30,20 +29,14 @@ final class TcpIpClient implements TcpIpClientInterface
     /**
      * {@inheritDoc}
      */
-    public function configure(MwuSwitchInterface $switch, int $timeout = 10): void
+    public function configure(MwuSwitchInterface $switch, int $timeout = 5): void
     {
-        if ($this->isSocketConnectionOpen()) {
-            $this->closeSocketConnection();
-        }
-
         $switchConfig = $switch->getConfig();
 
         $this->switchIp = $switchConfig->getIpAddress();
         $this->switchPort = $switchConfig->getPort();
 
         ini_set('default_socket_timeout', $timeout);
-
-        $this->initialize();
     }
 
     /**
@@ -53,15 +46,17 @@ final class TcpIpClient implements TcpIpClientInterface
      */
     public function sendMessage(string $message): ?string
     {
-        if (!$this->isSocketConnectionOpen()) {
-            $this->openSocketConnection();
-        }
-
         // Send message
         socket_write($this->socket, $message);
 
         // Get response from server
         $response = socket_read($this->socket, 1024);
+
+        if (false === $response) {
+            $this->openSocketConnection();
+            socket_write($this->socket, $message);
+            $response = socket_read($this->socket, 1024);
+        }
 
         return false !== $response ? $response : null;
     }
@@ -73,29 +68,11 @@ final class TcpIpClient implements TcpIpClientInterface
     {
         try {
             socket_connect($this->socket, $this->switchIp, $this->switchPort);
-            $this->socketConnectionOpen = true;
 
             $this->sendMessage((string) new Message(new InitializeCommand()));
         } catch (TcpIpClientExceptionInterface|RandomException $exception) {
             throw new ConnectionFailedException($this->switchIp, $this->switchPort, $exception->getCode(), $exception->getMessage(), $exception);
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function closeSocketConnection(): void
-    {
-        socket_close($this->socket);
-        $this->socketConnectionOpen = false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isSocketConnectionOpen(): bool
-    {
-        return $this->socketConnectionOpen;
     }
 
     private function initialize(): void
