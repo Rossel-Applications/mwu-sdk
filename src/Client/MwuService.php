@@ -28,8 +28,6 @@ class MwuService implements YamlConfigurableMwuServiceInterface
         private readonly YamlConfigurationDeserializerInterface $yamlConfigurationDeserializer,
     ) {
         $this->loadYamlConfigurationFile(__DIR__.'/../../../../../config/mwu_sdk.yaml');
-
-        dump('sdk');
     }
 
     /**
