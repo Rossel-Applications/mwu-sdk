@@ -16,7 +16,7 @@ use MwuSdk\Serializer\DefaultConfiguration\Formats\YamlConfigurationDeserializer
  * Supports broadcasting commands and writing data to switches and light modules.
  * This class is intended to be extended and serves as the main entry point for interacting with the MWU system.
  */
-abstract class AbstractMwuService implements YamlConfigurableMwuServiceInterface
+class MwuService implements YamlConfigurableMwuServiceInterface
 {
     /**
      * @var list<MwuSwitchInterface> list of switches managed by the client

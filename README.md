@@ -61,7 +61,7 @@ First, you can create a service to group switches in one place, allowing easy re
 To do so, extend the `\MwuSdk\Client\AbstractMwu` class, which provides a ready-to-use MWU client.
 
 ```php
-class MwuService extends \MwuSdk\Client\AbstractMwuService {
+class MwuService extends \MwuSdk\Client\MwuService {
 }
 ```
 > **Note:** To prevent resetting the communication between your application and the MWU system, it's essential to always use the same instance of the service.  
@@ -214,7 +214,7 @@ class MyClass {
 ##### Write text on light modules of multiple switches
 
 ```php
-class MwuService extends \MwuSdk\Client\AbstractMwuService {
+class MwuService extends \MwuSdk\Client\MwuService {
 }
 ```
 
