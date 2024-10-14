@@ -17,6 +17,7 @@ class MwuService extends \MwuSdk\Client\MwuService
     ) {
         parent::__construct($switchFactory, $configurationDeserializer);
         $this->configure();
+        dump('sdk');
     }
 
     public function configure(): void
