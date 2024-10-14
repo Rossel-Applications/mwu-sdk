@@ -33,9 +33,13 @@ final class ListenMessagesCommand extends Command
             socket_bind($socket, $switch->getIpAddress(), $switch->getPort());
         }
 
+        set_time_limit(0);
+
         while (true) {
             foreach ($sockets as $socket) {
                 socket_accept($socket);
+                $input .= socket_read($socket, 1024);
+                $output->writeln($input);
             }
         }
     }
