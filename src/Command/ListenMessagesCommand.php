@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace MwuSdk\Command;
 
 use MwuSdk\Client\ConfigurableMwuServiceInterface;
+use MwuSdk\Entity\Command\Ack\AckCommand;
+use MwuSdk\Entity\Message;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,13 +28,13 @@ final class ListenMessagesCommand extends Command
         $switches = $this->mwuService->getSwitches();
         $sockets = [];
 
-        foreach ($switches as $switch) {
+        foreach ($switches as $key => $switch) {
             $output->writeln(sprintf('Start listening to %s:%s...', $switch->getIpAddress(), $switch->getPort()));
             $socket = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
             $connected = socket_connect($socket, $switch->getIpAddress(), $switch->getPort());
 
             if (true === $connected) {
-                $sockets[] = $socket;
+                $sockets[$key] = $socket;
             }
         }
 
@@ -55,6 +57,8 @@ final class ListenMessagesCommand extends Command
 
             // Afficher le message reçu
             echo "Message reçu : $buffer\n";
+
+            $this->mwuService->getSwitchById(0)->send(new AckCommand());
 
             // Condition d'arrêt (optionnelle)
             if ('exit' === trim($buffer)) {
