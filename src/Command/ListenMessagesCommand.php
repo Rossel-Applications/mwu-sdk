@@ -27,10 +27,10 @@ final class ListenMessagesCommand extends Command
         $sockets = [];
 
         foreach ($switches as $switch) {
-            $output->writeln(sprintf("Start listening to %s:%s...", $switch->getIpAddress(), $switch->getPort());
+            $output->writeln(sprintf('Start listening to %s:%s...', $switch->getIpAddress(), $switch->getPort()));
             $socket = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
             $sockets[] = $socket;
-            socket_bind($socket,  $switch->getIpAddress(), $switch->getPort());
+            socket_bind($socket, $switch->getIpAddress(), $switch->getPort());
             socket_listen($socket);
         }
 
