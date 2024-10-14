@@ -7,6 +7,7 @@ namespace MwuSdk\Command;
 use MwuSdk\Client\ConfigurableMwuServiceInterface;
 use MwuSdk\Entity\Command\Ack\AckCommand;
 use MwuSdk\Entity\Message;
+use Random\RandomException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,6 +22,9 @@ final class ListenMessagesCommand extends Command
         parent::__construct();
     }
 
+    /**
+     * @throws RandomException
+     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('Start listening...');
@@ -58,7 +62,7 @@ final class ListenMessagesCommand extends Command
             // Afficher le message reçu
             echo "Message reçu : $buffer\n";
 
-            $this->mwuService->getSwitchById(0)->send(new AckCommand());
+            socket_write($socket, (string) new Message(new AckCommand()));
 
             // Condition d'arrêt (optionnelle)
             if ('exit' === trim($buffer)) {
