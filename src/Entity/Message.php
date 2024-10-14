@@ -43,9 +43,9 @@ final readonly class Message implements MessageInterface
      *
      * @throws RandomException if the sequence number initialization fails
      */
-    public function __construct(private CommandInterface $command)
+    public function __construct(private CommandInterface $command, ?string $sequenceNumber = null)
     {
-        $this->sequenceNumber = $this->generateSequenceNumber();
+        $this->sequenceNumber = $sequenceNumber ?? $this->generateSequenceNumber();
     }
 
     /**

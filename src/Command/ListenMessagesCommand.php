@@ -66,7 +66,7 @@ final class ListenMessagesCommand extends Command
             $seqNumber = substr($command, 1, 3);
             dump($seqNumber);
 
-            $response = (string) new Message(new AckCommand());
+            $response = (string) new Message(new AckCommand(), $seqNumber);
             socket_write($socket, $response);
             echo "Responded: $response";
 
