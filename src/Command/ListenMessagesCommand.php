@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MwuSdk\Command;
 
+use MwuSdk\Client\ConfigurableMwuServiceInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,10 +13,31 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'mwu:listen', description: 'Listen to mwu send messages')]
 final class ListenMessagesCommand extends Command
 {
+    public function __construct(
+        ?string $name,
+        private readonly ConfigurableMwuServiceInterface $mwuService,
+    ) {
+        parent::__construct($name);
+    }
+
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln('start listening');
+        $output->writeln('Start listening...');
 
-        return Command::SUCCESS;
+        $switches = $this->mwuService->getSwitches();
+
+        $sockets = [];
+
+        foreach ($switches as $switch) {
+            $socket = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
+            $sockets[] = $socket;
+            socket_bind($socket, $switch->getIpAddress(), $switch->getPort());
+        }
+
+        while (true) {
+            foreach ($sockets as $socket) {
+                socket_accept($socket);
+            }
+        }
     }
 }
