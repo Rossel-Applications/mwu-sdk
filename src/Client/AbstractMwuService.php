@@ -12,11 +12,11 @@ use MwuSdk\Factory\Client\MwuSwitchFactoryInterface;
 use MwuSdk\Serializer\DefaultConfiguration\Formats\YamlConfigurationDeserializerInterface;
 
 /**
- * Extendable class for managing a collection of switches and sending commands.
+ * Abstract class for managing a collection of switches and sending commands.
  * Supports broadcasting commands and writing data to switches and light modules.
  * This class is intended to be extended and serves as the main entry point for interacting with the MWU system.
  */
-class MwuService implements YamlConfigurableMwuServiceInterface
+abstract class AbstractMwuService implements YamlConfigurableMwuServiceInterface
 {
     /**
      * @var list<MwuSwitchInterface> list of switches managed by the client

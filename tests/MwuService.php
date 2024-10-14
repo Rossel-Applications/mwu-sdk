@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace MwuSdkTest;
 
-use MwuSdk\Client\MwuService;
+use MwuSdk\Client\AbstractMwuService;
 use MwuSdk\Factory\Client\MwuSwitchFactory;
 use MwuSdk\Serializer\DefaultConfiguration\Formats\YamlConfigurationDeserializer;
 
-class MwuService extends MwuService
+class MwuService extends AbstractMwuService
 {
     private const YAML_CONFIG_FILE_PATH = '/config/test_config.yaml';
 
