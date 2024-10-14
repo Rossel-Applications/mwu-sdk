@@ -14,10 +14,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class ListenMessagesCommand extends Command
 {
     public function __construct(
-        ?string $name,
         private readonly ConfigurableMwuServiceInterface $mwuService,
     ) {
-        parent::__construct($name);
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
