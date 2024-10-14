@@ -24,6 +24,7 @@ final class ListenMessagesCommand extends Command
         $output->writeln('Start listening...');
 
         $switches = $this->mwuService->getSwitches();
+        dump($switches);
 
         $sockets = [];
 
