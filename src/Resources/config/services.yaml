@@ -24,6 +24,3 @@ services:
       - '../../Client/MwuLightModule.php'
       - '../../Client/MwuSwitch.php'
       - '../../Client/TcpIpClient.php'
-
-  MwuSdk\Client\TcpIpClient:
-    public: true
