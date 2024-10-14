@@ -16,6 +16,7 @@ final class ListenMessagesCommand extends Command
     public function __construct(
         private readonly ConfigurableMwuServiceInterface $mwuService,
     ) {
+        parent::__construct();
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
