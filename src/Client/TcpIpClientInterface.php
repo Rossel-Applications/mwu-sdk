@@ -12,11 +12,6 @@ use MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
 interface TcpIpClientInterface
 {
     /**
-     * Configures the TCP/IP client for the provided Switch.
-     */
-    public function configure(MwuSwitchInterface $switch, int $timeout = 10): void;
-
-    /**
      * Sends a message to the Switch.
      *
      * @param string $message the message to send

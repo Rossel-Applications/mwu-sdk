@@ -28,6 +28,7 @@ final class MwuSwitch implements MwuSwitchInterface
 {
     /** @var array<int, MwuLightModuleInterface> */
     private array $lightModules = [];
+    private readonly TcpIpClientInterface $tcpIpClient;
 
     /**
      * @param SwitchConfigInterface $config         configuration of this Switch
@@ -36,14 +37,16 @@ final class MwuSwitch implements MwuSwitchInterface
     public function __construct(
         private readonly SwitchConfigInterface $config,
         private readonly ?BehaviorConfigInterface $defaultBehaviorConfig,
-        private readonly TcpIpClientInterface $tcpIpClient,
         private readonly MessageFactoryInterface $messageFactory,
         private readonly MwuLightModuleFactoryInterface $lightModuleFactory,
         private readonly TargetedSwitchCommandValidatorInterface $targetedSwitchCommandValidator,
         private readonly TargetedLightModuleCommandValidatorInterface $targetedLightModuleValidator,
         ?array $lightModuleIds = null,
     ) {
-        $this->tcpIpClient->configure($this);
+        $this->tcpIpClient = new TcpIpClient(
+            $this->config->getIpAddress(),
+            $this->config->getPort()
+        );
 
         if (null !== $lightModuleIds) {
             $this->defineLightModules($lightModuleIds);

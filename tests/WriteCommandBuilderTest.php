@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MwuSdkTest;
 
 use MwuSdk\Builder\Command\Write\WriteCommandBuilder;
-use MwuSdk\Client\TcpIpClient;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
 use MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
 use MwuSdk\Factory\Client\MwuLightModuleFactory;
@@ -49,7 +48,7 @@ class WriteCommandBuilderTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->mwuSwitch = InfrastructureGenerator::generateMwuSwitch();
+        // $this->mwuSwitch = InfrastructureGenerator::generateMwuSwitch();
     }
 
     /**
@@ -59,9 +58,8 @@ class WriteCommandBuilderTest extends TestCase
      */
     public function testBuildCommand(): void
     {
-        $mwu = MwuService::getInstance(
+        $mwu = new MwuService(
             new MwuSwitchFactory(
-                new TcpIpClient(),
                 new MwuLightModuleFactory(),
                 new MessageFactory(),
                 new TargetedSwitchCommandValidator(),
@@ -100,10 +98,12 @@ class WriteCommandBuilderTest extends TestCase
             )
         );
 
+        $mwu->configure();
+
         $builder = new WriteCommandBuilder(new WriteCommandModeArrayFactory());
         $builder->withLightColor(LightColor::CYAN);
 
-        $mwu->broadcastWrite($builder, '8888');
+        $mwu->broadcastWrite($builder, '9999');
         $mwu->getSwitchById(0)->getLightModuleById(1)->write($builder, '----');
     }
 }

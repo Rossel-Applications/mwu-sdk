@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MwuSdkTest\Utils;
 
 use MwuSdk\Client\MwuSwitch;
-use MwuSdk\Client\TcpIpClient;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfig;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig;
 use MwuSdk\Factory\Client\MwuLightModuleFactory;
@@ -23,7 +22,6 @@ class InfrastructureGenerator
     public static function generateMwuSwitch(): MwuSwitch
     {
         $switchFactory = new MwuSwitchFactory(
-            new TcpIpClient(),
             new MwuLightModuleFactory(),
             new MessageFactory(),
             $targetedSwitchCommandValidator = new TargetedSwitchCommandValidator(),

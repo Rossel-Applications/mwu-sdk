@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MwuSdk\Factory\Client;
 
 use MwuSdk\Client\MwuSwitch;
-use MwuSdk\Client\TcpIpClientInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
 use MwuSdk\Factory\Entity\MessageFactory;
@@ -21,7 +20,6 @@ use MwuSdk\Validator\Command\TargetedSwitchCommandValidatorInterface;
 final readonly class MwuSwitchFactory implements MwuSwitchFactoryInterface
 {
     public function __construct(
-        private TcpIpClientInterface $tcpIpClient,
         private MwuLightModuleFactory $lightModuleFactory,
         private MessageFactory $messageFactory,
         private TargetedSwitchCommandValidatorInterface $targetedSwitchCommandValidator,
@@ -34,7 +32,6 @@ final readonly class MwuSwitchFactory implements MwuSwitchFactoryInterface
         return new MwuSwitch(
             $config,
             $behaviorConfig,
-            $this->tcpIpClient,
             $this->messageFactory,
             $this->lightModuleFactory,
             $this->targetedSwitchCommandValidator,
