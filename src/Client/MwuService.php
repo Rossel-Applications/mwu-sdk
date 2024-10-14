@@ -27,6 +27,8 @@ class MwuService implements YamlConfigurableMwuServiceInterface
         private readonly MwuSwitchFactoryInterface $switchFactory,
         private readonly YamlConfigurationDeserializerInterface $yamlConfigurationDeserializer,
     ) {
+        $this->loadYamlConfigurationFile('/config/test_config.yaml');
+        dump('sdk');
     }
 
     /**

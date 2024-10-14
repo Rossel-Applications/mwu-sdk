@@ -23,6 +23,7 @@ final class ListenMessagesCommand extends Command
     {
         $output->writeln('Start listening...');
 
+        dump($this->mwuService);
         $switches = $this->mwuService->getSwitches();
         dump($switches);
 
