@@ -62,7 +62,9 @@ final class ListenMessagesCommand extends Command
             // Afficher le message reçu
             echo "Message reçu : $buffer\n";
 
-            socket_write($socket, (string) new Message(new AckCommand()));
+            $response = (string) new Message(new AckCommand());
+            socket_write($socket, $response);
+            echo "Responded: $response";
 
             // Condition d'arrêt (optionnelle)
             if ('exit' === trim($buffer)) {
