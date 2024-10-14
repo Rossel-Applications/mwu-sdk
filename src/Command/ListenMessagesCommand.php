@@ -56,7 +56,7 @@ final class ListenMessagesCommand extends Command
             }
             if (0 === $bytes_received) {
                 echo "Le serveur a fermé la connexion.\n";
-                break;  // Sortir de la boucle si la connexion est fermée
+                continue;  // Sortir de la boucle si la connexion est fermée
             }
 
             // Afficher le message reçu
