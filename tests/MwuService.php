@@ -16,6 +16,7 @@ class MwuService extends \MwuSdk\Client\MwuService
         YamlConfigurationDeserializer $configurationDeserializer
     ) {
         parent::__construct($switchFactory, $configurationDeserializer);
+        $this->configure();
     }
 
     public function configure(): void
