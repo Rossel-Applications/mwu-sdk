@@ -29,22 +29,43 @@ final class ListenMessagesCommand extends Command
         foreach ($switches as $switch) {
             $output->writeln(sprintf('Start listening to %s:%s...', $switch->getIpAddress(), $switch->getPort()));
             $socket = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
-            $res = socket_connect($socket, $switch->getIpAddress(), $switch->getPort());
+            $connected = socket_connect($socket, $switch->getIpAddress(), $switch->getPort());
 
-            if (true === $res) {
-                socket_listen($socket);
+            if (true === $connected) {
                 $sockets[] = $socket;
             }
         }
 
         set_time_limit(0);
 
+        $socket = $sockets[0];
+
         while (true) {
-            foreach ($sockets as $socket) {
-                socket_accept($socket);
-                $input .= socket_read($socket, 1024);
-                $output->writeln($input);
+            $buffer = '';  // Variable pour stocker les données reçues
+            $bytes_received = socket_recv($socket, $buffer, 2048, 0); // Recevoir jusqu'à 2048 octets
+
+            if (false === $bytes_received) {
+                echo 'Erreur lors de la réception de données : '.socket_strerror(socket_last_error($socket))."\n";
+                break;  // Sortir de la boucle en cas d'erreur
+            }
+            if (0 === $bytes_received) {
+                echo "Le serveur a fermé la connexion.\n";
+                break;  // Sortir de la boucle si la connexion est fermée
+            }
+
+            // Afficher le message reçu
+            echo "Message reçu : $buffer\n";
+
+            // Condition d'arrêt (optionnelle)
+            if ('exit' === trim($buffer)) {
+                echo "Fin de la connexion demandée par le serveur.\n";
+                break;  // Sortir de la boucle si un message spécifique est reçu
             }
         }
+
+        // Fermer le socket après la boucle
+        socket_close($socket);
+
+        return Command::SUCCESS;
     }
 }
