@@ -62,7 +62,7 @@ final class ListenSwitchMessagesCommand extends Command
 
     private function fetchSwitch(mixed $switchId): MwuSwitchInterface
     {
-        if (filter_var($switchId, FILTER_VALIDATE_INT)) {
+        if (filter_var($switchId, \FILTER_VALIDATE_INT)) {
             throw new SwitchNotFoundException($switchId);
         }
 
@@ -80,10 +80,13 @@ final class ListenSwitchMessagesCommand extends Command
                 throw new CannotCreateSocketException();
             }
 
+            $ipAddress = $switch->getIpAddress();
+            $port = $switch->getPort();
+
             $connected = socket_connect(
                 $socket,
-                $ipAddress = $switch->getIpAddress(),
-                $port = $switch->getPort()
+                $ipAddress,
+                $port,
             );
 
             if (false === $connected) {
