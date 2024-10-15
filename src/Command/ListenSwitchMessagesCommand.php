@@ -79,7 +79,6 @@ final class ListenSwitchMessagesCommand extends Command
             if (false === $socket) {
                 throw new CannotCreateSocketException();
             }
-dd([$socket, $switch->getIpAddress(), $switch->getPort()]);
 
             $connected = socket_connect(
                 $socket,
