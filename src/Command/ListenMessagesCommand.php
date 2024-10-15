@@ -66,7 +66,7 @@ final class ListenMessagesCommand extends Command
 
         while (true) {
             $buffer = '';  // Variable pour stocker les données reçues
-            $bytes_received = socket_recv($socket, $buffer, 2048, 0); // Recevoir jusqu'à 2048 octets
+            $bytes_received = socket_recv($socket, $buffer, 1024, 0); // Recevoir jusqu'à 2048 octets
 
             if (false === $bytes_received) {
                 echo 'Erreur lors de la réception de données : '.socket_strerror(socket_last_error($socket))."\n";
