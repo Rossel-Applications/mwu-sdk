@@ -27,6 +27,24 @@ final class ListenMessagesCommand extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
+        /*
+         * todo:
+         * creer sous-commande pour switchs individuels
+         *
+         * puis avat le break relancer la meme sous commande. (pour que se relance automatiquement))
+         * avoir
+         *
+         * nathan degager mwu service custom & utiliser celui de la lib
+         *
+         * moi : creer service découpe messages du mwu pr les interpréter
+         *
+         * + savoir traiter les messages au lieu de juste répondre Ack (O) sans les gérer
+         *
+         * + hooks permettant d'executer un callable qd on appuie sur boutton
+         * + rebase ou réimplémenter affichage après clics sur boutons
+         *
+         * + avoir helper pr envoyer Z en tant que reset, car tt que message pas répondu, pas possible de renvoyer des messages
+         */
         $output->writeln('Start listening...');
 
         $switches = $this->mwuService->getSwitches();
@@ -56,7 +74,7 @@ final class ListenMessagesCommand extends Command
             }
             if (0 === $bytes_received) {
                 echo "Le serveur a fermé la connexion.\n";
-                continue;  // Sortir de la boucle si la connexion est fermée
+                break;  // Sortir de la boucle si la connexion est fermée
             }
 
             // Afficher le message reçu

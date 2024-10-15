@@ -42,9 +42,12 @@ final class TcpIpClient implements TcpIpClientInterface
         ini_set('default_socket_timeout', $this->timeout);
 
         $socket = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
-        socket_connect($socket, $this->switchIp, $this->switchPort);
 
         if (false === $socket) {
+            throw new CannotCreateSocketException();
+        }
+        $res = socket_connect($socket, $this->switchIp, $this->switchPort);
+        if (false === $res) {
             throw new CannotCreateSocketException();
         }
 
