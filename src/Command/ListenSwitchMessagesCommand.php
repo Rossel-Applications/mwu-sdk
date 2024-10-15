@@ -68,7 +68,7 @@ final class ListenSwitchMessagesCommand extends Command
 
         $this->switchId = (int) $switchId;
 
-        return $this->mwuService->getSwitchById($switchId);
+        return $this->mwuService->getSwitchById($this->switchId);
     }
 
     private function createSocket(MwuSwitchInterface $switch, OutputInterface $output): \Socket
