@@ -32,7 +32,6 @@ final class ListenSwitchMessagesCommand extends Command
         private readonly ConfigurableMwuServiceInterface $mwuService,
     ) {
         parent::__construct();
-        dump($this->mwuService);
     }
 
     protected function configure(): void
@@ -62,7 +61,7 @@ final class ListenSwitchMessagesCommand extends Command
     }
 
     private function fetchSwitch(mixed $switchId): MwuSwitchInterface
-    {
+    {dump($switchId);
         if (!\is_int($switchId)) {
             throw new SwitchNotFoundException($switchId);
         }
