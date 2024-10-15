@@ -8,7 +8,7 @@ final class SwitchNotFoundException extends \RuntimeException implements MwuClie
 {
     public function __construct(mixed $id, ?\Throwable $previous = null)
     {
-        $message = is_scalar($id) ?
+        $message = \is_scalar($id) ?
             sprintf('Switch with ID %s not found.', $id) :
             'Switch not found.';
 
