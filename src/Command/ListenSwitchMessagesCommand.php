@@ -7,6 +7,7 @@ namespace MwuSdk\Command;
 use MwuSdk\Client\ConfigurableMwuServiceInterface;
 use MwuSdk\Client\MwuSwitchInterface;
 use MwuSdk\Exception\Client\Mwu\SwitchNotFoundException;
+use MwuSdk\Exception\Client\TcpIp\CannotConnectSocketException;
 use MwuSdk\Exception\Client\TcpIp\CannotCreateSocketException;
 use MwuSdk\Exception\Client\TcpIp\SocketClosedException;
 use MwuSdk\Exception\Client\TcpIp\SocketReceiveException;
@@ -41,8 +42,8 @@ final class ListenSwitchMessagesCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->switchId = $input->getArgument(self::ARGUMENT_SWITCH_ID);
-        $switch = $this->fetchSwitch($this->switchId);
+        $switchId = $input->getArgument(self::ARGUMENT_SWITCH_ID);
+        $switch = $this->fetchSwitch($switchId);
 
         $this->write(
             $output,
@@ -65,24 +66,40 @@ final class ListenSwitchMessagesCommand extends Command
             throw new SwitchNotFoundException($switchId);
         }
 
+        $this->switchId = $switchId;
+
         return $this->mwuService->getSwitchById($switchId);
     }
 
-    private function createSocket(MwuSwitchInterface $switch): \Socket
+    private function createSocket(MwuSwitchInterface $switch, OutputInterface $output): \Socket
     {
-        $socket = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
-        $connected = socket_connect($socket, $switch->getIpAddress(), $switch->getPort());
+        try {
+            $socket = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
 
-        if (!$connected) {
-            throw new CannotCreateSocketException();
+            if (false === $socket) {
+                throw new CannotCreateSocketException();
+            }
+
+            $connected = socket_connect(
+                $socket,
+                $ipAddress = $switch->getIpAddress(),
+                $port = $switch->getPort()
+            );
+
+            if (false === $connected) {
+                throw new CannotConnectSocketException($ipAddress, $port);
+            }
+        }
+        catch (\Exception $exception) {
+            $this->write($output, $exception->getMessage());
         }
 
-        return $socket;
+        return $this->createSocket($switch, $output);
     }
 
     private function launchListener(MwuSwitchInterface $switch, InputInterface $input, OutputInterface $output): void
     {
-        $socket = $this->createSocket($switch);
+        $socket = $this->createSocket($switch, $output);
 
         $receivedData = '';
         $receivedBytes = socket_recv($socket, $receivedData, 1024, 0);
