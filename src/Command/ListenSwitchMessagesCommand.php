@@ -32,6 +32,7 @@ final class ListenSwitchMessagesCommand extends Command
         private readonly ConfigurableMwuServiceInterface $mwuService,
     ) {
         parent::__construct();
+        dump($this->mwuService);
     }
 
     protected function configure(): void
