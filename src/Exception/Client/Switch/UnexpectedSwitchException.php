@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MwuSdk\Exception\Client\Switch;
 
-use MwuSdk\Client\MwuSwitchInterface;
+use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
 
 /**
  * Exception thrown when the provided switch does not match the expected switch.

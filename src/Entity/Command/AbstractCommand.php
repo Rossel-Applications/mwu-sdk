@@ -38,4 +38,9 @@ readonly class AbstractCommand implements CommandInterface
     {
         return $this->commandTemplate;
     }
+
+    protected function getCommandTemplate(): string
+    {
+        return $this->commandTemplate;
+    }
 }

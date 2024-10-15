@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace MwuSdk\Command;
 
-use MwuSdk\Client\ConfigurableMwuServiceInterface;
-use MwuSdk\Client\MwuSwitchInterface;
+use MwuSdk\Client\Mwu\ConfigurableMwuServiceInterface;
+use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use MwuSdk\Client\TcpIp\TcpIpClient;
+use MwuSdk\Events\Dispatcher\EventDispatcherInterface;
 use MwuSdk\Exception\Client\Mwu\SwitchNotFoundException;
-use MwuSdk\Exception\Client\TcpIp\CannotConnectSocketException;
-use MwuSdk\Exception\Client\TcpIp\CannotCreateSocketException;
-use MwuSdk\Exception\Client\TcpIp\SocketClosedException;
-use MwuSdk\Exception\Client\TcpIp\SocketReceiveException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -30,6 +28,7 @@ final class ListenSwitchMessagesCommand extends Command
 
     public function __construct(
         private readonly ConfigurableMwuServiceInterface $mwuService,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
         parent::__construct();
     }
@@ -45,6 +44,40 @@ final class ListenSwitchMessagesCommand extends Command
         $switchId = $input->getArgument(self::ARGUMENT_SWITCH_ID);
         $switch = $this->fetchSwitch($switchId);
 
+        $this->launchListener($switch, $input, $output);
+
+        return Command::SUCCESS;
+    }
+
+    private function fetchSwitch(mixed $switchId): MwuSwitchInterface
+    {
+        if (false === is_numeric($switchId)) {
+            throw new SwitchNotFoundException($switchId);
+        }
+
+        // Cast to int after validation
+        $this->switchId = (int) $switchId;
+
+        return $this->mwuService->getSwitchById($this->switchId);
+    }
+
+    private function createSocket(MwuSwitchInterface $switch, OutputInterface $output): \Socket
+    {
+        try {
+            return TcpIpClient::createSocket($switch->getIpAddress(), $switch->getPort());
+        } catch (\Exception $exception) {
+            $this->write($output, $exception->getMessage());
+        }
+
+        sleep(1);
+
+        return $this->createSocket($switch, $output);
+    }
+
+    private function launchListener(MwuSwitchInterface $switch, InputInterface $input, OutputInterface $output): void
+    {
+        $socket = $this->createSocket($switch, $output);
+
         $this->write(
             $output,
             sprintf(
@@ -55,70 +88,10 @@ final class ListenSwitchMessagesCommand extends Command
             ),
         );
 
-        $this->launchListener($switch, $input, $output);
-
-        return Command::SUCCESS;
-    }
-
-    private function fetchSwitch(mixed $switchId): MwuSwitchInterface
-    {
-        if (filter_var($switchId, \FILTER_VALIDATE_INT)) {
-            throw new SwitchNotFoundException($switchId);
-        }
-
-        $this->switchId = (int) $switchId;
-
-        return $this->mwuService->getSwitchById($this->switchId);
-    }
-
-    private function createSocket(MwuSwitchInterface $switch, OutputInterface $output): \Socket
-    {
         try {
-            $socket = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
-
-            if (false === $socket) {
-                throw new CannotCreateSocketException();
-            }
-
-            $ipAddress = $switch->getIpAddress();
-            $port = $switch->getPort();
-
-            $connected = socket_connect(
-                $socket,
-                $ipAddress,
-                $port,
-            );
-
-            if (false === $connected) {
-                throw new CannotConnectSocketException($ipAddress, $port);
-            }
-
-            return $socket;
-        } catch (\Exception $exception) {
-            $this->write($output, $exception->getMessage());
-        }
-
-        return $this->createSocket($switch, $output);
-    }
-
-    private function launchListener(MwuSwitchInterface $switch, InputInterface $input, OutputInterface $output): void
-    {
-        $socket = $this->createSocket($switch, $output);
-
-        $receivedData = '';
-        $receivedBytes = socket_recv($socket, $receivedData, 1024, 0);
-
-        try {
-            if (false === $receivedBytes) {
-                throw new SocketReceiveException(socket_strerror(socket_last_error($socket)));
-            }
-            if (0 === $receivedBytes) {
-                throw new SocketClosedException();
-            }
-
-            $this->write($output, sprintf('Received message: %s', $receivedData));
-
-
+            $receivedStringMessage = TcpIpClient::receiveMessageFromSocket($socket);
+            $this->write($output, sprintf('Received message: %s', $receivedStringMessage));
+            $this->eventDispatcher->dispatchMessageReceivedEvent($switch, $receivedStringMessage, $socket);
         } catch (\Exception $exception) {
             $this->write($output, $exception->getMessage());
         } finally {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace MwuSdk\Builder\Command\Write;
 
 use MwuSdk\Builder\Command\TargetedLightModuleCommandBuilderInterface;
-use MwuSdk\Client\MwuLightModuleInterface;
-use MwuSdk\Entity\Command\Write\WriteCommandInterface;
+use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use MwuSdk\Entity\Command\ClientCommand\Write\WriteCommandInterface;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;

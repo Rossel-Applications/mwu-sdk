@@ -61,7 +61,7 @@ First, you can create a service to group switches in one place, allowing easy re
 To do so, extend the `\MwuSdk\Client\AbstractMwu` class, which provides a ready-to-use MWU client.
 
 ```php
-class MwuService extends \MwuSdk\Client\MwuService {
+class MwuService extends \MwuSdk\Client\Mwu\Mwu {
 }
 ```
 > **Note:** To prevent resetting the communication between your application and the MWU system, it's essential to always use the same instance of the service.  
@@ -145,11 +145,7 @@ It provides configuration options to customize the light's appearance, such as c
 ##### Write text on an individual light module
 
 ```php
-use MwuSdk\Builder\Command\Write\WriteCommandBuilder;
-use MwuSdk\Client\MwuLightModuleInterface;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
-use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
+use MwuSdk\Builder\Command\Write\WriteCommandBuilder;use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
 
 class MyClass {
     public function __construct(
@@ -176,11 +172,7 @@ class MyClass {
 ##### Write text on multiple light modules, from a specific switch
 
 ```php
-use MwuSdk\Builder\Command\Write\WriteCommandBuilder;
-use MwuSdk\Client\MwuSwitchInterface;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
-use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
+use MwuSdk\Builder\Command\Write\WriteCommandBuilder;use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
 
 class MyClass {
     public function __construct(
@@ -214,16 +206,12 @@ class MyClass {
 ##### Write text on light modules of multiple switches
 
 ```php
-class MwuService extends \MwuSdk\Client\MwuService {
+class MwuService extends \MwuSdk\Client\Mwu\Mwu {
 }
 ```
 
 ```php
-use MwuSdk\Builder\Command\Write\WriteCommandBuilder;
-use MwuSdk\Client\MwuServiceInterface;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
-use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
+use MwuSdk\Builder\Command\Write\WriteCommandBuilder;use MwuSdk\Client\Mwu\MwuServiceInterface;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
 
 class MyClass {
     public function __construct(

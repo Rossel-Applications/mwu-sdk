@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MwuSdk\Command;
 
-use MwuSdk\Client\ConfigurableMwuServiceInterface;
-use MwuSdk\Entity\Command\Ack\AckCommand;
-use MwuSdk\Entity\ClientMessage;
+use MwuSdk\Client\Mwu\ConfigurableMwuServiceInterface;
+use MwuSdk\Entity\Command\ClientCommand\Ack\AckCommand;
+use MwuSdk\Entity\Message\ClientMessage\ClientMessage;
 use Random\RandomException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -27,24 +27,6 @@ final class ListenMessagesCommand extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        /*
-         * todo:
-         * creer sous-commande pour switchs individuels
-         *
-         * puis avat le break relancer la meme sous commande. (pour que se relance automatiquement))
-         * avoir
-         *
-         * nathan degager mwu service custom & utiliser celui de la lib
-         *
-         * moi : creer service découpe messages du mwu pr les interpréter
-         *
-         * + savoir traiter les messages au lieu de juste répondre Ack (O) sans les gérer
-         *
-         * + hooks permettant d'executer un callable qd on appuie sur boutton
-         * + rebase ou réimplémenter affichage après clics sur boutons
-         *
-         * + avoir helper pr envoyer Z en tant que reset, car tt que message pas répondu, pas possible de renvoyer des messages
-         */
         $output->writeln('Start listening...');
 
         $switches = $this->mwuService->getSwitches();
