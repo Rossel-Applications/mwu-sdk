@@ -87,11 +87,13 @@ final class ListenSwitchMessagesCommand extends Command
                 $socket,
                 $ipAddress,
                 $port,
-            );dd($connected);
+            );
 
             if (false === $connected) {
                 throw new CannotConnectSocketException($ipAddress, $port);
             }
+
+            return $socket;
         } catch (\Exception $exception) {
             $this->write($output, $exception->getMessage());
         }
