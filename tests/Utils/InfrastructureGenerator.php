@@ -9,7 +9,7 @@ use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorC
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig;
 use MwuSdk\Factory\Client\MwuLightModuleFactory;
 use MwuSdk\Factory\Client\MwuSwitchFactory;
-use MwuSdk\Factory\Entity\MessageFactory;
+use MwuSdk\Factory\Entity\ClientMessageFactory;
 use MwuSdk\Validator\Command\TargetedLightModuleCommandValidator;
 use MwuSdk\Validator\Command\TargetedSwitchCommandValidator;
 use Random\RandomException;
@@ -23,7 +23,7 @@ class InfrastructureGenerator
     {
         $switchFactory = new MwuSwitchFactory(
             new MwuLightModuleFactory(),
-            new MessageFactory(),
+            new ClientMessageFactory(),
             $targetedSwitchCommandValidator = new TargetedSwitchCommandValidator(),
             new TargetedLightModuleCommandValidator($targetedSwitchCommandValidator),
         );

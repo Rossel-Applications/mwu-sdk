@@ -14,7 +14,7 @@ use MwuSdk\Exception\Client\Switch\LightModuleNotFoundException;
 use MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
 use MwuSdk\Exception\Configuration\CannotAssignIdOnSwitchException;
 use MwuSdk\Factory\Client\MwuLightModuleFactoryInterface;
-use MwuSdk\Factory\Entity\MessageFactoryInterface;
+use MwuSdk\Factory\Entity\ClientMessageFactoryInterface;
 use MwuSdk\Validator\Command\TargetedLightModuleCommandValidatorInterface;
 use MwuSdk\Validator\Command\TargetedSwitchCommandValidatorInterface;
 use Random\RandomException;
@@ -35,13 +35,13 @@ final class MwuSwitch implements MwuSwitchInterface
      * @param ?list<int>            $lightModuleIds manual list of IDs for which to generate a LightModule. This parameter is optional and overrides the eventual light modules generator configuration.
      */
     public function __construct(
-        private readonly SwitchConfigInterface $config,
-        private readonly ?BehaviorConfigInterface $defaultBehaviorConfig,
-        private readonly MessageFactoryInterface $messageFactory,
-        private readonly MwuLightModuleFactoryInterface $lightModuleFactory,
-        private readonly TargetedSwitchCommandValidatorInterface $targetedSwitchCommandValidator,
+        private readonly SwitchConfigInterface                        $config,
+        private readonly ?BehaviorConfigInterface                     $defaultBehaviorConfig,
+        private readonly ClientMessageFactoryInterface                $messageFactory,
+        private readonly MwuLightModuleFactoryInterface               $lightModuleFactory,
+        private readonly TargetedSwitchCommandValidatorInterface      $targetedSwitchCommandValidator,
         private readonly TargetedLightModuleCommandValidatorInterface $targetedLightModuleValidator,
-        ?array $lightModuleIds = null,
+        ?array                                                        $lightModuleIds = null,
     ) {
         $this->tcpIpClient = new TcpIpClient(
             $this->config->getIpAddress(),

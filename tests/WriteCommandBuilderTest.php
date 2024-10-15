@@ -10,7 +10,7 @@ use MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
 use MwuSdk\Factory\Client\MwuLightModuleFactory;
 use MwuSdk\Factory\Client\MwuSwitchFactory;
 use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
-use MwuSdk\Factory\Entity\MessageFactory;
+use MwuSdk\Factory\Entity\ClientMessageFactory;
 use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\BehaviorConfigDenormalizer;
 use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\ButtonsConfigDenormalizer;
 use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\ConfirmButtonConfigDenormalizer;
@@ -61,7 +61,7 @@ class WriteCommandBuilderTest extends TestCase
         $mwu = new MwuService(
             new MwuSwitchFactory(
                 new MwuLightModuleFactory(),
-                new MessageFactory(),
+                new ClientMessageFactory(),
                 new TargetedSwitchCommandValidator(),
                 new TargetedLightModuleCommandValidator(new TargetedSwitchCommandValidator()),
             ),

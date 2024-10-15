@@ -6,7 +6,7 @@ namespace MwuSdk\Command;
 
 use MwuSdk\Client\ConfigurableMwuServiceInterface;
 use MwuSdk\Entity\Command\Ack\AckCommand;
-use MwuSdk\Entity\Message;
+use MwuSdk\Entity\ClientMessage;
 use Random\RandomException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -66,7 +66,7 @@ final class ListenMessagesCommand extends Command
 
         while (true) {
             $buffer = '';  // Variable pour stocker les données reçues
-            $bytes_received = socket_recv($socket, $buffer, 1024, 0); // Recevoir jusqu'à 2048 octets
+            $bytes_received = socket_recv($socket, $buffer, 1024, 0); // Receive up to 1024 octets
 
             if (false === $bytes_received) {
                 echo 'Erreur lors de la réception de données : '.socket_strerror(socket_last_error($socket))."\n";
@@ -83,7 +83,7 @@ final class ListenMessagesCommand extends Command
             $command = $buffer;
             $seqNumber = substr($command, 1, 3);
 
-            $response = (string) new Message(new AckCommand(), $seqNumber);
+            $response = (string) new ClientMessage(new AckCommand(), $seqNumber);
             socket_write($socket, $response);
             echo "Responded: $response";
 
