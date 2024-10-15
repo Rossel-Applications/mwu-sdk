@@ -62,7 +62,7 @@ final class ListenSwitchMessagesCommand extends Command
 
     private function fetchSwitch(mixed $switchId): MwuSwitchInterface
     {
-        if (!filter_var($switchId, FILTER_VALIDATE_INT)) {
+        if (filter_var($switchId, FILTER_VALIDATE_INT)) {
             throw new SwitchNotFoundException($switchId);
         }
 
