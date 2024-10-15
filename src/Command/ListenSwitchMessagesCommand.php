@@ -11,6 +11,7 @@ use MwuSdk\Exception\Client\TcpIp\CannotConnectSocketException;
 use MwuSdk\Exception\Client\TcpIp\CannotCreateSocketException;
 use MwuSdk\Exception\Client\TcpIp\SocketClosedException;
 use MwuSdk\Exception\Client\TcpIp\SocketReceiveException;
+use MwuSdk\Factory\Entity\Message\ServerMessage\ServerMessageFactoryInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -30,6 +31,7 @@ final class ListenSwitchMessagesCommand extends Command
 
     public function __construct(
         private readonly ConfigurableMwuServiceInterface $mwuService,
+        private readonly ServerMessageFactoryInterface $serverMessageFactory,
     ) {
         parent::__construct();
     }
@@ -45,16 +47,6 @@ final class ListenSwitchMessagesCommand extends Command
         $switchId = $input->getArgument(self::ARGUMENT_SWITCH_ID);
         $switch = $this->fetchSwitch($switchId);
 
-        $this->write(
-            $output,
-            sprintf(
-                'Start listening to switch #%s on %s:%s...',
-                $this->switchId,
-                $switch->getIpAddress(),
-                $switch->getPort(),
-            ),
-        );
-
         $this->launchListener($switch, $input, $output);
 
         return Command::SUCCESS;
@@ -62,10 +54,11 @@ final class ListenSwitchMessagesCommand extends Command
 
     private function fetchSwitch(mixed $switchId): MwuSwitchInterface
     {
-        if (filter_var($switchId, \FILTER_VALIDATE_INT)) {
+        if (false === is_numeric($switchId)) {
             throw new SwitchNotFoundException($switchId);
         }
 
+        // Cast to int after validation
         $this->switchId = (int) $switchId;
 
         return $this->mwuService->getSwitchById($this->switchId);
@@ -105,6 +98,16 @@ final class ListenSwitchMessagesCommand extends Command
     {
         $socket = $this->createSocket($switch, $output);
 
+        $this->write(
+            $output,
+            sprintf(
+                'Start listening to switch #%s on %s:%s...',
+                $this->switchId,
+                $switch->getIpAddress(),
+                $switch->getPort(),
+            ),
+        );
+
         $receivedData = '';
         $receivedBytes = socket_recv($socket, $receivedData, 1024, 0);
 
@@ -118,7 +121,7 @@ final class ListenSwitchMessagesCommand extends Command
 
             $this->write($output, sprintf('Received message: %s', $receivedData));
 
-
+            dump($this->serverMessageFactory->createFromString($switch, $receivedData));
         } catch (\Exception $exception) {
             $this->write($output, $exception->getMessage());
         } finally {

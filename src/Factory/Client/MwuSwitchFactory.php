@@ -7,7 +7,7 @@ namespace MwuSdk\Factory\Client;
 use MwuSdk\Client\MwuSwitch;
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
-use MwuSdk\Factory\Entity\ClientMessageFactory;
+use MwuSdk\Factory\Entity\Message\ClientMessage\ClientMessageFactory;
 use MwuSdk\Validator\Command\TargetedLightModuleCommandValidatorInterface;
 use MwuSdk\Validator\Command\TargetedSwitchCommandValidatorInterface;
 
@@ -20,9 +20,9 @@ use MwuSdk\Validator\Command\TargetedSwitchCommandValidatorInterface;
 final readonly class MwuSwitchFactory implements MwuSwitchFactoryInterface
 {
     public function __construct(
-        private MwuLightModuleFactory                        $lightModuleFactory,
-        private ClientMessageFactory                         $messageFactory,
-        private TargetedSwitchCommandValidatorInterface      $targetedSwitchCommandValidator,
+        private MwuLightModuleFactory $lightModuleFactory,
+        private ClientMessageFactory $messageFactory,
+        private TargetedSwitchCommandValidatorInterface $targetedSwitchCommandValidator,
         private TargetedLightModuleCommandValidatorInterface $targetLightModuleValidator,
     ) {
     }

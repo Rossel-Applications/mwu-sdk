@@ -9,7 +9,7 @@ use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorC
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig;
 use MwuSdk\Factory\Client\MwuLightModuleFactory;
 use MwuSdk\Factory\Client\MwuSwitchFactory;
-use MwuSdk\Factory\Entity\ClientMessageFactory;
+use MwuSdk\Factory\Entity\Message\ClientMessage\ClientMessageFactory;
 use MwuSdk\Validator\Command\TargetedLightModuleCommandValidator;
 use MwuSdk\Validator\Command\TargetedSwitchCommandValidator;
 use Random\RandomException;

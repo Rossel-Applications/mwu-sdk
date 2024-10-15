@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace MwuSdk\Command;
 
 use MwuSdk\Client\ConfigurableMwuServiceInterface;
-use MwuSdk\Entity\Command\Ack\AckCommand;
-use MwuSdk\Entity\ClientMessage;
+use MwuSdk\Entity\Command\ClientCommand\Ack\AckCommand;
+use MwuSdk\Entity\Message\ClientMessage\ClientMessage;
 use Random\RandomException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

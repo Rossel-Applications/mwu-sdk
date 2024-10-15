@@ -6,7 +6,7 @@ namespace MwuSdk\Client;
 
 use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface;
-use MwuSdk\Entity\Command\BroadcastReadyCommandInterface;
+use MwuSdk\Entity\Command\ClientCommand\BroadcastReadyCommandInterface;
 use MwuSdk\Exception\Client\Mwu\SwitchNotFoundException;
 use MwuSdk\Factory\Client\MwuSwitchFactoryInterface;
 use MwuSdk\Serializer\DefaultConfiguration\Formats\YamlConfigurationDeserializerInterface;

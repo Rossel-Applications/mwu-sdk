@@ -6,7 +6,7 @@ namespace MwuSdk\Client;
 
 use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
-use MwuSdk\Entity\Command\CommandInterface;
+use MwuSdk\Entity\Command\ClientCommand\ClientCommandInterface;
 
 /**
  * Interface for MWU Switches.
@@ -123,7 +123,7 @@ interface MwuSwitchInterface
      *
      * @return ?string the response, or null if no response
      */
-    public function send(CommandInterface $command): ?string;
+    public function send(ClientCommandInterface $command): ?string;
 
     /**
      * Builds and sends a write command to specified light modules.

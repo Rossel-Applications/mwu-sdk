@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MwuSdk\Validator\Command;
 
 use MwuSdk\Client\MwuSwitchInterface;
-use MwuSdk\Entity\Command\TargetedLightModuleCommandInterface;
+use MwuSdk\Entity\Command\ClientCommand\TargetedLightModuleCommandInterface;
 
 /**
  * Interface for validators that ensure targeted light module commands are valid.

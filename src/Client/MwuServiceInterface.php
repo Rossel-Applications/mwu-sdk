@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MwuSdk\Client;
 
 use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
-use MwuSdk\Entity\Command\BroadcastReadyCommandInterface;
+use MwuSdk\Entity\Command\ClientCommand\BroadcastReadyCommandInterface;
 
 /**
  * MwuClientInterface defines methods for managing switches and sending commands.

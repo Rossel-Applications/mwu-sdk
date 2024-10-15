@@ -10,7 +10,7 @@ use MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
 use MwuSdk\Factory\Client\MwuLightModuleFactory;
 use MwuSdk\Factory\Client\MwuSwitchFactory;
 use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
-use MwuSdk\Factory\Entity\ClientMessageFactory;
+use MwuSdk\Factory\Entity\Message\ClientMessage\ClientMessageFactory;
 use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\BehaviorConfigDenormalizer;
 use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\ButtonsConfigDenormalizer;
 use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\ConfirmButtonConfigDenormalizer;
@@ -36,7 +36,6 @@ use MwuSdk\Validator\DefaultConfiguration\Behavior\Display\ScreenConfigValidator
 use MwuSdk\Validator\DefaultConfiguration\ConfigValidator;
 use MwuSdk\Validator\DefaultConfiguration\Switches\LightModulesGeneratorConfigValidator;
 use MwuSdk\Validator\DefaultConfiguration\Switches\SwitchesConfigValidator;
-use MwuSdkTest\Utils\InfrastructureGenerator;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 use Random\RandomException;
