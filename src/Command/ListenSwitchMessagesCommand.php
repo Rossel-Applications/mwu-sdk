@@ -61,12 +61,12 @@ final class ListenSwitchMessagesCommand extends Command
     }
 
     private function fetchSwitch(mixed $switchId): MwuSwitchInterface
-    {dump($switchId);
-        if (!\is_int($switchId)) {
+    {
+        if (!filter_var($switchId, FILTER_VALIDATE_INT)) {
             throw new SwitchNotFoundException($switchId);
         }
 
-        $this->switchId = $switchId;
+        $this->switchId = (int) $switchId;
 
         return $this->mwuService->getSwitchById($switchId);
     }
