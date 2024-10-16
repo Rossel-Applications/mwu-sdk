@@ -4,7 +4,6 @@ services:
     autoconfigure: true
     public: false
 
-  # Factories
   MwuSdk\:
     resource: '../../'
     exclude:
@@ -21,6 +20,6 @@ services:
   MwuSdk\Client\:
     resource: '../../Client/'
     exclude:
-      - '../../Client/MwuLightModule.php'
-      - '../../Client/MwuSwitch.php'
-      - '../../Client/TcpIpClient.php'
+      - '../../Client/MwuLightModule'
+      - '../../Client/MwuSwitch'
+      - '../../Client/TcpIp'

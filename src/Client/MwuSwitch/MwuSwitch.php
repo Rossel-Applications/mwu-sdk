@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Client;
+namespace MwuSdk\Client\MwuSwitch;
 
 use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
+use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use MwuSdk\Client\TcpIp\TcpIpClient;
+use MwuSdk\Client\TcpIp\TcpIpClientInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
 use MwuSdk\Entity\Command\ClientCommand\ClientCommandInterface;

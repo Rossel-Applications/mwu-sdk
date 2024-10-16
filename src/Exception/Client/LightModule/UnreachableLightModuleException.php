@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MwuSdk\Exception\Client\LightModule;
 
-use MwuSdk\Client\MwuLightModuleInterface;
+use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
 
 /**
  * Exception thrown when a light module cannot be reached.

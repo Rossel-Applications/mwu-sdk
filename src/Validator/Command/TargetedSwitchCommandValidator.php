@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MwuSdk\Validator\Command;
 
-use MwuSdk\Client\MwuSwitchInterface;
+use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
 use MwuSdk\Entity\Command\ClientCommand\TargetedSwitchCommandInterface;
 use MwuSdk\Exception\Client\Switch\UnexpectedSwitchException;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MwuSdk\Factory\Dto\Command\Write;
 
-use MwuSdk\Client\MwuLightModuleInterface;
+use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
 use MwuSdk\Entity\Command\ClientCommand\Write\WriteCommandModeArrayInterface;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;

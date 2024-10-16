@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace MwuSdk\Command;
 
-use MwuSdk\Client\ConfigurableMwuServiceInterface;
-use MwuSdk\Client\MwuSwitchInterface;
+use MwuSdk\Client\Mwu\ConfigurableMwuServiceInterface;
+use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use MwuSdk\Client\TcpIp\TcpIpClient;
+use MwuSdk\Events\Dispatcher\EventDispatcherInterface;
 use MwuSdk\Exception\Client\Mwu\SwitchNotFoundException;
-use MwuSdk\Exception\Client\TcpIp\CannotConnectSocketException;
-use MwuSdk\Exception\Client\TcpIp\CannotCreateSocketException;
-use MwuSdk\Exception\Client\TcpIp\SocketClosedException;
-use MwuSdk\Exception\Client\TcpIp\SocketReceiveException;
-use MwuSdk\Factory\Entity\Message\ServerMessage\ServerMessageFactoryInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -31,7 +28,7 @@ final class ListenSwitchMessagesCommand extends Command
 
     public function __construct(
         private readonly ConfigurableMwuServiceInterface $mwuService,
-        private readonly ServerMessageFactoryInterface $serverMessageFactory,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
         parent::__construct();
     }
@@ -67,26 +64,7 @@ final class ListenSwitchMessagesCommand extends Command
     private function createSocket(MwuSwitchInterface $switch, OutputInterface $output): \Socket
     {
         try {
-            $socket = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
-
-            if (false === $socket) {
-                throw new CannotCreateSocketException();
-            }
-
-            $ipAddress = $switch->getIpAddress();
-            $port = $switch->getPort();
-
-            $connected = socket_connect(
-                $socket,
-                $ipAddress,
-                $port,
-            );
-
-            if (false === $connected) {
-                throw new CannotConnectSocketException($ipAddress, $port);
-            }
-
-            return $socket;
+            return TcpIpClient::createSocket($switch->getIpAddress(), $switch->getPort());
         } catch (\Exception $exception) {
             $this->write($output, $exception->getMessage());
         }
@@ -108,20 +86,10 @@ final class ListenSwitchMessagesCommand extends Command
             ),
         );
 
-        $receivedData = '';
-        $receivedBytes = socket_recv($socket, $receivedData, 1024, 0);
-
         try {
-            if (false === $receivedBytes) {
-                throw new SocketReceiveException(socket_strerror(socket_last_error($socket)));
-            }
-            if (0 === $receivedBytes) {
-                throw new SocketClosedException();
-            }
-
-            $this->write($output, sprintf('Received message: %s', $receivedData));
-
-            dump($this->serverMessageFactory->createFromString($switch, $receivedData)->getCommand());
+            $receivedStringMessage = TcpIpClient::receiveMessage($socket);
+            $this->write($output, sprintf('Received message: %s', $receivedStringMessage));
+            $this->eventDispatcher->dispatchMessageReceivedEvent($switch, $receivedStringMessage);
         } catch (\Exception $exception) {
             $this->write($output, $exception->getMessage());
         } finally {

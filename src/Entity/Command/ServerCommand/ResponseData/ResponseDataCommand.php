@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MwuSdk\Entity\Command\ServerCommand\ResponseData;
 
-use MwuSdk\Client\MwuLightModuleInterface;
+use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
 use MwuSdk\Entity\Command\AbstractCommand;
 use MwuSdk\Enum\Command\ResponseData\Status;
 

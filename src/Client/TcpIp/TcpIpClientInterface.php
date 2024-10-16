@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Client;
+namespace MwuSdk\Client\TcpIp;
 
 use MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
 
@@ -21,4 +21,8 @@ interface TcpIpClientInterface
      * @return string|null the response from the Switch, or null if an error occurred
      */
     public function sendMessage(string $message): ?string;
+
+    public static function createSocket(string $ipAddress, int $port, int $timeout): \Socket;
+
+    public static function receiveMessage(\Socket $socket): string;
 }

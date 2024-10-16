@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MwuSdk\Exception\Configuration;
 
-use MwuSdk\Client\MwuSwitchInterface;
+use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
 
 /**
  * Error thrown when it is not possible for a switch to assign an id to a light module.

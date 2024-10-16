@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MwuSdk\Factory\Client;
 
-use MwuSdk\Client\MwuLightModuleInterface;
-use MwuSdk\Client\MwuSwitchInterface;
+use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfigInterface;
 

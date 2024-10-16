@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MwuSdkTest\Utils;
 
-use MwuSdk\Client\MwuSwitch;
+use MwuSdk\Client\MwuSwitch\MwuSwitch;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfig;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig;
 use MwuSdk\Factory\Client\MwuLightModuleFactory;

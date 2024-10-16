@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Client;
+namespace MwuSdk\Client\MwuLightModule;
 
 use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
+use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
 use MwuSdk\Model\ConfirmButton;

@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace MwuSdk\Factory\Entity\Message\ServerMessage;
 
-use http\Exception\InvalidArgumentException;
-use MwuSdk\Client\MwuSwitchInterface;
+use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
 use MwuSdk\Entity\Command\ServerCommand\ServerCommandInterface;
 use MwuSdk\Entity\Message\ServerMessage\ServerMessage;
 use MwuSdk\Factory\Entity\Command\Server\ResponseData\ResponseDataCommandFactory;
 
-class ServerMessageFactory implements ServerMessageFactoryInterface
+final readonly class ServerMessageFactory implements ServerMessageFactoryInterface
 {
     public function __construct(
         private ResponseDataCommandFactory $responseDataCommandFactory,
@@ -47,7 +46,7 @@ class ServerMessageFactory implements ServerMessageFactoryInterface
         };
 
         if (null === $command) {
-            throw new InvalidArgumentException('Command not supported');
+            throw new \InvalidArgumentException('Command not supported');
         }
 
         return $command;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MwuSdk\Entity\Command\ClientCommand\Write;
 
-use MwuSdk\Client\MwuLightModuleInterface;
-use MwuSdk\Client\MwuSwitchInterface;
+use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
 use MwuSdk\Entity\Command\AbstractCommand;
 use MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
 

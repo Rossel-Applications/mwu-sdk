@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Client;
+namespace MwuSdk\Client\Mwu;
 
 interface YamlConfigurableMwuServiceInterface extends ConfigurableMwuServiceInterface
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MwuSdk\Factory\Client;
 
-use MwuSdk\Client\MwuSwitch;
+use MwuSdk\Client\MwuSwitch\MwuSwitch;
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
 use MwuSdk\Factory\Entity\Message\ClientMessage\ClientMessageFactory;

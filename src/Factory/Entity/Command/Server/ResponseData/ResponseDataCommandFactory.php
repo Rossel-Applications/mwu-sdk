@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MwuSdk\Factory\Entity\Command\Server\ResponseData;
 
-use MwuSdk\Client\MwuLightModuleInterface;
-use MwuSdk\Client\MwuSwitchInterface;
+use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
 use MwuSdk\Entity\Command\ServerCommand\ResponseData\ResponseDataCommand;
 use MwuSdk\Entity\Command\ServerCommand\ResponseData\ResponseDataCommandInterface;
 use MwuSdk\Enum\Command\ResponseData\Status;

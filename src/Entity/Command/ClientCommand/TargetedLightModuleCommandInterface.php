@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MwuSdk\Entity\Command\ClientCommand;
 
-use MwuSdk\Client\MwuLightModuleInterface;
+use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
 
 /**
  * Interface implemented by commands dedicated to a specific light module.
