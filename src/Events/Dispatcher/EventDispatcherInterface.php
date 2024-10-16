@@ -15,6 +15,7 @@ interface EventDispatcherInterface
     public function dispatchMessageReceivedEvent(
         MwuSwitchInterface $switch,
         string $stringMessage,
+        \Socket $socket,
     ): void;
 
     public function dispatchMessageSentEvent(

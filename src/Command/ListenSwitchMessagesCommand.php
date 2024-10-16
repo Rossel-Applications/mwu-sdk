@@ -87,9 +87,9 @@ final class ListenSwitchMessagesCommand extends Command
         );
 
         try {
-            $receivedStringMessage = TcpIpClient::receiveMessage($socket);
+            $receivedStringMessage = TcpIpClient::receiveMessageFromSocket($socket);
             $this->write($output, sprintf('Received message: %s', $receivedStringMessage));
-            $this->eventDispatcher->dispatchMessageReceivedEvent($switch, $receivedStringMessage);
+            $this->eventDispatcher->dispatchMessageReceivedEvent($switch, $receivedStringMessage, $socket);
         } catch (\Exception $exception) {
             $this->write($output, $exception->getMessage());
         } finally {

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace MwuSdk\Events\Manager;
 
-use MwuSdk\Entity\Command\ClientCommand\Ack\AckCommand;
 use MwuSdk\Events\Event\EventInterface;
-use MwuSdk\Events\Event\MessageReceivedEventInterface;
 use MwuSdk\Events\Listener\EventListenerInterface;
 use MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
 use Random\RandomException;
@@ -44,22 +42,10 @@ final class EventManager implements EventManagerInterface
      */
     public function handleEvent(EventInterface $eventData): void
     {
-        if ($eventData instanceof MessageReceivedEventInterface) {
-            $this->sendAckOnMessageReception($eventData);
-        }
-
         foreach ($this->eventListeners as $listener) {
             if ($listener->supports($eventData)) {
                 $listener->handleEvent($eventData);
             }
         }
-    }
-
-    private function sendAckOnMessageReception(MessageReceivedEventInterface $messageReceivedEvent): void
-    {
-        $sequenceNumber = $messageReceivedEvent->getMessage()->getSequenceNumber();
-        $switch = $messageReceivedEvent->getMessage()->getCommand()->getSwitch();
-
-        $switch->send(new AckCommand(), $sequenceNumber);
     }
 }

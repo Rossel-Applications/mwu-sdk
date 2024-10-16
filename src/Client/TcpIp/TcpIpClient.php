@@ -65,7 +65,7 @@ final class TcpIpClient implements TcpIpClientInterface
         return $socket;
     }
 
-    public static function receiveMessage(\Socket $socket): string
+    public static function receiveMessageFromSocket(\Socket $socket): string
     {
         $receivedMessage = false;
         socket_recv($socket, $receivedMessage, 1024, 0);
@@ -78,5 +78,10 @@ final class TcpIpClient implements TcpIpClientInterface
         }
 
         return $receivedMessage;
+    }
+
+    public static function sendMessageToSocket(\Socket $socket, string $message): void
+    {
+        socket_write($socket, $message);
     }
 }

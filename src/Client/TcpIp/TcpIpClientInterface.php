@@ -24,5 +24,5 @@ interface TcpIpClientInterface
 
     public static function createSocket(string $ipAddress, int $port, int $timeout): \Socket;
 
-    public static function receiveMessage(\Socket $socket): string;
+    public static function receiveMessageFromSocket(\Socket $socket): string;
 }
