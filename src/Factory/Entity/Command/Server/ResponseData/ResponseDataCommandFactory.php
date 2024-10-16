@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MwuSdk\Factory\Entity\Command\Server\ResponseData;
 
+use MwuSdk\Client\MwuLightModuleInterface;
 use MwuSdk\Client\MwuSwitchInterface;
 use MwuSdk\Entity\Command\ServerCommand\ResponseData\ResponseDataCommand;
 use MwuSdk\Entity\Command\ServerCommand\ResponseData\ResponseDataCommandInterface;
@@ -20,10 +21,45 @@ final class ResponseDataCommandFactory implements ResponseDataCommandFactoryInte
             throw new \InvalidArgumentException("Command string '{$commandString}' is not supported.");
         }
 
+        return new ResponseDataCommand(
+            $commandString,
+            $this->fetchLightModule($commandString, $switch),
+            $this->fetchStatus($commandString),
+            $this->fetchData($commandString),
+        );
+    }
+
+    public function supports(string $commandString): bool
+    {
+        return 't' === $commandString[0];
+    }
+
+    private function fetchData(string $commandString): ?string
+    {
+        if (preg_match('/<([^>]*)>/', $commandString, $matches)) {
+            return trim($matches[1]); // Text between "<" and ">"
+        }
+
+        return null;
+    }
+
+    private function fetchStatus(string $commandString): Status
+    {
+        $status = Status::findInstanceByStringValue(substr($commandString, 5, 2));
+
+        if (null === $status) {
+            throw new \InvalidArgumentException("Command string '{$commandString}' contains an invalid status value.");
+        }
+
+        return $status;
+    }
+
+    private function fetchLightModule(string $commandString, MwuSwitchInterface $switch): MwuLightModuleInterface
+    {
         $lightModuleAddress = substr($commandString, 1, 4);
 
         if (false === is_numeric($lightModuleAddress)) {
-            throw new \InvalidArgumentException("Command string '{$commandString}' does not contain the light module address.");
+            throw new \InvalidArgumentException("Command string '{$commandString}' does not contain a valid light module address.");
         }
 
         $lightModuleAddressInt = (int) $lightModuleAddress;
@@ -34,34 +70,6 @@ final class ResponseDataCommandFactory implements ResponseDataCommandFactoryInte
             throw new SwitchNotFoundException($lightModuleAddressInt);
         }
 
-        $status = Status::findInstanceByStringValue(substr($commandString, 5, 2));
-
-        if (null === $status) {
-            throw new \InvalidArgumentException("Command string '{$commandString}' status value is invalid.");
-        }
-
-        $data = $this->getTextBetweenTags($commandString);
-
-        return new ResponseDataCommand(
-            $commandString,
-            $lightModule,
-            $status,
-            $data,
-        );
-    }
-
-    public function supports(string $commandString): bool
-    {
-        return 't' === $commandString[0];
-    }
-
-    private function getTextBetweenTags(string $text): ?string
-    {
-        // Utilisation de preg_match pour capturer le texte entre les balises "<" et ">"
-        if (preg_match('/<([^>]*)>/', $text, $matches)) {
-            return $matches[1]; // Le texte capturé entre "<" et ">"
-        }
-
-        return null; // Retourne null si aucune correspondance n'est trouvée
+        return $lightModule;
     }
 }
