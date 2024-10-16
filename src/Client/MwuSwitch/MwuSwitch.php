@@ -271,11 +271,13 @@ final class MwuSwitch implements MwuSwitchInterface
      * @throws RandomException
      * @throws TcpIpClientExceptionInterface
      */
-    public function send(ClientCommandInterface $command): ?string
-    {
+    public function send(
+        ClientCommandInterface $command,
+        ?string $sequenceNumber = null
+    ): ?string {
         $this->validateCommand($command);
 
-        $message = $this->messageFactory->create($command);
+        $message = $this->messageFactory->create($command, $sequenceNumber);
 
         return $this->tcpIpClient->sendMessage((string) $message);
     }

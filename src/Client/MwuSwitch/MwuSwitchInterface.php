@@ -124,7 +124,7 @@ interface MwuSwitchInterface
      *
      * @return ?string the response, or null if no response
      */
-    public function send(ClientCommandInterface $command): ?string;
+    public function send(ClientCommandInterface $command, ?string $sequenceNumber = null): ?string;
 
     /**
      * Builds and sends a write command to specified light modules.
