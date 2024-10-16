@@ -19,8 +19,8 @@ final class EventManager implements EventManagerInterface
      * @param array<int, EventListenerInterface> $eventListeners
      */
     public function __construct(
-        private array $eventListeners,
         private readonly TcpIpClientInterface $tcpIpClient,
+        private array $eventListeners = [],
     ) {
     }
 
