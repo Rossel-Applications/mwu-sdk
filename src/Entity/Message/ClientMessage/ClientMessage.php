@@ -22,11 +22,11 @@ final readonly class ClientMessage extends AbstractMessage implements ClientMess
      * @throws RandomException if the sequence number initialization fails
      */
     public function __construct(
-        ClientCommandInterface $command,
+        private ClientCommandInterface $command,
         ?string $sequenceNumber = null
     ) {
         $sequenceNumber = $sequenceNumber ?? $this->generateSequenceNumber();
-        parent::__construct($command, $sequenceNumber);
+        parent::__construct($sequenceNumber);
     }
 
     /**
@@ -41,5 +41,13 @@ final readonly class ClientMessage extends AbstractMessage implements ClientMess
         $nonFormattedSequenceNumber = (string) random_int(0, 999);
 
         return str_pad($nonFormattedSequenceNumber, 3, '0', \STR_PAD_LEFT);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCommand(): ClientCommandInterface
+    {
+        return $this->command;
     }
 }

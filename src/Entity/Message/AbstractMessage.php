@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace MwuSdk\Entity\Message;
 
-use MwuSdk\Entity\Command\CommandInterface;
-
 abstract readonly class AbstractMessage implements MessageInterface
 {
     /**
@@ -27,16 +25,9 @@ abstract readonly class AbstractMessage implements MessageInterface
      */
     private string $sequenceNumber;
 
-    /**
-     * @var CommandInterface the Command to encapsulate in the Message
-     */
-    private CommandInterface $command;
-
     public function __construct(
-        CommandInterface $command,
         string $sequenceNumber,
     ) {
-        $this->command = $command;
         $this->sequenceNumber = $sequenceNumber;
     }
 
@@ -65,13 +56,5 @@ abstract readonly class AbstractMessage implements MessageInterface
     public function getSequenceNumber(): string
     {
         return $this->sequenceNumber;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCommand(): CommandInterface
-    {
-        return $this->command;
     }
 }

@@ -17,9 +17,17 @@ final readonly class ServerMessage extends AbstractMessage implements ServerMess
      * Creates a new Message instance encapsulating the provided Command.
      */
     public function __construct(
-        ServerCommandInterface $command,
+        private ServerCommandInterface $command,
         string $sequenceNumber,
     ) {
-        parent::__construct($command, $sequenceNumber);
+        parent::__construct($sequenceNumber);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCommand(): ServerCommandInterface
+    {
+        return $this->command;
     }
 }
