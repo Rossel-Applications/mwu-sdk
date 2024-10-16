@@ -40,15 +40,28 @@ final class ResponseDataCommandFactory implements ResponseDataCommandFactoryInte
             throw new \InvalidArgumentException("Command string '{$commandString}' status value is invalid.");
         }
 
+        $data = $this->getTextBetweenTags($commandString);
+
         return new ResponseDataCommand(
             $commandString,
             $lightModule,
             $status,
+            $data,
         );
     }
 
     public function supports(string $commandString): bool
     {
         return 't' === $commandString[0];
+    }
+
+    private function getTextBetweenTags(string $text): ?string
+    {
+        // Utilisation de preg_match pour capturer le texte entre les balises "<" et ">"
+        if (preg_match('/<([^>]*)>/', $text, $matches)) {
+            return $matches[1]; // Le texte capturé entre "<" et ">"
+        }
+
+        return null; // Retourne null si aucune correspondance n'est trouvée
     }
 }

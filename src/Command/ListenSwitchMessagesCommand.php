@@ -121,7 +121,7 @@ final class ListenSwitchMessagesCommand extends Command
 
             $this->write($output, sprintf('Received message: %s', $receivedData));
 
-            dump($this->serverMessageFactory->createFromString($switch, $receivedData));
+            dump($this->serverMessageFactory->createFromString($switch, $receivedData)->getCommand());
         } catch (\Exception $exception) {
             $this->write($output, $exception->getMessage());
         } finally {

@@ -14,6 +14,7 @@ final readonly class ResponseDataCommand extends AbstractCommand implements Resp
         string $stringCommand,
         private MwuLightModuleInterface $lightModule,
         private Status $status,
+        private ?string $data,
     ) {
         parent::__construct($stringCommand);
     }
@@ -31,5 +32,10 @@ final readonly class ResponseDataCommand extends AbstractCommand implements Resp
     public function getStatus(): Status
     {
         return $this->status;
+    }
+
+    public function getData(): ?string
+    {
+        return $this->data;
     }
 }
