@@ -7,12 +7,14 @@ namespace MwuSdk\Factory\Entity\Message\ServerMessage;
 use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
 use MwuSdk\Entity\Command\ServerCommand\ServerCommandInterface;
 use MwuSdk\Entity\Message\ServerMessage\ServerMessage;
-use MwuSdk\Factory\Entity\Command\Server\ResponseData\ResponseDataCommandFactory;
+use MwuSdk\Factory\Entity\Command\Server\ResponseData\ResponseDataCommandFactoryInterface;
+use MwuSdk\Factory\Entity\Command\Server\SuccessfulResponse\SuccessfulResponseCommandFactoryInterface;
 
 final readonly class ServerMessageFactory implements ServerMessageFactoryInterface
 {
     public function __construct(
-        private ResponseDataCommandFactory $responseDataCommandFactory,
+        private ResponseDataCommandFactoryInterface $responseDataCommandFactory,
+        private SuccessfulResponseCommandFactoryInterface $successfulResponseCommandFactory,
     ) {
     }
 
@@ -42,11 +44,12 @@ final readonly class ServerMessageFactory implements ServerMessageFactoryInterfa
     {
         $command = match (true) {
             $this->responseDataCommandFactory->supports($commandString) => $this->responseDataCommandFactory->createFromString($switch, $commandString),
+            $this->successfulResponseCommandFactory->supports($commandString) => $this->successfulResponseCommandFactory->createFromString($switch, $commandString),
             default => null,
         };
 
         if (null === $command) {
-            throw new \InvalidArgumentException('Command not supported');
+            throw new \InvalidArgumentException("Command '$commandString' is not supported");
         }
 
         return $command;

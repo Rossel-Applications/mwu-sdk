@@ -7,16 +7,20 @@ namespace MwuSdk\Factory\Entity\Command\Server\ResponseData;
 use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
 use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
 use MwuSdk\Entity\Command\ServerCommand\ResponseData\ResponseDataCommand;
-use MwuSdk\Entity\Command\ServerCommand\ResponseData\ResponseDataCommandInterface;
 use MwuSdk\Enum\Command\ResponseData\Status;
 use MwuSdk\Exception\Client\Mwu\SwitchNotFoundException;
 
 final class ResponseDataCommandFactory implements ResponseDataCommandFactoryInterface
 {
+    public function supports(string $commandString): bool
+    {
+        return 't' === $commandString[0];
+    }
+
     public function createFromString(
         MwuSwitchInterface $switch,
         string $commandString
-    ): ResponseDataCommandInterface {
+    ): ResponseDataCommand {
         if (false === $this->supports($commandString)) {
             throw new \InvalidArgumentException("Command string '{$commandString}' is not supported.");
         }
@@ -27,11 +31,6 @@ final class ResponseDataCommandFactory implements ResponseDataCommandFactoryInte
             $this->fetchStatus($commandString),
             $this->fetchData($commandString),
         );
-    }
-
-    public function supports(string $commandString): bool
-    {
-        return 't' === $commandString[0];
     }
 
     private function fetchData(string $commandString): ?string
