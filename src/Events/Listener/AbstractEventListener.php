@@ -8,10 +8,12 @@ use MwuSdk\Exception\Event\Listener\CannotHandleEventException;
 
 abstract class AbstractEventListener implements EventListenerInterface
 {
-    public function handleEvent(EventInterface $eventData): void
+    public function validate(EventInterface $eventData): true
     {
         if (false === $this->supports($eventData)) {
             throw new CannotHandleEventException($eventData);
         }
+
+        return true;
     }
 }
