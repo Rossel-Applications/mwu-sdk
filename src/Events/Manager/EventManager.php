@@ -12,28 +12,11 @@ use Random\RandomException;
 final class EventManager implements EventManagerInterface
 {
     /**
-     * @param array<int, EventListenerInterface> $eventListeners
+     * @param iterable<EventListenerInterface> $eventListeners
      */
     public function __construct(
-        private array $eventListeners = [],
+        private iterable $eventListeners,
     ) {
-    }
-
-    public function addEventListener(EventListenerInterface $eventListener): void
-    {
-        $this->eventListeners[] = $eventListener;
-    }
-
-    public function removeEventListener(EventListenerInterface $eventListener): void
-    {
-        foreach ($this->eventListeners as $key => $listener) {
-            if ($listener === $eventListener) {
-                unset($this->eventListeners[$key]);
-            }
-        }
-
-        // Re-index the array to avoid gaps in the numeric keys
-        $this->eventListeners = array_values($this->eventListeners);
     }
 
     /**
