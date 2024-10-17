@@ -47,6 +47,7 @@ final class TcpIpClient implements TcpIpClientInterface
         ini_set('default_socket_timeout', $timeout);
 
         $socket = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
+        stream_set_blocking($socket, false);
 
         if (false === $socket) {
             throw new CannotCreateSocketException();
