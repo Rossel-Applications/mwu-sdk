@@ -47,7 +47,7 @@ final class TcpIpClient implements TcpIpClientInterface
         ini_set('default_socket_timeout', $timeout);
 
         $socket = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
-        socket_set_nonblock($socket);
+        //socket_set_nonblock($socket);
 
         if (false === $socket) {
             throw new CannotCreateSocketException();
@@ -60,7 +60,6 @@ final class TcpIpClient implements TcpIpClientInterface
         );
 
         if (false === $connected) {
-            dump(socket_last_error($socket));
             throw new CannotConnectSocketException($ipAddress, $port);
         }
 
