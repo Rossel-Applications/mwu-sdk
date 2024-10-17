@@ -15,8 +15,9 @@ final class EventManager implements EventManagerInterface
      * @param iterable<EventListenerInterface> $eventListeners
      */
     public function __construct(
-        private iterable $eventListeners,
+        private readonly iterable $eventListeners,
     ) {
+        dump($this->eventListeners);
     }
 
     /**
