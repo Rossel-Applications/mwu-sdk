@@ -48,7 +48,7 @@ final class TcpIpClient implements TcpIpClientInterface
 
         $socket = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
         socket_set_nonblock($socket);
-
+dump(socket_last_error($socket));
         if (false === $socket) {
             throw new CannotCreateSocketException();
         }
