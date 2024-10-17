@@ -14,6 +14,7 @@ class AddEventListenerTagPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         foreach ($container->getDefinitions() as $definition) {
+            dump($definition);
             if ($this->implementsEventListenerInterface($definition)) {
                 $definition->addTag('mwu_sdk.event_listener');
             }

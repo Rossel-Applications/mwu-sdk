@@ -16,6 +16,6 @@ class MwuSdkBundle extends AbstractBundle
         parent::build($container);
 
         $container->registerExtension(new MwuSdkExtension());
-        //$container->addCompilerPass(new AddEventListenerTagPass());
+        $container->addCompilerPass(new AddEventListenerTagPass());
     }
 }
