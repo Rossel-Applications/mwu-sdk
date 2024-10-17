@@ -4,6 +4,10 @@ services:
     autoconfigure: true
     public: false
 
+  _instanceof:
+    MwuSdk\Events\Listener\EventListenerInterface:
+      tags: ['mwu_sdk.event_listener']
+
   MwuSdk\:
     resource: '../../'
     exclude:
@@ -23,3 +27,6 @@ services:
       - '../../Client/MwuLightModule'
       - '../../Client/MwuSwitch'
       - '../../Client/TcpIp'
+
+  MwuSdk\Events\Manager\EventManager:
+    $eventListeners: !tagged_iterator 'mwu_sdk.event_listener'

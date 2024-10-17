@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MwuSdk\Exception\Event\Listener;
 
 use MwuSdk\Events\Event\EventInterface;
