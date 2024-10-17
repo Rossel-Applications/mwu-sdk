@@ -121,4 +121,16 @@ interface MwuServiceInterface
         string $text = '',
         array &$errors = [],
     ): array;
+
+    /**
+     * @param array<array-key, MwuSwitchInterface> $switches
+     *
+     * @return array<int, MwuSwitchInterface>
+     */
+    public function reset(array $switches): array;
+
+    /**
+     * @return array<int, MwuSwitchInterface>
+     */
+    public function broadcastReset(): array;
 }

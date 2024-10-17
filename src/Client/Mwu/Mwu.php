@@ -28,7 +28,7 @@ class Mwu implements YamlConfigurableMwuServiceInterface
         private readonly MwuSwitchFactoryInterface $switchFactory,
         private readonly YamlConfigurationDeserializerInterface $yamlConfigurationDeserializer,
     ) {
-        $this->loadYamlConfigurationFile(__DIR__.'/../../../../../../config/mwu_sdk.yaml');
+        $this->loadYamlConfigurationFile(__DIR__.'/../../../../../../config/mwu_sdk.yaml'); // todo: refacto
     }
 
     /**
@@ -186,5 +186,28 @@ class Mwu implements YamlConfigurableMwuServiceInterface
         array &$errors = [],
     ): array {
         return $this->write($this->getSwitches(), $builder, $text, $errors);
+    }
+
+    /**
+     * @param array<array-key, MwuSwitchInterface> $switches
+     *
+     * @return array<int, MwuSwitchInterface>
+     */
+    public function reset(array $switches): array
+    {
+        $responses = [];
+
+        foreach ($switches as $switch) {
+            $switchId = $switch->getUniqueIdentifier();
+            $switchResponse = $switch->reset();
+            $responses[$switchId] = $switchResponse;
+        }
+
+        return $responses;
+    }
+
+    public function broadcastReset(): array
+    {
+        return $this->reset($this->getSwitches());
     }
 }

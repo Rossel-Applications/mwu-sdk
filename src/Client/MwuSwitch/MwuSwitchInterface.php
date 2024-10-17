@@ -157,4 +157,6 @@ interface MwuSwitchInterface
         ?string $text = null,
         array &$errors = [],
     ): array;
+
+    public function reset(): ?string;
 }

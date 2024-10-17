@@ -8,7 +8,7 @@ use MwuSdk\Events\Listener\EventListenerInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class AddEventListenerTagPass implements CompilerPassInterface
+final class AddEventListenerTagPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {

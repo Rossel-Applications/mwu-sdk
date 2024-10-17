@@ -11,6 +11,7 @@ use MwuSdk\Client\TcpIp\TcpIpClientInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
 use MwuSdk\Entity\Command\ClientCommand\ClientCommandInterface;
+use MwuSdk\Entity\Command\ClientCommand\Initialize\InitializeCommand;
 use MwuSdk\Entity\Command\ClientCommand\TargetedLightModuleCommandInterface;
 use MwuSdk\Entity\Command\ClientCommand\TargetedSwitchCommandInterface;
 use MwuSdk\Entity\Command\CommandInterface;
@@ -325,6 +326,15 @@ final class MwuSwitch implements MwuSwitchInterface
             $text,
             $errors,
         );
+    }
+
+    /**
+     * @throws RandomException
+     * @throws TcpIpClientExceptionInterface
+     */
+    public function reset(): ?string
+    {
+        return $this->send(new InitializeCommand());
     }
 
     private function validateCommand(CommandInterface $command): void
