@@ -310,13 +310,13 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
         );
 
         return sprintf(
-            '%s%s%s%s%04s%% 5s% 5s',
+            '%s%s%s%s%04s%% 5s%s',
             $staticPrefix,
             self::MWU_COMMAND_OPTION_FN_VALUE_SPECIFIED[$fnDataSpecified],
             $blockNumber,
             $modeArray,
             $lightModule->getId(),
-            $fnDataSpecified ? $this->getFnData() : '',
+            $fnDataSpecified ? sprintf('% 5s', $this->getFnData()) : '',
         );
     }
 }
