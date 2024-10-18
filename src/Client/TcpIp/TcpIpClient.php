@@ -33,15 +33,23 @@ final class TcpIpClient implements TcpIpClientInterface
      */
     public function sendMessage(string $message): ?string
     {
-        // Send message
-        socket_write($this->socket, $message);
+        if (!is_resource($this->socket)) {
+            throw new \RuntimeException('Invalid socket resource.');
+        }
 
-        // Get response from server
+        $bytesSent = socket_write($this->socket, $message);
+
+        if (false === $bytesSent) {
+            throw new \RuntimeException(socket_strerror(socket_last_error($this->socket)));
+        }
+
         $response = socket_read($this->socket, 1024);
 
-        socket_close($this->socket);
+        if (false === $response) {
+            throw new \RuntimeException(socket_strerror(socket_last_error($this->socket)));
+        }
 
-        return false !== $response ? $response : null;
+        return $response ?: null;
     }
 
     public static function createSocket(string $ipAddress, int $port, int $timeout = self::DEFAULT_TIMEOUT): \Socket
