@@ -23,7 +23,6 @@ final class TcpIpClient implements TcpIpClientInterface
         private readonly int $port,
         private readonly int $timeout = self::DEFAULT_TIMEOUT,
     ) {
-        $this->socket = self::createSocket($this->ipAddress, $this->port, $this->timeout);
     }
 
     /**
@@ -33,21 +32,25 @@ final class TcpIpClient implements TcpIpClientInterface
      */
     public function sendMessage(string $message): ?string
     {
-        if (!is_resource($this->socket)) {
+        $socket = self::createSocket($this->ipAddress, $this->port, $this->timeout);
+
+        if (!is_resource($socket)) {
             throw new \RuntimeException('Invalid socket resource.');
         }
 
-        $bytesSent = socket_write($this->socket, $message);
+        $bytesSent = socket_write($socket, $message);
 
         if (false === $bytesSent) {
-            throw new \RuntimeException(socket_strerror(socket_last_error($this->socket)));
+            throw new \RuntimeException(socket_strerror(socket_last_error($socket)));
         }
 
-        $response = socket_read($this->socket, 1024);
+        $response = socket_read($socket, 1024);
 
         if (false === $response) {
-            throw new \RuntimeException(socket_strerror(socket_last_error($this->socket)));
+            throw new \RuntimeException(socket_strerror(socket_last_error($socket)));
         }
+
+        socket_close($socket);
 
         return $response ?: null;
     }
