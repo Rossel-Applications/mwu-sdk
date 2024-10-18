@@ -69,6 +69,8 @@ final class ListenSwitchMessagesCommand extends Command
             $this->write($output, $exception->getMessage());
         }
 
+        sleep(10);
+
         return $this->createSocket($switch, $output);
     }
 
