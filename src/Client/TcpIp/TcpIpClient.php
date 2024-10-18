@@ -39,6 +39,8 @@ final class TcpIpClient implements TcpIpClientInterface
         // Get response from server
         $response = socket_read($this->socket, 1024);
 
+        socket_close($this->socket);
+
         return false !== $response ? $response : null;
     }
 
@@ -47,7 +49,7 @@ final class TcpIpClient implements TcpIpClientInterface
         ini_set('default_socket_timeout', $timeout);
 
         $socket = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
-        socket_set_nonblock($socket); // todo: hardware seems misconfigured
+        //socket_set_nonblock($socket); // todo: hardware seems misconfigured
 
         if (false === $socket) {
             throw new CannotCreateSocketException();
