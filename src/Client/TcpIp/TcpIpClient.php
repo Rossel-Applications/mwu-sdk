@@ -34,10 +34,6 @@ final class TcpIpClient implements TcpIpClientInterface
     {
         $socket = self::createSocket($this->ipAddress, $this->port, $this->timeout);
 
-        if (!is_resource($socket)) {
-            throw new \RuntimeException('Invalid socket resource.');
-        }
-
         $bytesSent = socket_write($socket, $message);
 
         if (false === $bytesSent) {
