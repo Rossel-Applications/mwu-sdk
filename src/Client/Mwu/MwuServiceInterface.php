@@ -125,12 +125,12 @@ interface MwuServiceInterface
     /**
      * @param array<array-key, MwuSwitchInterface> $switches
      *
-     * @return array<int, MwuSwitchInterface>
+     * @return array<string, string|null>
      */
     public function reset(array $switches): array;
 
     /**
-     * @return array<int, MwuSwitchInterface>
+     * @return array<string, string|null>
      */
     public function broadcastReset(): array;
 }

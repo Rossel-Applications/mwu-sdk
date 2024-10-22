@@ -1,0 +1,36 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  _instanceof:
+    MwuSdk\Events\Listener\EventListenerInterface:
+      tags: ['mwu_sdk.event_listener']
+
+  MwuSdk\:
+    resource: '../src/'
+    exclude:
+      - '../src/DependencyInjection/'
+      - '../src/Resources/'
+      - '../src/Entity/'
+      - '../src/Model'
+      - '../src/Enum'
+      - '../src/Builder'
+      - '../src/Dto'
+      - '../src/Exception'
+      - '../src/MwuSdkBundle.php'
+
+  MwuSdk\Client\:
+    resource: '../src/Client/'
+    exclude:
+      - '../src/Client/MwuLightModule'
+      - '../src/Client/MwuSwitch'
+      - '../src/Client/TcpIp'
+
+  MwuSdk\Client\Mwu\Mwu:
+    arguments:
+      $mwuConfigFilePath: '%kernel.project_dir%/config/packages/mwu_sdk.yaml'
+
+  MwuSdk\Events\Manager\EventManager:
+    $eventListeners: !tagged_iterator 'mwu_sdk.event_listener'

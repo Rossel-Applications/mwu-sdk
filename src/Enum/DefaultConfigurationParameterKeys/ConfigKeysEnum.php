@@ -6,7 +6,7 @@ namespace MwuSdk\Enum\DefaultConfigurationParameterKeys;
 
 enum ConfigKeysEnum: string
 {
-    case OPTIONAL_ENCAPSULATING_KEY = 'mwu_default_config';
+    case OPTIONAL_ENCAPSULATING_KEY = 'mwu_sdk';
     case KEY_SWITCHES = 'switches';
     case KEY_BEHAVIOR = 'behavior';
 }

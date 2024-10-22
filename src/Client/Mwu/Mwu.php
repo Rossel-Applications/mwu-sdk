@@ -27,8 +27,11 @@ class Mwu implements YamlConfigurableMwuServiceInterface
     public function __construct(
         private readonly MwuSwitchFactoryInterface $switchFactory,
         private readonly YamlConfigurationDeserializerInterface $yamlConfigurationDeserializer,
+        ?string $mwuConfigFilePath = null,
     ) {
-        $this->loadYamlConfigurationFile(__DIR__.'/../../../../../../config/mwu_sdk.yaml'); // todo: refacto
+        if (null !== $mwuConfigFilePath) {
+            $this->loadYamlConfigurationFile($mwuConfigFilePath);
+        }
     }
 
     /**
@@ -191,7 +194,7 @@ class Mwu implements YamlConfigurableMwuServiceInterface
     /**
      * @param array<array-key, MwuSwitchInterface> $switches
      *
-     * @return array<int, MwuSwitchInterface>
+     * @return array<string, string|null>
      */
     public function reset(array $switches): array
     {
