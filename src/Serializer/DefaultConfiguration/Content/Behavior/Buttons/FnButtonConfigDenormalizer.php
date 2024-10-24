@@ -30,13 +30,9 @@ final readonly class FnButtonConfigDenormalizer implements FnButtonConfigDenorma
     {
         $this->fnButtonConfigValidator->validate($data);
 
-        /** @var bool $enabled */
-        $enabled = $data[FnButtonConfigKeysEnum::KEY_ENABLED->value];
         /** @var string $text */
         $text = $data[FnButtonConfigKeysEnum::KEY_TEXT->value];
-        /** @var bool $useAsDecrement */
-        $useAsDecrement = $data[FnButtonConfigKeysEnum::KEY_USE_AS_DECREMENT->value];
 
-        return new FnButton($enabled, $text, $useAsDecrement);
+        return new FnButton($text);
     }
 }

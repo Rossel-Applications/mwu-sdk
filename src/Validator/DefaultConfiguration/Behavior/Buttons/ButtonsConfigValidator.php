@@ -23,11 +23,6 @@ final readonly class ButtonsConfigValidator extends AbstractConfigValidator
         $optionsResolver = new OptionsResolver();
 
         $optionsResolver
-            ->define(ButtonsConfigKeysEnum::KEY_CONFIRM->value)
-            ->allowedTypes('array')
-            ->required();
-
-        $optionsResolver
             ->define(ButtonsConfigKeysEnum::KEY_FN->value)
             ->allowedTypes('array')
             ->required();

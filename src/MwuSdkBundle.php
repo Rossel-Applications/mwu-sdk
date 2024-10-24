@@ -12,7 +12,6 @@ use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\BehaviorConfigKeysEnum;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\ButtonsConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\ConfirmButtonConfigKeysEnum;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\FnButtonConfigKeysEnum;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\QuantityKeysConfigKeysEnum;
 use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\DisplayConfigKeysEnum;
@@ -99,16 +98,9 @@ final class MwuSdkBundle extends AbstractBundle
                         ->end()
                         ->arrayNode(BehaviorConfigKeysEnum::KEY_BUTTONS->value)
                             ->children()
-                                ->arrayNode(ButtonsConfigKeysEnum::KEY_CONFIRM->value)
-                                    ->children()
-                                        ->booleanNode(ConfirmButtonConfigKeysEnum::KEY_ENABLED->value)->defaultTrue()->end()
-                                    ->end()
-                                ->end()
                                 ->arrayNode(ButtonsConfigKeysEnum::KEY_FN->value)
                                     ->children()
-                                        ->booleanNode(FnButtonConfigKeysEnum::KEY_ENABLED->value)->defaultTrue()->end()
-                                        ->scalarNode(FnButtonConfigKeysEnum::KEY_ENABLED->value)->isRequired()->end()
-                                        ->booleanNode(FnButtonConfigKeysEnum::KEY_ENABLED->value)->defaultFalse()->end()
+                                        ->scalarNode(FnButtonConfigKeysEnum::KEY_TEXT->value)->isRequired()->end()
                                     ->end()
                                 ->end()
                                 ->arrayNode(ButtonsConfigKeysEnum::KEY_QUANTITY_KEYS->value)

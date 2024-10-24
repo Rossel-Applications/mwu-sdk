@@ -51,7 +51,6 @@ final readonly class BehaviorConfigDenormalizer implements BehaviorConfigDenorma
             $displayStatus,
             $displayStatusAfterConfirmConfig,
             $displayStatusAfterFnConfig,
-            $buttonsConfig->getConfirmButton(),
             $buttonsConfig->getFnButton(),
             $buttonsConfig->getQuantityKeys(),
         );

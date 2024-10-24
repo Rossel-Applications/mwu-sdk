@@ -17,9 +17,7 @@ final class FnButtonFactory implements FnButtonFactoryInterface
     public function create(?FnButtonConfigInterface $config): FnButton
     {
         return new FnButton(
-            $config?->isEnabled(),
             $config?->getText(),
-            $config?->isUsedAsDecrement(),
         );
     }
 }

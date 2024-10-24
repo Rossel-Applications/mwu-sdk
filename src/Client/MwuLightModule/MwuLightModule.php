@@ -8,8 +8,6 @@ use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
 use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
 use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
 use MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
-use MwuSdk\Model\ConfirmButton;
-use MwuSdk\Model\ConfirmButtonInterface;
 use MwuSdk\Model\DisplayStatus;
 use MwuSdk\Model\DisplayStatusInterface;
 use MwuSdk\Model\FnButton;
@@ -30,7 +28,6 @@ final class MwuLightModule implements MwuLightModuleInterface
     private DisplayStatusInterface $displayStatus;
     private DisplayStatusInterface $displayStatusAfterConfirm;
     private DisplayStatusInterface $displayStatusAfterFn;
-    private ConfirmButtonInterface $confirmButton;
     private FnButtonInterface $fnButton;
     private QuantityKeysInterface $quantityKeys;
     private int $textMaxLength = self::DEFAULT_TEXT_MAX_LENGTH;
@@ -45,7 +42,6 @@ final class MwuLightModule implements MwuLightModuleInterface
             ->setDisplayStatus($behaviorConfig?->getDisplayStatus() ?? new DisplayStatus())
             ->setDisplayStatusAfterConfirm($behaviorConfig?->getDisplayStatusAfterConfirm() ?? new DisplayStatus())
             ->setDisplayStatusAfterFn($behaviorConfig?->getDisplayStatusAfterFn() ?? new DisplayStatus())
-            ->setConfirmButton($behaviorConfig?->getConfirmButton() ?? new ConfirmButton())
             ->setFnButton($behaviorConfig?->getFnButton() ?? new FnButton())
             ->setQuantityKeys($behaviorConfig?->getQuantityKeys() ?? new QuantityKeys());
     }
@@ -88,14 +84,6 @@ final class MwuLightModule implements MwuLightModuleInterface
     public function getSwitch(): ?MwuSwitchInterface
     {
         return $this->switch;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getConfirmButton(): ConfirmButtonInterface
-    {
-        return $this->confirmButton;
     }
 
     /**
@@ -244,13 +232,6 @@ final class MwuLightModule implements MwuLightModuleInterface
     private function setDisplayStatusAfterFn(DisplayStatusInterface $displayStatusAfterFn): self
     {
         $this->displayStatusAfterFn = $displayStatusAfterFn;
-
-        return $this;
-    }
-
-    private function setConfirmButton(ConfirmButtonInterface $confirmButton): self
-    {
-        $this->confirmButton = $confirmButton;
 
         return $this;
     }

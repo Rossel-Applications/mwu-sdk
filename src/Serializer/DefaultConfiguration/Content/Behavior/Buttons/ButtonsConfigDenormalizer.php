@@ -19,7 +19,6 @@ final readonly class ButtonsConfigDenormalizer implements ButtonsConfigDenormali
 {
     public function __construct(
         private ButtonsConfigValidator $buttonsConfigValidator,
-        private ConfirmButtonConfigDenormalizer $confirmButtonConfigDenormalizer,
         private FnButtonConfigDenormalizer $fnButtonConfigDenormalizer,
         private QuantityKeysConfigDenormalizer $quantityKeysConfigDenormalizer,
     ) {
@@ -32,10 +31,6 @@ final readonly class ButtonsConfigDenormalizer implements ButtonsConfigDenormali
     {
         $this->buttonsConfigValidator->validate($data);
 
-        /** @var array<array-key, mixed> $normalizedConfirmButtonConfig */
-        $normalizedConfirmButtonConfig = $data[ButtonsConfigKeysEnum::KEY_CONFIRM->value];
-        $confirmButtonConfig = $this->confirmButtonConfigDenormalizer->denormalize($normalizedConfirmButtonConfig);
-
         /** @var array<array-key, mixed> $normalizedFnButtonConfig */
         $normalizedFnButtonConfig = $data[ButtonsConfigKeysEnum::KEY_FN->value];
         $fnButtonConfig = $this->fnButtonConfigDenormalizer->denormalize($normalizedFnButtonConfig);
@@ -44,6 +39,6 @@ final readonly class ButtonsConfigDenormalizer implements ButtonsConfigDenormali
         $normalizedQuantityKeysConfig = $data[ButtonsConfigKeysEnum::KEY_QUANTITY_KEYS->value];
         $quantityKeysConfig = $this->quantityKeysConfigDenormalizer->denormalize($normalizedQuantityKeysConfig);
 
-        return new ButtonsConfig($confirmButtonConfig, $fnButtonConfig, $quantityKeysConfig);
+        return new ButtonsConfig($fnButtonConfig, $quantityKeysConfig);
     }
 }

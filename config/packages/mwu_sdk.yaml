@@ -1,11 +1,5 @@
 mwu_sdk:
   switches:
-    - ip_address: "144.56.46.33"
-      port: 5003
-      light_modules_generator:
-        first_module_id: 1
-        increment_between_module_ids: 1
-        number_of_modules: 4
     - ip_address: "144.56.46.30"
       port: 5003
       light_modules_generator:
@@ -35,12 +29,7 @@ mwu_sdk:
         mode: on
         text: "9999"
     buttons:
-      # a suppr
-      confirm:
-        enabled: true
       fn:
-        enabled: true
         text: "----"
-        use_as_decrement: false # a suppr
       quantity_keys:
         mode: off

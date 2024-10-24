@@ -6,7 +6,6 @@ namespace MwuSdk\Client\MwuLightModule;
 
 use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
 use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Model\ConfirmButtonInterface;
 use MwuSdk\Model\DisplayStatusInterface;
 use MwuSdk\Model\FnButtonInterface;
 use MwuSdk\Model\QuantityKeysInterface;
@@ -27,9 +26,6 @@ interface MwuLightModuleInterface
 
     /** Gets the display status after the "Confirm" button is pressed. */
     public function getDisplayStatusAfterConfirm(): DisplayStatusInterface;
-
-    /** Gets the "Confirm" button. */
-    public function getConfirmButton(): ConfirmButtonInterface;
 
     /** Gets the "Fn" button. */
     public function getFnButton(): FnButtonInterface;
