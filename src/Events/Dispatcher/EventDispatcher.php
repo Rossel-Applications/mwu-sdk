@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Events\Dispatcher;
+namespace Rossel\MwuSdk\Events\Dispatcher;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Client\TcpIp\TcpIpClient;
-use MwuSdk\Entity\Command\ClientCommand\Ack\AckCommand;
-use MwuSdk\Entity\Message\ClientMessage\ClientMessage;
-use MwuSdk\Entity\Message\ClientMessage\ClientMessageInterface;
-use MwuSdk\Events\Event\EventInterface;
-use MwuSdk\Events\Event\MessageReceivedEventInterface;
-use MwuSdk\Events\Manager\EventManagerInterface;
-use MwuSdk\Factory\Events\Event\MessageReceived\MessageReceivedEventFactoryInterface;
-use MwuSdk\Factory\Events\Event\MessageSent\MessageSentEventFactoryInterface;
 use Random\RandomException;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Client\TcpIp\TcpIpClient;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\Ack\AckCommand;
+use Rossel\MwuSdk\Entity\Message\ClientMessage\ClientMessage;
+use Rossel\MwuSdk\Entity\Message\ClientMessage\ClientMessageInterface;
+use Rossel\MwuSdk\Events\Event\EventInterface;
+use Rossel\MwuSdk\Events\Event\MessageReceivedEventInterface;
+use Rossel\MwuSdk\Events\Manager\EventManagerInterface;
+use Rossel\MwuSdk\Factory\Events\Event\MessageReceived\MessageReceivedEventFactoryInterface;
+use Rossel\MwuSdk\Factory\Events\Event\MessageSent\MessageSentEventFactoryInterface;
 
 final readonly class EventDispatcher implements EventDispatcherInterface
 {

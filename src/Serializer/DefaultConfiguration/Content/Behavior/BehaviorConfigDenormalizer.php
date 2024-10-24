@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfig;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\BehaviorConfigKeysEnum;
-use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\ButtonsConfigDenormalizerInterface;
-use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display\DisplayConfigDenormalizerInterface;
-use MwuSdk\Validator\DefaultConfiguration\Behavior\BehaviorConfigValidator;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfig;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\BehaviorConfigKeysEnum;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\ButtonsConfigDenormalizerInterface;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display\DisplayConfigDenormalizerInterface;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\BehaviorConfigValidator;
 
 /**
  * Class BehaviorConfigDenormalizer.

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Events\Event;
+namespace Rossel\MwuSdk\Events\Event;
 
 interface EventInterface
 {

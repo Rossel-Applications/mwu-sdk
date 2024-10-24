@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Command\ServerCommand;
+namespace Rossel\MwuSdk\Entity\Command\ServerCommand;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Command\CommandInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Command\CommandInterface;
 
 interface ServerCommandInterface extends CommandInterface
 {

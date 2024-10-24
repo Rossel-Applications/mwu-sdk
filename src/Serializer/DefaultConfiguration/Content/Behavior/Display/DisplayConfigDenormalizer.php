@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\DisplayConfig;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\DisplayConfigKeysEnum;
-use MwuSdk\Model\DisplayStatus;
-use MwuSdk\Validator\DefaultConfiguration\Behavior\Display\DisplayConfigValidator;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\DisplayConfig;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\DisplayConfigKeysEnum;
+use Rossel\MwuSdk\Model\DisplayStatus;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\Display\DisplayConfigValidator;
 
 /**
  * Class DisplayConfigDenormalizer.

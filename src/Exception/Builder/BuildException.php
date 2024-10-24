@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Builder;
+namespace Rossel\MwuSdk\Exception\Builder;
 
 /**
  * Exception thrown when a builder fails to create an object.

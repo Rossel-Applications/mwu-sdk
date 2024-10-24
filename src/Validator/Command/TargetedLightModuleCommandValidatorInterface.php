@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Validator\Command;
+namespace Rossel\MwuSdk\Validator\Command;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Command\ClientCommand\TargetedLightModuleCommandInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\TargetedLightModuleCommandInterface;
 
 /**
  * Interface for validators that ensure targeted light module commands are valid.

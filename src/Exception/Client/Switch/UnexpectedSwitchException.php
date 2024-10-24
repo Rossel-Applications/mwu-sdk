@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Client\Switch;
+namespace Rossel\MwuSdk\Exception\Client\Switch;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
 
 /**
  * Exception thrown when the provided switch does not match the expected switch.

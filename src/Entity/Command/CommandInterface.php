@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Command;
+namespace Rossel\MwuSdk\Entity\Command;
 
 /**
  * Interface representing a command that can be converted to a string and whose length can be determined.

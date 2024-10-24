@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Validator\DefaultConfiguration;
+namespace Rossel\MwuSdk\Validator\DefaultConfiguration;
 
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\ConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\ConfigKeysEnum;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

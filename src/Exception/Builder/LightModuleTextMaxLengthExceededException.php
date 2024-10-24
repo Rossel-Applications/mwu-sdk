@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Builder;
+namespace Rossel\MwuSdk\Exception\Builder;
 
-use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use Rossel\MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
 
 final class LightModuleTextMaxLengthExceededException extends \RuntimeException implements BuilderExceptionInterface
 {

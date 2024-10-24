@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Validator\Command;
+namespace Rossel\MwuSdk\Validator\Command;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Command\ClientCommand\TargetedSwitchCommandInterface;
-use MwuSdk\Exception\Client\Switch\UnexpectedSwitchException;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\TargetedSwitchCommandInterface;
+use Rossel\MwuSdk\Exception\Client\Switch\UnexpectedSwitchException;
 
 /**
  * Validator class for ensuring that targeted switch commands are valid.

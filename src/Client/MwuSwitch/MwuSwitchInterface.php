@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Client\MwuSwitch;
+namespace Rossel\MwuSdk\Client\MwuSwitch;
 
-use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
-use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
-use MwuSdk\Entity\Command\ClientCommand\ClientCommandInterface;
+use Rossel\MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
+use Rossel\MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\ClientCommandInterface;
 
 /**
  * Interface for MWU Switches.

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Content\Switches;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Switches;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\SwitchesConfigKeysEnum;
-use MwuSdk\Validator\DefaultConfiguration\Switches\SwitchesConfigValidator;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\SwitchesConfigKeysEnum;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Switches\SwitchesConfigValidator;
 
 /**
  * This class is responsible for denormalizing an array of switches configuration data

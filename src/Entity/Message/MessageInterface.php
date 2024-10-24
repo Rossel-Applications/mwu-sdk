@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Message;
+namespace Rossel\MwuSdk\Entity\Message;
 
-use MwuSdk\Entity\Command\CommandInterface;
+use Rossel\MwuSdk\Entity\Command\CommandInterface;
 
 /**
  * Generic interface for a Message transmitted between client and server.

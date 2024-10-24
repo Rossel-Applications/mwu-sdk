@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Enum\DefaultConfigurationParameterKeys;
+namespace Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys;
 
 enum ConfigKeysEnum: string
 {

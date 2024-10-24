@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Builder\Command\Write;
+namespace Rossel\MwuSdk\Builder\Command\Write;
 
-use MwuSdk\Builder\Command\TargetedLightModuleCommandBuilderInterface;
-use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
-use MwuSdk\Entity\Command\ClientCommand\Write\WriteCommandInterface;
-use MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
+use Rossel\MwuSdk\Builder\Command\TargetedLightModuleCommandBuilderInterface;
+use Rossel\MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\Write\WriteCommandInterface;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
 
 /**
  * This interface defines methods to be implemented by write command builders.

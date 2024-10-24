@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Entity\Command\Server\SuccessfulResponse;
+namespace Rossel\MwuSdk\Factory\Entity\Command\Server\SuccessfulResponse;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Command\ServerCommand\SuccessfulResponse\SuccessfulResponseCommandInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Command\ServerCommand\SuccessfulResponse\SuccessfulResponseCommandInterface;
 
 interface SuccessfulResponseCommandFactoryInterface
 {

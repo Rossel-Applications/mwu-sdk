@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
-use MwuSdk\Serializer\DenormalizerInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
+use Rossel\MwuSdk\Serializer\DenormalizerInterface;
 
 interface BehaviorConfigDenormalizerInterface extends DenormalizerInterface
 {

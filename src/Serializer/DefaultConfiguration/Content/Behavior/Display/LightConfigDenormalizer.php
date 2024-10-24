@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\LightConfig;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\LightConfigKeysEnum;
-use MwuSdk\Validator\DefaultConfiguration\Behavior\Display\LightConfigValidator;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\LightConfig;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\LightConfigKeysEnum;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\Display\LightConfigValidator;
 
 /**
  * Class LightConfigDenormalizer.

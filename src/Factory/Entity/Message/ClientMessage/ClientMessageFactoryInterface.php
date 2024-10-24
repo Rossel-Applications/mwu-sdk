@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Entity\Message\ClientMessage;
+namespace Rossel\MwuSdk\Factory\Entity\Message\ClientMessage;
 
-use MwuSdk\Entity\Command\ClientCommand\ClientCommandInterface;
-use MwuSdk\Entity\Message\MessageInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\ClientCommandInterface;
+use Rossel\MwuSdk\Entity\Message\MessageInterface;
 
 /**
  * Interface for factories that create Message instances from Command objects.

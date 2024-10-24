@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Dto\Client\DefaultConfiguration\Behavior;
+namespace Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior;
 
-use MwuSdk\Model\DisplayStatus;
-use MwuSdk\Model\DisplayStatusInterface;
-use MwuSdk\Model\FnButton;
-use MwuSdk\Model\FnButtonInterface;
-use MwuSdk\Model\QuantityKeys;
-use MwuSdk\Model\QuantityKeysInterface;
+use Rossel\MwuSdk\Model\DisplayStatus;
+use Rossel\MwuSdk\Model\DisplayStatusInterface;
+use Rossel\MwuSdk\Model\FnButton;
+use Rossel\MwuSdk\Model\FnButtonInterface;
+use Rossel\MwuSdk\Model\QuantityKeys;
+use Rossel\MwuSdk\Model\QuantityKeysInterface;
 
 final readonly class BehaviorConfig implements BehaviorConfigInterface
 {

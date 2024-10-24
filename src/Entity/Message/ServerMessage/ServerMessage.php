@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Message\ServerMessage;
+namespace Rossel\MwuSdk\Entity\Message\ServerMessage;
 
-use MwuSdk\Entity\Command\ServerCommand\ServerCommandInterface;
-use MwuSdk\Entity\Message\AbstractMessage;
+use Rossel\MwuSdk\Entity\Command\ServerCommand\ServerCommandInterface;
+use Rossel\MwuSdk\Entity\Message\AbstractMessage;
 
 /**
  * Representation of a message sent by the sever to the client.

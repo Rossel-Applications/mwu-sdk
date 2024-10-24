@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Command\ServerCommand\ResponseData;
+namespace Rossel\MwuSdk\Entity\Command\ServerCommand\ResponseData;
 
-use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
-use MwuSdk\Entity\Command\ServerCommand\ServerCommandInterface;
-use MwuSdk\Enum\Command\ResponseData\Status;
+use Rossel\MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use Rossel\MwuSdk\Entity\Command\ServerCommand\ServerCommandInterface;
+use Rossel\MwuSdk\Enum\Command\ResponseData\Status;
 
 interface ResponseDataCommandInterface extends ServerCommandInterface
 {

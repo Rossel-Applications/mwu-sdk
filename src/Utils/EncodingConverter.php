@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Utils;
+namespace Rossel\MwuSdk\Utils;
 
-use MwuSdk\Exception\Utils\EncodingConverter\InvalidArgumentFormatException;
+use Rossel\MwuSdk\Exception\Utils\EncodingConverter\InvalidArgumentFormatException;
 
 /**
  * Class EncodingConverter.

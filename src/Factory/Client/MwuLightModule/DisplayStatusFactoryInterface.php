@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Client\MwuLightModule;
+namespace Rossel\MwuSdk\Factory\Client\MwuLightModule;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\DisplayConfigInterface;
-use MwuSdk\Model\DisplayStatusInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\DisplayConfigInterface;
+use Rossel\MwuSdk\Model\DisplayStatusInterface;
 
 /**
  * Interface for creating DisplayStatus instances.

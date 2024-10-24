@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Message;
+namespace Rossel\MwuSdk\Entity\Message;
 
 abstract readonly class AbstractMessage implements MessageInterface
 {

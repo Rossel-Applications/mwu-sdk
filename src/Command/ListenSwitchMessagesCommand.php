@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Command;
+namespace Rossel\MwuSdk\Command;
 
-use MwuSdk\Client\Mwu\ConfigurableMwuServiceInterface;
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Client\TcpIp\TcpIpClient;
-use MwuSdk\Events\Dispatcher\EventDispatcherInterface;
-use MwuSdk\Exception\Client\Mwu\SwitchNotFoundException;
+use Rossel\MwuSdk\Client\Mwu\ConfigurableMwuServiceInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Client\TcpIp\TcpIpClient;
+use Rossel\MwuSdk\Events\Dispatcher\EventDispatcherInterface;
+use Rossel\MwuSdk\Exception\Client\Mwu\SwitchNotFoundException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

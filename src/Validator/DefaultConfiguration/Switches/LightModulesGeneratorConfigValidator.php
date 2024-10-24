@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Validator\DefaultConfiguration\Switches;
+namespace Rossel\MwuSdk\Validator\DefaultConfiguration\Switches;
 
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\LightModulesGeneratorConfigKeysEnum;
-use MwuSdk\Validator\DefaultConfiguration\ConfigValidatorInterface;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\LightModulesGeneratorConfigKeysEnum;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\ConfigValidatorInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

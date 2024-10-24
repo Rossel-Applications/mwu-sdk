@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Message\ClientMessage;
+namespace Rossel\MwuSdk\Entity\Message\ClientMessage;
 
-use MwuSdk\Entity\Message\MessageInterface;
+use Rossel\MwuSdk\Entity\Message\MessageInterface;
 
 interface ClientMessageInterface extends MessageInterface
 {

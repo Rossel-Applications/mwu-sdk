@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Model;
+namespace Rossel\MwuSdk\Model;
 
 /**
  * Represents confirm button of a light module.

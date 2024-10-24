@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Client\MwuLightModule;
+namespace Rossel\MwuSdk\Client\MwuLightModule;
 
-use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
-use MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
-use MwuSdk\Model\DisplayStatus;
-use MwuSdk\Model\DisplayStatusInterface;
-use MwuSdk\Model\FnButton;
-use MwuSdk\Model\FnButtonInterface;
-use MwuSdk\Model\QuantityKeys;
-use MwuSdk\Model\QuantityKeysInterface;
+use Rossel\MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
+use Rossel\MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
+use Rossel\MwuSdk\Model\DisplayStatus;
+use Rossel\MwuSdk\Model\DisplayStatusInterface;
+use Rossel\MwuSdk\Model\FnButton;
+use Rossel\MwuSdk\Model\FnButtonInterface;
+use Rossel\MwuSdk\Model\QuantityKeys;
+use Rossel\MwuSdk\Model\QuantityKeysInterface;
 
 /**
  * This class is responsible for managing interactions with individual MWU light modules.

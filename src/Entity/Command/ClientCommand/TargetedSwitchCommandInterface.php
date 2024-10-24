@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Command\ClientCommand;
+namespace Rossel\MwuSdk\Entity\Command\ClientCommand;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
 
 /**
  * Interface implemented by commands dedicated to a specific switch.

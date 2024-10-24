@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons;
+namespace Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons;
 
-use MwuSdk\Model\FnButtonInterface;
-use MwuSdk\Model\QuantityKeysInterface;
+use Rossel\MwuSdk\Model\FnButtonInterface;
+use Rossel\MwuSdk\Model\QuantityKeysInterface;
 
 interface ButtonsConfigInterface
 {

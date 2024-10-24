@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Validator\Command;
+namespace Rossel\MwuSdk\Validator\Command;
 
 /**
  * Interface for command validators.

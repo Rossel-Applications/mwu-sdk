@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Enum;
+namespace Rossel\MwuSdk\Enum;
 
 /**
  * Interface implemented by enums that can be converted into binary values.

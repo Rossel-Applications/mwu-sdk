@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display;
+namespace Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display;
 
-use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
 
 interface ScreenConfigInterface
 {

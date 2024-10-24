@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Command;
+namespace Rossel\MwuSdk\Command;
 
-use MwuSdk\Client\Mwu\ConfigurableMwuServiceInterface;
 use Random\RandomException;
+use Rossel\MwuSdk\Client\Mwu\ConfigurableMwuServiceInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

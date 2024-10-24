@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Content\Switches;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Switches;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
-use MwuSdk\Serializer\DenormalizerInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
+use Rossel\MwuSdk\Serializer\DenormalizerInterface;
 
 /**
  *  This interface is aimed to be implemented by classes responsible for denormalizing an array of switches configuration data

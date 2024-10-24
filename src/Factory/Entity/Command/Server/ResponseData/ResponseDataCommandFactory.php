@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Entity\Command\Server\ResponseData;
+namespace Rossel\MwuSdk\Factory\Entity\Command\Server\ResponseData;
 
-use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Command\ServerCommand\ResponseData\ResponseDataCommand;
-use MwuSdk\Enum\Command\ResponseData\Status;
-use MwuSdk\Exception\Client\Mwu\SwitchNotFoundException;
+use Rossel\MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Command\ServerCommand\ResponseData\ResponseDataCommand;
+use Rossel\MwuSdk\Enum\Command\ResponseData\Status;
+use Rossel\MwuSdk\Exception\Client\Mwu\SwitchNotFoundException;
 
 final class ResponseDataCommandFactory implements ResponseDataCommandFactoryInterface
 {

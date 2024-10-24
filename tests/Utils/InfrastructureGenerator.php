@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace MwuSdkTest\Utils;
+namespace Rossel\MwuSdkTest\Utils;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitch;
-use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfig;
-use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig;
-use MwuSdk\Factory\Client\MwuLightModuleFactory;
-use MwuSdk\Factory\Client\MwuSwitchFactory;
-use MwuSdk\Factory\Entity\Message\ClientMessage\ClientMessageFactory;
-use MwuSdk\Validator\Command\TargetedLightModuleCommandValidator;
-use MwuSdk\Validator\Command\TargetedSwitchCommandValidator;
 use Random\RandomException;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitch;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfig;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig;
+use Rossel\MwuSdk\Factory\Client\MwuLightModuleFactory;
+use Rossel\MwuSdk\Factory\Client\MwuSwitchFactory;
+use Rossel\MwuSdk\Factory\Entity\Message\ClientMessage\ClientMessageFactory;
+use Rossel\MwuSdk\Validator\Command\TargetedLightModuleCommandValidator;
+use Rossel\MwuSdk\Validator\Command\TargetedSwitchCommandValidator;
 
 class InfrastructureGenerator
 {

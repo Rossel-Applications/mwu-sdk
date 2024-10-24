@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace MwuSdkTest;
 
-use MwuSdk\Factory\Client\MwuSwitchFactory;
-use MwuSdk\Serializer\DefaultConfiguration\Formats\YamlConfigurationDeserializer;
+use Rossel\MwuSdk\Factory\Client\MwuSwitchFactory;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Formats\YamlConfigurationDeserializer;
 
-class MwuService extends \MwuSdk\Client\Mwu\Mwu
+class MwuService extends \Rossel\MwuSdk\Client\Mwu\Mwu
 {
     private const YAML_CONFIG_FILE_PATH = '/config/test_config.yaml';
 

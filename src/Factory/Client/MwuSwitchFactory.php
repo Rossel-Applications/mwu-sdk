@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Client;
+namespace Rossel\MwuSdk\Factory\Client;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitch;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
-use MwuSdk\Factory\Entity\Message\ClientMessage\ClientMessageFactory;
-use MwuSdk\Validator\Command\TargetedLightModuleCommandValidatorInterface;
-use MwuSdk\Validator\Command\TargetedSwitchCommandValidatorInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitch;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
+use Rossel\MwuSdk\Factory\Entity\Message\ClientMessage\ClientMessageFactory;
+use Rossel\MwuSdk\Validator\Command\TargetedLightModuleCommandValidatorInterface;
+use Rossel\MwuSdk\Validator\Command\TargetedSwitchCommandValidatorInterface;
 
 /**
  * Factory class for creating MwuSwitch instances.

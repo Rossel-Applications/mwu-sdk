@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Events\Event\MessageSent;
+namespace Rossel\MwuSdk\Factory\Events\Event\MessageSent;
 
-use MwuSdk\Entity\Message\ClientMessage\ClientMessageInterface;
-use MwuSdk\Events\Event\MessageSentEvent;
+use Rossel\MwuSdk\Entity\Message\ClientMessage\ClientMessageInterface;
+use Rossel\MwuSdk\Events\Event\MessageSentEvent;
 
 final class MessageSentEventFactory implements MessageSentEventFactoryInterface
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Client\TcpIp;
+namespace Rossel\MwuSdk\Exception\Client\TcpIp;
 
 class SocketReceiveException extends \RuntimeException implements TcpIpClientExceptionInterface
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Enum\ConfigurationParameterValues\Buttons;
+namespace Rossel\MwuSdk\Enum\ConfigurationParameterValues\Buttons;
 
-use MwuSdk\Enum\EnumInstanceSearchTrait;
+use Rossel\MwuSdk\Enum\EnumInstanceSearchTrait;
 
 /**
  * Enumeration of quantity management modes for the "+" and "-" keys.

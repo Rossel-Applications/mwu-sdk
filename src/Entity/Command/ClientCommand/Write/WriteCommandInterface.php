@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Command\ClientCommand\Write;
+namespace Rossel\MwuSdk\Entity\Command\ClientCommand\Write;
 
-use MwuSdk\Entity\Command\ClientCommand\TargetedLightModuleCommandInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\TargetedLightModuleCommandInterface;
 
 /**
  * Interface for write commands sent to the MWU Light Module.

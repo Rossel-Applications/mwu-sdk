@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Entity\Message\ServerMessage;
+namespace Rossel\MwuSdk\Factory\Entity\Message\ServerMessage;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Message\ServerMessage\ServerMessageInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Message\ServerMessage\ServerMessageInterface;
 
 interface ServerMessageFactoryInterface
 {

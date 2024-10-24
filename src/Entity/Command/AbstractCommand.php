@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Command;
+namespace Rossel\MwuSdk\Entity\Command;
 
 /**
  * Abstract base class for command objects, providing common utilities for command handling.

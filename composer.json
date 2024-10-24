@@ -18,8 +18,8 @@
   ],
   "autoload": {
     "psr-4": {
-      "MwuSdk\\": "src/",
-      "MwuSdkTest\\": "tests/"
+      "Rossel\\MwuSdk\\": "src/",
+      "Rossel\\MwuSdkTest\\": "tests/"
     }
   },
   "require": {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons;
+namespace Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons;
 
-use MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\QuantityKeysConfigKeysEnum;
-use MwuSdk\Validator\DefaultConfiguration\AbstractConfigValidator;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\QuantityKeysConfigKeysEnum;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\AbstractConfigValidator;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

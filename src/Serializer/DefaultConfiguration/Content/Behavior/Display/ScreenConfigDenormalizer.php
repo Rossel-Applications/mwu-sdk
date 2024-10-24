@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\ScreenConfig;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\ScreenConfigKeysEnum;
-use MwuSdk\Validator\DefaultConfiguration\Behavior\Display\ScreenConfigValidator;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display\ScreenConfig;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\ScreenConfigKeysEnum;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\Display\ScreenConfigValidator;
 
 /**
  * This class is responsible for denormalizing an array of screen configuration data

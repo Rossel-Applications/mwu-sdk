@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Builder\Command\Write;
+namespace Rossel\MwuSdk\Builder\Command\Write;
 
-use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
-use MwuSdk\Entity\Command\ClientCommand\Write\WriteCommand;
-use MwuSdk\Entity\Command\ClientCommand\Write\WriteCommandInterface;
-use MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
-use MwuSdk\Exception\Builder\LightModuleTextMaxLengthExceededException;
-use MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
-use MwuSdk\Factory\Entity\Command\Client\Write\WriteCommandModeArrayFactoryInterface;
+use Rossel\MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\Write\WriteCommand;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\Write\WriteCommandInterface;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
+use Rossel\MwuSdk\Exception\Builder\LightModuleTextMaxLengthExceededException;
+use Rossel\MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
+use Rossel\MwuSdk\Factory\Entity\Command\Client\Write\WriteCommandModeArrayFactoryInterface;
 
 /**
  * Builder for write commands.

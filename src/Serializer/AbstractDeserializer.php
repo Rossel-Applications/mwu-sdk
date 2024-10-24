@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer;
+namespace Rossel\MwuSdk\Serializer;
 
 /**
  * Base class for deserializers, providing common functionality for decoding

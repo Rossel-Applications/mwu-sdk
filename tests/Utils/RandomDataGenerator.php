@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdkTest\Utils;
+namespace Rossel\MwuSdkTest\Utils;
 
 use Random\RandomException;
 

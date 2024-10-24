@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Client;
+namespace Rossel\MwuSdk\Factory\Client;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitch;
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitch;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
 
 /**
  * Interface for creating MwuSwitch instances.

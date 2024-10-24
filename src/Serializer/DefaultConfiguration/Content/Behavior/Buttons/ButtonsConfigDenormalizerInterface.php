@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\ButtonsConfigInterface;
-use MwuSdk\Serializer\DenormalizerInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\ButtonsConfigInterface;
+use Rossel\MwuSdk\Serializer\DenormalizerInterface;
 
 interface ButtonsConfigDenormalizerInterface extends DenormalizerInterface
 {

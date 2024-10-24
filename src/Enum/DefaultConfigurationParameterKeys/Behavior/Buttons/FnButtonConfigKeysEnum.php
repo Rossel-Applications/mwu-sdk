@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons;
+namespace Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons;
 
 enum FnButtonConfigKeysEnum: string
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Command\ClientCommand;
+namespace Rossel\MwuSdk\Entity\Command\ClientCommand;
 
 /**
  * Interface implemented by commands that can individually be broadcasted.

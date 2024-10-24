@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Entity\Message\ServerMessage;
+namespace Rossel\MwuSdk\Factory\Entity\Message\ServerMessage;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Command\ServerCommand\ServerCommandInterface;
-use MwuSdk\Entity\Message\ServerMessage\ServerMessage;
-use MwuSdk\Factory\Entity\Command\Server\ResponseData\ResponseDataCommandFactoryInterface;
-use MwuSdk\Factory\Entity\Command\Server\SuccessfulResponse\SuccessfulResponseCommandFactoryInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Command\ServerCommand\ServerCommandInterface;
+use Rossel\MwuSdk\Entity\Message\ServerMessage\ServerMessage;
+use Rossel\MwuSdk\Factory\Entity\Command\Server\ResponseData\ResponseDataCommandFactoryInterface;
+use Rossel\MwuSdk\Factory\Entity\Command\Server\SuccessfulResponse\SuccessfulResponseCommandFactoryInterface;
 
 final readonly class ServerMessageFactory implements ServerMessageFactoryInterface
 {

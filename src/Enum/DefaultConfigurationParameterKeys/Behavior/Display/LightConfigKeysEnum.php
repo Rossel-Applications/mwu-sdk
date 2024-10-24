@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display;
+namespace Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display;
 
 enum LightConfigKeysEnum: string
 {

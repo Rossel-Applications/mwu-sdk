@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Events\Manager;
+namespace Rossel\MwuSdk\Events\Manager;
 
-use MwuSdk\Events\Event\EventInterface;
+use Rossel\MwuSdk\Events\Event\EventInterface;
 
 interface EventManagerInterface
 {

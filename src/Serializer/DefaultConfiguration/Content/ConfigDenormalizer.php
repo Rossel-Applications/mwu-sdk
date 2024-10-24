@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Content;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Content;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\MwuConfig;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\ConfigKeysEnum;
-use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\BehaviorConfigDenormalizer;
-use MwuSdk\Serializer\DefaultConfiguration\Content\Switches\SwitchesConfigDenormalizer;
-use MwuSdk\Serializer\DenormalizerInterface;
-use MwuSdk\Validator\DefaultConfiguration\ConfigValidator;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\MwuConfig;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\ConfigKeysEnum;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\BehaviorConfigDenormalizer;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Switches\SwitchesConfigDenormalizer;
+use Rossel\MwuSdk\Serializer\DenormalizerInterface;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\ConfigValidator;
 
 /**
  * Class ConfigDenormalizer.

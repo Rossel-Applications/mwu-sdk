@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display;
+namespace Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display;
 
 final readonly class DisplayConfig implements DisplayConfigInterface
 {

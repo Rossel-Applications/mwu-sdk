@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Utils\EncodingConverter;
+namespace Rossel\MwuSdk\Exception\Utils\EncodingConverter;
 
 /**
  * Exception for invalid argument format.

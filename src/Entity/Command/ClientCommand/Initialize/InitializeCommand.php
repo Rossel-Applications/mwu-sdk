@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Command\ClientCommand\Initialize;
+namespace Rossel\MwuSdk\Entity\Command\ClientCommand\Initialize;
 
-use MwuSdk\Entity\Command\AbstractCommand;
+use Rossel\MwuSdk\Entity\Command\AbstractCommand;
 
 final readonly class InitializeCommand extends AbstractCommand implements InitializeCommandInterface
 {

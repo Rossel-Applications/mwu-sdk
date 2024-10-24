@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Message\ServerMessage;
+namespace Rossel\MwuSdk\Entity\Message\ServerMessage;
 
-use MwuSdk\Entity\Command\ServerCommand\ServerCommandInterface;
-use MwuSdk\Entity\Message\MessageInterface;
+use Rossel\MwuSdk\Entity\Command\ServerCommand\ServerCommandInterface;
+use Rossel\MwuSdk\Entity\Message\MessageInterface;
 
 interface ServerMessageInterface extends MessageInterface
 {

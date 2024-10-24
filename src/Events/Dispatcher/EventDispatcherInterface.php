@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Events\Dispatcher;
+namespace Rossel\MwuSdk\Events\Dispatcher;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Message\ClientMessage\ClientMessageInterface;
-use MwuSdk\Events\Event\EventInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Message\ClientMessage\ClientMessageInterface;
+use Rossel\MwuSdk\Events\Event\EventInterface;
 
 interface EventDispatcherInterface
 {

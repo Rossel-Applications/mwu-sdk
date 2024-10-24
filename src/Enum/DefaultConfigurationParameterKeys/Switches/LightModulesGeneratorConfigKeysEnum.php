@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches;
+namespace Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches;
 
 enum LightModulesGeneratorConfigKeysEnum: string
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Validator\Command;
+namespace Rossel\MwuSdk\Validator\Command;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Command\ClientCommand\TargetedLightModuleCommandInterface;
-use MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
-use MwuSdk\Exception\Client\Switch\UnexpectedSwitchException;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\TargetedLightModuleCommandInterface;
+use Rossel\MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
+use Rossel\MwuSdk\Exception\Client\Switch\UnexpectedSwitchException;
 
 /**
  * Validator class for ensuring the validity of targeted light module commands.

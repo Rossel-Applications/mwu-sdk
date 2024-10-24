@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Client\MwuLightModule;
+namespace Rossel\MwuSdk\Client\MwuLightModule;
 
-use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Model\DisplayStatusInterface;
-use MwuSdk\Model\FnButtonInterface;
-use MwuSdk\Model\QuantityKeysInterface;
+use Rossel\MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Model\DisplayStatusInterface;
+use Rossel\MwuSdk\Model\FnButtonInterface;
+use Rossel\MwuSdk\Model\QuantityKeysInterface;
 
 /**
  * Interface for MWU Light Modules.

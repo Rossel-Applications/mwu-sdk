@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\DependencyInjection\Compiler;
+namespace Rossel\MwuSdk\DependencyInjection\Compiler;
 
-use MwuSdk\Events\Listener\EventListenerInterface;
+use Rossel\MwuSdk\Events\Listener\EventListenerInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

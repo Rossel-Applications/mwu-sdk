@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer;
+namespace Rossel\MwuSdk\Serializer;
 
 /**
  * Defines the contract for decoding data from a string format into an array.

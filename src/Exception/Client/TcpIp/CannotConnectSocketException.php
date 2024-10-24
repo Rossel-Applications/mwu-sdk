@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Client\TcpIp;
+namespace Rossel\MwuSdk\Exception\Client\TcpIp;
 
 /**
  * Exception thrown when a connection fails.

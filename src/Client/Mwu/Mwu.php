@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Client\Mwu;
+namespace Rossel\MwuSdk\Client\Mwu;
 
-use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface;
-use MwuSdk\Entity\Command\ClientCommand\BroadcastReadyCommandInterface;
-use MwuSdk\Exception\Client\Mwu\SwitchNotFoundException;
-use MwuSdk\Factory\Client\MwuSwitchFactoryInterface;
-use MwuSdk\Serializer\DefaultConfiguration\Formats\YamlConfigurationDeserializerInterface;
+use Rossel\MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\BroadcastReadyCommandInterface;
+use Rossel\MwuSdk\Exception\Client\Mwu\SwitchNotFoundException;
+use Rossel\MwuSdk\Factory\Client\MwuSwitchFactoryInterface;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Formats\YamlConfigurationDeserializerInterface;
 
 /**
  * Abstract class for managing a collection of switches and sending commands.

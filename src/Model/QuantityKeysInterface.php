@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Model;
+namespace Rossel\MwuSdk\Model;
 
-use MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
 
 /**
  * Interface intended to be implemented by classes representing quantity keys of the light module.
