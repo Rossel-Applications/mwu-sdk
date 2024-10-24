@@ -7,12 +7,13 @@ namespace MwuSdk\Builder\Command\Write;
 use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
 use MwuSdk\Entity\Command\ClientCommand\Write\WriteCommand;
 use MwuSdk\Entity\Command\ClientCommand\Write\WriteCommandInterface;
+use MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
 use MwuSdk\Exception\Builder\LightModuleTextMaxLengthExceededException;
 use MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
-use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactoryInterface;
+use MwuSdk\Factory\Entity\Command\Client\Write\WriteCommandModeArrayFactoryInterface;
 
 /**
  * Builder for write commands.
@@ -38,6 +39,8 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
     private ?LightColor $lightColorAfterFn = null;
     private ?LightMode $lightModeAfterFn = null;
     private ?ScreenDisplayMode $screenDisplayModeAfterFn = null;
+
+    private ?QuantityKeysMode $quantityKeysMode = null;
 
     public function __construct(
         private readonly WriteCommandModeArrayFactoryInterface $modeArrayFactory,
@@ -226,6 +229,14 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
 
     /**
      * {@inheritDoc}
+     */
+    public function getQuantityKeysMode(): ?QuantityKeysMode
+    {
+        return $this->quantityKeysMode;
+    }
+
+    /**
+     * {@inheritDoc}
      *
      * @throws UnreachableLightModuleException
      */
@@ -307,6 +318,13 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
             $this->getLightColor(),
             $this->getLightMode(),
             $this->getScreenDisplayMode(),
+            $this->getLightColorAfterConfirm(),
+            $this->getLightModeAfterConfirm(),
+            $this->getScreenDisplayModeAfterConfirm(),
+            $this->getLightColorAfterFn(),
+            $this->getLightModeAfterFn(),
+            $this->getScreenDisplayModeAfterFn(),
+            $this->getQuantityKeysMode(),
         );
 
         return sprintf(

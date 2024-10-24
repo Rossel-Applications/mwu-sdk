@@ -9,14 +9,12 @@ abstract readonly class AbstractMessage implements MessageInterface
     /**
      * Start of text marker (STX).
      *
-     * @var string{1}
+     * @var string
      */
     public const STX = '';
 
     /**
      * End of text marker (ETX).
-     *
-     * @var string{1}
      */
     public const ETX = '';
 

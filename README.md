@@ -145,7 +145,7 @@ It provides configuration options to customize the light's appearance, such as c
 ##### Write text on an individual light module
 
 ```php
-use MwuSdk\Builder\Command\Write\WriteCommandBuilder;use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
+use MwuSdk\Builder\Command\Write\WriteCommandBuilder;use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;use MwuSdk\Factory\Entity\Command\Client\Write\WriteCommandModeArrayFactory;
 
 class MyClass {
     public function __construct(
@@ -172,7 +172,7 @@ class MyClass {
 ##### Write text on multiple light modules, from a specific switch
 
 ```php
-use MwuSdk\Builder\Command\Write\WriteCommandBuilder;use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
+use MwuSdk\Builder\Command\Write\WriteCommandBuilder;use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;use MwuSdk\Factory\Entity\Command\Client\Write\WriteCommandModeArrayFactory;
 
 class MyClass {
     public function __construct(
@@ -211,7 +211,7 @@ class MwuService extends \MwuSdk\Client\Mwu\Mwu {
 ```
 
 ```php
-use MwuSdk\Builder\Command\Write\WriteCommandBuilder;use MwuSdk\Client\Mwu\MwuServiceInterface;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;use MwuSdk\Factory\Dto\Command\Write\WriteCommandModeArrayFactory;
+use MwuSdk\Builder\Command\Write\WriteCommandBuilder;use MwuSdk\Client\Mwu\MwuServiceInterface;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;use MwuSdk\Factory\Entity\Command\Client\Write\WriteCommandModeArrayFactory;
 
 class MyClass {
     public function __construct(

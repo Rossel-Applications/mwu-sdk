@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Dto\Command\Write;
+namespace MwuSdk\Factory\Entity\Command\Client\Write;
 
 use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
 use MwuSdk\Entity\Command\ClientCommand\Write\WriteCommandModeArray;
+use MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
@@ -19,6 +20,7 @@ final readonly class WriteCommandModeArrayFactory implements WriteCommandModeArr
     private const M1_STATIC_PREFIX = 'm1';
     private const M2_STATIC_PREFIX = 'm2';
     private const M3_STATIC_PREFIX = 'm3';
+    private const MA_STATIC_PREFIX = 'ma';
     private const VALUES_STATIC_PREFIX = '0011';
     private const BUZZER_MODE_OFF = 0b0001;
 
@@ -49,11 +51,13 @@ final readonly class WriteCommandModeArrayFactory implements WriteCommandModeArr
         ?LightColor $lightColorAfterFn = null,
         ?LightMode $lightModeAfterFn = null,
         ?ScreenDisplayMode $screenDisplayModeAfterFn = null,
+        ?QuantityKeysMode $quantityKeysMode = null,
     ): WriteCommandModeArray {
         return new WriteCommandModeArray(
             self::M1_STATIC_PREFIX.$this->createM1Value($lightModule, $lightColor, $lightMode, $screenDisplayMode),
             self::M2_STATIC_PREFIX.$this->createM2Value($lightModule, $lightColorAfterConfirm, $lightModeAfterConfirm, $screenDisplayModeAfterConfirm),
-            self::M3_STATIC_PREFIX.$this->createM3Value($lightModule, $lightColorAfterFn, $lightModeAfterFn, $screenDisplayModeAfterFn)
+            self::M3_STATIC_PREFIX.$this->createM3Value($lightModule, $lightColorAfterFn, $lightModeAfterFn, $screenDisplayModeAfterFn),
+            self::MA_STATIC_PREFIX.$this->createMaValue($lightModule, $quantityKeysMode),
         );
     }
 
@@ -73,11 +77,11 @@ final readonly class WriteCommandModeArrayFactory implements WriteCommandModeArr
         ?LightMode $lightMode,
         ?ScreenDisplayMode $screenDisplayMode
     ): string {
-        return $this->buildModeArrayValue(
-            $lightColor ?? $lightModule->getDisplayStatus()->getLightColor(),
-            $lightMode ?? $lightModule->getDisplayStatus()->getLightMode(),
-            $screenDisplayMode ?? $lightModule->getDisplayStatus()->getScreenDisplayMode()
-        );
+        $lightColor = $lightColor ?? $lightModule->getDisplayStatus()->getLightColor();
+        $lightMode = $lightMode ?? $lightModule->getDisplayStatus()->getLightMode();
+        $screenDisplayMode = $screenDisplayMode ?? $lightModule->getDisplayStatus()->getScreenDisplayMode();
+
+        return $this->createDisplayModeArrayValue($lightColor, $lightMode, $screenDisplayMode);
     }
 
     /**
@@ -96,11 +100,11 @@ final readonly class WriteCommandModeArrayFactory implements WriteCommandModeArr
         ?LightMode $lightModeAfterConfirm,
         ?ScreenDisplayMode $screenDisplayModeAfterConfirm
     ): string {
-        return $this->buildModeArrayValue(
-            $lightColorAfterConfirm ?? $lightModule->getDisplayStatusAfterConfirm()->getLightColor(),
-            $lightModeAfterConfirm ?? $lightModule->getDisplayStatusAfterConfirm()->getLightMode(),
-            $screenDisplayModeAfterConfirm ?? $lightModule->getDisplayStatusAfterConfirm()->getScreenDisplayMode()
-        );
+        $lightColorAfterConfirm = $lightColorAfterConfirm ?? $lightModule->getDisplayStatusAfterConfirm()->getLightColor();
+        $lightModeAfterConfirm = $lightModeAfterConfirm ?? $lightModule->getDisplayStatusAfterConfirm()->getLightMode();
+        $screenDisplayModeAfterConfirm = $screenDisplayModeAfterConfirm ?? $lightModule->getDisplayStatusAfterConfirm()->getScreenDisplayMode();
+
+        return $this->createDisplayModeArrayValue($lightColorAfterConfirm, $lightModeAfterConfirm, $screenDisplayModeAfterConfirm);
     }
 
     /**
@@ -119,11 +123,20 @@ final readonly class WriteCommandModeArrayFactory implements WriteCommandModeArr
         ?LightMode $lightModeAfterFn,
         ?ScreenDisplayMode $screenDisplayModeAfterFn
     ): string {
-        return $this->buildModeArrayValue(
-            $lightColorAfterFn ?? $lightModule->getDisplayStatusAfterFn()->getLightColor(),
-            $lightModeAfterFn ?? $lightModule->getDisplayStatusAfterFn()->getLightMode(),
-            $screenDisplayModeAfterFn ?? $lightModule->getDisplayStatusAfterFn()->getScreenDisplayMode()
-        );
+        $lightColorAfterFn = $lightColorAfterFn ?? $lightModule->getDisplayStatusAfterFn()->getLightColor();
+        $lightModeAfterFn = $lightModeAfterFn ?? $lightModule->getDisplayStatusAfterFn()->getLightMode();
+        $screenDisplayModeAfterFn = $screenDisplayModeAfterFn ?? $lightModule->getDisplayStatusAfterFn()->getScreenDisplayMode();
+
+        return $this->createDisplayModeArrayValue($lightColorAfterFn, $lightModeAfterFn, $screenDisplayModeAfterFn);
+    }
+
+    private function createMaValue(
+        MwuLightModuleInterface $lightModule,
+        ?QuantityKeysMode $quantityKeysMode,
+    ): string {
+        $quantityKeysMode = $quantityKeysMode ?? $lightModule->getQuantityKeys()->getMode();
+
+        return QuantityKeysMode::getBinaryValue($quantityKeysMode);
     }
 
     /**
@@ -135,7 +148,7 @@ final readonly class WriteCommandModeArrayFactory implements WriteCommandModeArr
      *
      * @return string the binary string representing the command mode array value
      */
-    private function buildModeArrayValue(
+    private function createDisplayModeArrayValue(
         LightColor $lightColor,
         LightMode $lightMode,
         ScreenDisplayMode $screenDisplayMode

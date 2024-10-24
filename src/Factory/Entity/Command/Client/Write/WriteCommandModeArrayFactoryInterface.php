@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Dto\Command\Write;
+namespace MwuSdk\Factory\Entity\Command\Client\Write;
 
 use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
 use MwuSdk\Entity\Command\ClientCommand\Write\WriteCommandModeArrayInterface;
+use MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
@@ -30,5 +31,12 @@ interface WriteCommandModeArrayFactoryInterface
         ?LightColor $lightColor = null,
         ?LightMode $lightMode = null,
         ?ScreenDisplayMode $screenDisplayMode = null,
+        ?LightColor $lightColorAfterConfirm = null,
+        ?LightMode $lightModeAfterConfirm = null,
+        ?ScreenDisplayMode $screenDisplayModeAfterConfirm = null,
+        ?LightColor $lightColorAfterFn = null,
+        ?LightMode $lightModeAfterFn = null,
+        ?ScreenDisplayMode $screenDisplayModeAfterFn = null,
+        ?QuantityKeysMode $quantityKeysMode = null,
     ): WriteCommandModeArrayInterface;
 }

@@ -7,6 +7,7 @@ namespace MwuSdk\Builder\Command\Write;
 use MwuSdk\Builder\Command\TargetedLightModuleCommandBuilderInterface;
 use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
 use MwuSdk\Entity\Command\ClientCommand\Write\WriteCommandInterface;
+use MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
@@ -131,7 +132,7 @@ interface WriteCommandBuilderInterface extends TargetedLightModuleCommandBuilder
     /**
      * Get the screen display mode after pressing the "confirm" button.
      *
-     * @@return ?ScreenDisplayMode the screen display mode, or null if not specified
+     * @return ?ScreenDisplayMode the screen display mode, or null if not specified
      */
     public function getScreenDisplayModeAfterConfirm(): ?ScreenDisplayMode;
 
@@ -152,9 +153,16 @@ interface WriteCommandBuilderInterface extends TargetedLightModuleCommandBuilder
     /**
      * Get the screen display mode after pressing the "fn" key.
      *
-     * @@return ?ScreenDisplayMode the screen display mode, or null if not specified
+     * @return ?ScreenDisplayMode the screen display mode, or null if not specified
      */
     public function getScreenDisplayModeAfterFn(): ?ScreenDisplayMode;
+
+    /**
+     * Get the quantity keys increment mode.
+     *
+     * @return QuantityKeysMode|null the quantity keys increment mode
+     */
+    public function getQuantityKeysMode(): ?QuantityKeysMode;
 
     /**
      * Generate the write command for the specified light module.

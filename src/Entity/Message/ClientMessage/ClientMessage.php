@@ -34,7 +34,7 @@ final readonly class ClientMessage extends AbstractMessage implements ClientMess
      *
      * @throws RandomException if random number generation fails
      *
-     * @return string{3} A randomly generated 3-digit numeric sequence number
+     * @return string A randomly generated 3-digit numeric sequence number
      */
     private function generateSequenceNumber(): string
     {

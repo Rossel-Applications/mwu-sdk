@@ -23,6 +23,7 @@ final readonly class WriteCommandModeArray implements WriteCommandModeArrayInter
         private ?string $m1 = null,
         private ?string $m2 = null,
         private ?string $m3 = null,
+        private ?string $ma = null,
     ) {
     }
 
@@ -50,6 +51,11 @@ final readonly class WriteCommandModeArray implements WriteCommandModeArrayInter
         return $this->m3;
     }
 
+    public function getMa(): ?string
+    {
+        return $this->ma;
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -62,7 +68,8 @@ final readonly class WriteCommandModeArray implements WriteCommandModeArrayInter
         $m1 = $this->getM1() ?? '';
         $m2 = $this->getM2() ?? '';
         $m3 = $this->getM3() ?? '';
+        $ma = $this->getMa() ?? '';
 
-        return $m1.$m2.$m3;
+        return $m1.$m2.$m3.$ma;
     }
 }

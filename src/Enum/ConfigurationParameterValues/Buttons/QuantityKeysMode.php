@@ -19,6 +19,12 @@ enum QuantityKeysMode: string
 {
     use EnumInstanceSearchTrait;
 
+    private const BINARY_VALUES = [
+        self::OFF->name => 'A',
+        self::INCREMENT->name => 'B',
+        self::REVISE->name => '@',
+    ];
+
     /**
      * Off mode: The "+" and "-" keys are disabled.
      */
@@ -37,4 +43,9 @@ enum QuantityKeysMode: string
      * - The "-" key decrements the digit at the cursor position by 1.
      */
     case REVISE = 'revise';
+
+    public static function getBinaryValue(self $quantityKeysMode): string
+    {
+        return self::BINARY_VALUES[$quantityKeysMode->name];
+    }
 }
