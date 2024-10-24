@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace MwuSdk\Command;
 
 use MwuSdk\Client\Mwu\ConfigurableMwuServiceInterface;
-use MwuSdk\Entity\Command\ClientCommand\Ack\AckCommand;
-use MwuSdk\Entity\Message\ClientMessage\ClientMessage;
 use Random\RandomException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Process;
 
-#[AsCommand(name: 'mwu:listen', description: 'Listen to mwu send messages')]
+#[AsCommand(name: 'mwu:listen', description: 'Listen to MWU and send messages')]
 final class ListenMessagesCommand extends Command
 {
     public function __construct(
@@ -23,62 +22,70 @@ final class ListenMessagesCommand extends Command
     }
 
     /**
+     * Executes the command to listen to MWU switches and launch parallel processes for each.
+     *
      * @throws RandomException
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln('Start listening...');
+        $this->write($output, 'Start listening...');
 
+        // Get the switches from the service
         $switches = $this->mwuService->getSwitches();
-        $sockets = [];
+        $processes = [];
 
+        // Start a process for each switch
         foreach ($switches as $key => $switch) {
-            $output->writeln(sprintf('Start listening to %s:%s...', $switch->getIpAddress(), $switch->getPort()));
-            $socket = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
-            $connected = socket_connect($socket, $switch->getIpAddress(), $switch->getPort());
+            $this->write($output, sprintf('Listening for switch %d...', $key));
 
-            if (true === $connected) {
-                $sockets[$key] = $socket;
-            }
+            $process = new Process(['php', 'bin/console', 'mwu:switch:listen', (string) $key]);
+            $process->start();
+
+            // Add the process to the list of running processes
+            $processes[$key] = $process;
         }
 
-        set_time_limit(0);
+        // Monitor processes concurrently without blocking
+        do {
+            foreach ($processes as $key => $process) {
+                // Read the output from the running process and display it
+                if ($process->isRunning()) {
+                    // Capture and output real-time stdout
+                    $output->write($process->getIncrementalOutput());
+                    // Capture and output real-time stderr
+                    $output->write($process->getIncrementalErrorOutput());
+                    continue;
+                }
 
-        $socket = $sockets[0];
+                // Process has finished, output the result
+                if ($process->isSuccessful()) {
+                    $output->writeln(sprintf('Switch %d processed successfully', $key));
+                } else {
+                    $output->writeln(sprintf('<error>Switch %d encountered an error</error>', $key));
+                    $output->writeln($process->getErrorOutput());
+                }
 
-        while (true) {
-            $buffer = '';  // Variable pour stocker les données reçues
-            $bytes_received = socket_recv($socket, $buffer, 1024, 0); // Receive up to 1024 octets
-
-            if (false === $bytes_received) {
-                echo 'Erreur lors de la réception de données : '.socket_strerror(socket_last_error($socket))."\n";
-                break;  // Sortir de la boucle en cas d'erreur
+                // Remove the finished process from the list
+                unset($processes[$key]);
             }
-            if (0 === $bytes_received) {
-                echo "Le serveur a fermé la connexion.\n";
-                break;  // Sortir de la boucle si la connexion est fermée
-            }
 
-            // Afficher le message reçu
-            echo "Message reçu : $buffer\n";
+            // Add a small sleep to prevent overloading the CPU
+            usleep(100000); // 100ms
+        } while (!empty($processes));
 
-            $command = $buffer;
-            $seqNumber = substr($command, 1, 3);
-
-            $response = (string) new ClientMessage(new AckCommand(), $seqNumber);
-            socket_write($socket, $response);
-            echo "Responded: $response";
-
-            // Condition d'arrêt (optionnelle)
-            if ('exit' === trim($buffer)) {
-                echo "Fin de la connexion demandée par le serveur.\n";
-                break;  // Sortir de la boucle si un message spécifique est reçu
-            }
-        }
-
-        // Fermer le socket après la boucle
-        socket_close($socket);
+        $this->write($output, 'All processes completed.');
 
         return Command::SUCCESS;
+    }
+
+    private function write(OutputInterface $output, string $message): void
+    {
+        $output->writeln(
+            sprintf(
+                '%s | MWU | %s',
+                date('Y-m-d H:i:s'),
+                $message,
+            ),
+        );
     }
 }

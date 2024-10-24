@@ -24,7 +24,7 @@ final class ListenSwitchMessagesCommand extends Command
 {
     private const ARGUMENT_SWITCH_ID = 'switch-id';
 
-    private int $switchId;
+    private ?int $switchId = null;
 
     public function __construct(
         private readonly ConfigurableMwuServiceInterface $mwuService,
@@ -103,8 +103,9 @@ final class ListenSwitchMessagesCommand extends Command
     {
         $output->writeln(
             sprintf(
-                'Switch #%s | %s',
-                $this->switchId,
+                '%s | Switch #%s | %s',
+                date('Y-m-d H:i:s'),
+                $this->switchId ?? 'NaN',
                 $message,
             ),
         );
