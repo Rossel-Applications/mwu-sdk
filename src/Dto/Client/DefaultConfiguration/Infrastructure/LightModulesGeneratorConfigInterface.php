@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure;
+namespace Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure;
 
 interface LightModulesGeneratorConfigInterface
 {

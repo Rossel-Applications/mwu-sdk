@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace MwuSdkTest\Serializer\DefaultConfiguration\Content;
+namespace Rossel\MwuSdkTest\Serializer\DefaultConfiguration\Content;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\ButtonsConfig;
-use MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\ButtonsConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\FnButtonConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\QuantityKeysConfigKeysEnum;
-use MwuSdk\Model\FnButton;
-use MwuSdk\Model\QuantityKeys;
-use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\ButtonsConfigDenormalizer;
-use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\FnButtonConfigDenormalizer;
-use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\QuantityKeysConfigDenormalizer;
-use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\ButtonsConfigValidator;
-use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\FnButtonConfigValidator;
-use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\QuantityKeysConfigValidator;
 use PHPUnit\Framework\TestCase;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\ButtonsConfig;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\ButtonsConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\FnButtonConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\QuantityKeysConfigKeysEnum;
+use Rossel\MwuSdk\Model\FnButton;
+use Rossel\MwuSdk\Model\QuantityKeys;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\ButtonsConfigDenormalizer;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\FnButtonConfigDenormalizer;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons\QuantityKeysConfigDenormalizer;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\ButtonsConfigValidator;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\FnButtonConfigValidator;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\QuantityKeysConfigValidator;
 
 class ButtonsConfigDenormalizerTest extends TestCase
 {

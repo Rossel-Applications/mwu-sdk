@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Event\Listener;
+namespace Rossel\MwuSdk\Exception\Event\Listener;
 
-use MwuSdk\Exception\Event\EventExceptionInterface;
+use Rossel\MwuSdk\Exception\Event\EventExceptionInterface;
 
 interface EventListenerExceptionInterface extends EventExceptionInterface
 {

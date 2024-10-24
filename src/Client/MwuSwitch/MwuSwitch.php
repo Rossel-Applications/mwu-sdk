@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Client\MwuSwitch;
+namespace Rossel\MwuSdk\Client\MwuSwitch;
 
-use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
-use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
-use MwuSdk\Client\TcpIp\TcpIpClient;
-use MwuSdk\Client\TcpIp\TcpIpClientInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
-use MwuSdk\Entity\Command\ClientCommand\ClientCommandInterface;
-use MwuSdk\Entity\Command\ClientCommand\Initialize\InitializeCommand;
-use MwuSdk\Entity\Command\ClientCommand\TargetedLightModuleCommandInterface;
-use MwuSdk\Entity\Command\ClientCommand\TargetedSwitchCommandInterface;
-use MwuSdk\Entity\Command\CommandInterface;
-use MwuSdk\Exception\Client\Switch\LightModuleNotFoundException;
-use MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
-use MwuSdk\Exception\Configuration\CannotAssignIdOnSwitchException;
-use MwuSdk\Factory\Client\MwuLightModuleFactoryInterface;
-use MwuSdk\Factory\Entity\Message\ClientMessage\ClientMessageFactoryInterface;
-use MwuSdk\Validator\Command\TargetedLightModuleCommandValidatorInterface;
-use MwuSdk\Validator\Command\TargetedSwitchCommandValidatorInterface;
 use Random\RandomException;
+use Rossel\MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
+use Rossel\MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use Rossel\MwuSdk\Client\TcpIp\TcpIpClient;
+use Rossel\MwuSdk\Client\TcpIp\TcpIpClientInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfigInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\ClientCommandInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\Initialize\InitializeCommand;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\TargetedLightModuleCommandInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\TargetedSwitchCommandInterface;
+use Rossel\MwuSdk\Entity\Command\CommandInterface;
+use Rossel\MwuSdk\Exception\Client\Switch\LightModuleNotFoundException;
+use Rossel\MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
+use Rossel\MwuSdk\Exception\Configuration\CannotAssignIdOnSwitchException;
+use Rossel\MwuSdk\Factory\Client\MwuLightModuleFactoryInterface;
+use Rossel\MwuSdk\Factory\Entity\Message\ClientMessage\ClientMessageFactoryInterface;
+use Rossel\MwuSdk\Validator\Command\TargetedLightModuleCommandValidatorInterface;
+use Rossel\MwuSdk\Validator\Command\TargetedSwitchCommandValidatorInterface;
 
 /**
  * This class represents a network switch that connects multiple MWU light modules.

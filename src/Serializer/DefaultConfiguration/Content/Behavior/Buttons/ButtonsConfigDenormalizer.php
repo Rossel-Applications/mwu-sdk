@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\ButtonsConfig;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\ButtonsConfigKeysEnum;
-use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\ButtonsConfigValidator;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\ButtonsConfig;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\ButtonsConfigKeysEnum;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\ButtonsConfigValidator;
 
 /**
  * Class ButtonsConfigDenormalizer.

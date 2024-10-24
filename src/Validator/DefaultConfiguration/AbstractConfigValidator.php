@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Validator\DefaultConfiguration;
+namespace Rossel\MwuSdk\Validator\DefaultConfiguration;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Content\Switches;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Switches;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfig;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\LightModulesGeneratorConfigKeysEnum;
-use MwuSdk\Validator\DefaultConfiguration\Switches\LightModulesGeneratorConfigValidator;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfig;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\LightModulesGeneratorConfigKeysEnum;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Switches\LightModulesGeneratorConfigValidator;
 
 /**
  * Class LightModulesGeneratorConfigDenormalizer.

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Events\Listener;
+namespace Rossel\MwuSdk\Events\Listener;
 
-use MwuSdk\Events\Event\EventInterface;
+use Rossel\MwuSdk\Events\Event\EventInterface;
 
 interface EventListenerInterface
 {

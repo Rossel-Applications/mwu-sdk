@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Event\Listener;
+namespace Rossel\MwuSdk\Exception\Event\Listener;
 
-use MwuSdk\Events\Event\EventInterface;
+use Rossel\MwuSdk\Events\Event\EventInterface;
 
 final class CannotHandleEventException extends \RuntimeException implements EventListenerExceptionInterface
 {

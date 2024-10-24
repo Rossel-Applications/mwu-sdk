@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Client;
+namespace Rossel\MwuSdk\Exception\Client;
 
 /**
  * Interface for exceptions related to clients.

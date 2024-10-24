@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Validator\DefaultConfiguration\Behavior\Display;
+namespace Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\Display;
 
-use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\ScreenConfigKeysEnum;
-use MwuSdk\Validator\DefaultConfiguration\AbstractConfigValidator;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\ScreenConfigKeysEnum;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\AbstractConfigValidator;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

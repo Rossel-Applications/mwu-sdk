@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Entity\Message\ClientMessage;
+namespace Rossel\MwuSdk\Factory\Entity\Message\ClientMessage;
 
-use MwuSdk\Entity\Command\ClientCommand\ClientCommandInterface;
-use MwuSdk\Entity\Message\ClientMessage\ClientMessage;
 use Random\RandomException;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\ClientCommandInterface;
+use Rossel\MwuSdk\Entity\Message\ClientMessage\ClientMessage;
 
 /**
  * Factory class for creating Message instances, encapsulating Command objects.

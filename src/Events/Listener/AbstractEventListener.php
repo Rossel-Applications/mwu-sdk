@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Events\Listener;
+namespace Rossel\MwuSdk\Events\Listener;
 
-use MwuSdk\Events\Event\EventInterface;
-use MwuSdk\Exception\Event\Listener\CannotHandleEventException;
+use Rossel\MwuSdk\Events\Event\EventInterface;
+use Rossel\MwuSdk\Exception\Event\Listener\CannotHandleEventException;
 
 abstract class AbstractEventListener implements EventListenerInterface
 {

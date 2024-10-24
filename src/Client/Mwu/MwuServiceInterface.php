@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Client\Mwu;
+namespace Rossel\MwuSdk\Client\Mwu;
 
-use MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Command\ClientCommand\BroadcastReadyCommandInterface;
+use Rossel\MwuSdk\Builder\Command\Write\WriteCommandBuilderInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\BroadcastReadyCommandInterface;
 
 /**
  * MwuClientInterface defines methods for managing switches and sending commands.

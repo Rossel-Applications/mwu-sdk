@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Entity\Command\Server\ResponseData;
+namespace Rossel\MwuSdk\Factory\Entity\Command\Server\ResponseData;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Command\ServerCommand\ResponseData\ResponseDataCommandInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Command\ServerCommand\ResponseData\ResponseDataCommandInterface;
 
 interface ResponseDataCommandFactoryInterface
 {

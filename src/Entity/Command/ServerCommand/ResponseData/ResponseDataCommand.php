@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Command\ServerCommand\ResponseData;
+namespace Rossel\MwuSdk\Entity\Command\ServerCommand\ResponseData;
 
-use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Command\AbstractCommand;
-use MwuSdk\Enum\Command\ResponseData\Status;
-use MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
+use Rossel\MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Command\AbstractCommand;
+use Rossel\MwuSdk\Enum\Command\ResponseData\Status;
+use Rossel\MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
 
 final readonly class ResponseDataCommand extends AbstractCommand implements ResponseDataCommandInterface
 {

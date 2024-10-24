@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Configuration;
+namespace Rossel\MwuSdk\Exception\Configuration;
 
 /**
  * Error thrown when a specified configuration file cannot be found.

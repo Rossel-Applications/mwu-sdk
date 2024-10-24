@@ -1,7 +1,7 @@
 mwu_sdk:
   switches:
-    - ip_address: "144.56.46.30"
-      port: 5003
+    - ip_address: "CHANGE_ME!"
+      port: "CHANGE_ME!"
       light_modules_generator:
         first_module_id: 1
         increment_between_module_ids: 1
@@ -10,7 +10,7 @@ mwu_sdk:
     display_status:
       light:
         mode: on
-        color: yellow
+        color: red
       screen:
         mode: on
         text: "0000"
@@ -23,8 +23,8 @@ mwu_sdk:
         text: "0000"
     display_status_after_fn:
       light:
-        mode: fast_flash
-        color: red
+        mode: on
+        color: yellow
       screen:
         mode: on
         text: "9999"
@@ -32,4 +32,4 @@ mwu_sdk:
       fn:
         text: "----"
       quantity_keys:
-        mode: off
+        mode: increment

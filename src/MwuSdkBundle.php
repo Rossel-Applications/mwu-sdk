@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk;
+namespace Rossel\MwuSdk;
 
-use MwuSdk\DependencyInjection\Compiler\AddEventListenerTagPass;
-use MwuSdk\DependencyInjection\MwuSdkExtension;
-use MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\BehaviorConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\ButtonsConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\FnButtonConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\QuantityKeysConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\DisplayConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\LightConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\ScreenConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\ConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\LightModulesGeneratorConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\SwitchesConfigKeysEnum;
+use Rossel\MwuSdk\DependencyInjection\Compiler\AddEventListenerTagPass;
+use Rossel\MwuSdk\DependencyInjection\MwuSdkExtension;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\BehaviorConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\ButtonsConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\FnButtonConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\QuantityKeysConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\DisplayConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\LightConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\ScreenConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\ConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\LightModulesGeneratorConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\SwitchesConfigKeysEnum;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;

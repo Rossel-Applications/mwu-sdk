@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Command\ServerCommand\SuccessfulResponse;
+namespace Rossel\MwuSdk\Entity\Command\ServerCommand\SuccessfulResponse;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Command\AbstractCommand;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Command\AbstractCommand;
 
 final readonly class SuccessfulResponseCommand extends AbstractCommand implements SuccessfulResponseCommandInterface
 {

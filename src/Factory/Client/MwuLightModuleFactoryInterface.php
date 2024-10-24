@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Client;
+namespace Rossel\MwuSdk\Factory\Client;
 
-use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
-use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfigInterface;
+use Rossel\MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\BehaviorConfigInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfigInterface;
 
 /**
  * Interface for creating MwuLightModule instances.

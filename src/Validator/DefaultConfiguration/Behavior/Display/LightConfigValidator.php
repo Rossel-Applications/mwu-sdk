@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Validator\DefaultConfiguration\Behavior\Display;
+namespace Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\Display;
 
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
-use MwuSdk\Validator\DefaultConfiguration\ConfigValidatorInterface;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\ConfigValidatorInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

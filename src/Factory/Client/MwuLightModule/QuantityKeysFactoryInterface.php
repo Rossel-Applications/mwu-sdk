@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Client\MwuLightModule;
+namespace Rossel\MwuSdk\Factory\Client\MwuLightModule;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\QuantityKeysConfigInterface;
-use MwuSdk\Model\QuantityKeysInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\QuantityKeysConfigInterface;
+use Rossel\MwuSdk\Model\QuantityKeysInterface;
 
 /**
  * Interface for creating QuantityKeys instances.

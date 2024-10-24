@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Validator\Command;
+namespace Rossel\MwuSdk\Validator\Command;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Command\ClientCommand\TargetedSwitchCommandInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\TargetedSwitchCommandInterface;
 
 /**
  * Interface for validating targeted switch commands.

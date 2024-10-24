@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Formats;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Formats;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface;
 
 interface ConfigurationFileDeserializerInterface extends ConfigurationDeserializerInterface
 {

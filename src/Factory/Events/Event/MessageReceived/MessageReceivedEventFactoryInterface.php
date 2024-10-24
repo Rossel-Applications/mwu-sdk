@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Events\Event\MessageReceived;
+namespace Rossel\MwuSdk\Factory\Events\Event\MessageReceived;
 
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Message\ServerMessage\ServerMessageInterface;
-use MwuSdk\Events\Event\MessageReceivedEventInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Message\ServerMessage\ServerMessageInterface;
+use Rossel\MwuSdk\Events\Event\MessageReceivedEventInterface;
 
 interface MessageReceivedEventFactoryInterface
 {

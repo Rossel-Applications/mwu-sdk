@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Enum\Command\ResponseData;
+namespace Rossel\MwuSdk\Enum\Command\ResponseData;
 
-use MwuSdk\Enum\EnumInstanceSearchTrait;
+use Rossel\MwuSdk\Enum\EnumInstanceSearchTrait;
 
 enum Status: string
 {

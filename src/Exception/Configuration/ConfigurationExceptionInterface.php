@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Configuration;
+namespace Rossel\MwuSdk\Exception\Configuration;
 
 /**
  * Interface implemented by configuration-related exceptions.

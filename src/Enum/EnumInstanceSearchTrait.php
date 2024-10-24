@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Enum;
+namespace Rossel\MwuSdk\Enum;
 
 /**
  * Trait intended to be used by enums to facilitate cases research.

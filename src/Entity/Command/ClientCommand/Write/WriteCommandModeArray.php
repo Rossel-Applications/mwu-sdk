@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Command\ClientCommand\Write;
+namespace Rossel\MwuSdk\Entity\Command\ClientCommand\Write;
 
 /**
  * Implementation of the mode array in the `P5` MWU command.

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Command\ClientCommand\Write;
+namespace Rossel\MwuSdk\Entity\Command\ClientCommand\Write;
 
-use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
-use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
-use MwuSdk\Entity\Command\AbstractCommand;
-use MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
+use Rossel\MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use Rossel\MwuSdk\Client\MwuSwitch\MwuSwitchInterface;
+use Rossel\MwuSdk\Entity\Command\AbstractCommand;
+use Rossel\MwuSdk\Exception\Client\LightModule\UnreachableLightModuleException;
 
 /**
  * Represents a write command for the MWU Light Module.

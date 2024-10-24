@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace MwuSdkTest\Serializer\DefaultConfiguration\Content;
+namespace Rossel\MwuSdkTest\Serializer\DefaultConfiguration\Content;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfig;
-use MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\LightModulesGeneratorConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\SwitchesConfigKeysEnum;
-use MwuSdk\Serializer\DefaultConfiguration\Content\Switches\LightModulesGeneratorConfigDenormalizer;
-use MwuSdk\Serializer\DefaultConfiguration\Content\Switches\SwitchesConfigDenormalizer;
-use MwuSdk\Validator\DefaultConfiguration\Switches\LightModulesGeneratorConfigValidator;
-use MwuSdk\Validator\DefaultConfiguration\Switches\SwitchesConfigValidator;
-use MwuSdkTest\Utils\RandomDataGenerator;
 use PHPUnit\Framework\TestCase;
 use Random\RandomException;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfig;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\LightModulesGeneratorConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\SwitchesConfigKeysEnum;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Switches\LightModulesGeneratorConfigDenormalizer;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Switches\SwitchesConfigDenormalizer;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Switches\LightModulesGeneratorConfigValidator;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Switches\SwitchesConfigValidator;
+use Rossel\MwuSdkTest\Utils\RandomDataGenerator;
 
 class SwitchesConfigDenormalizerTest extends TestCase
 {

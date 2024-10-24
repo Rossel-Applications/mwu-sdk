@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer;
+namespace Rossel\MwuSdk\Serializer;
 
 /**
  * Defines the contract for denormalizing data from an array format.

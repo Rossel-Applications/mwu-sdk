@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Enum\ConfigurationParameterValues\Display;
+namespace Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display;
 
-use MwuSdk\Enum\BinaryEncodableInterface;
-use MwuSdk\Enum\EnumInstanceSearchTrait;
+use Rossel\MwuSdk\Enum\BinaryEncodableInterface;
+use Rossel\MwuSdk\Enum\EnumInstanceSearchTrait;
 
 /**
  * Enumeration representing the light modes for the confirmation button on the MWU Light Module.

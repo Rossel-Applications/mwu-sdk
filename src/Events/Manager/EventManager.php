@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Events\Manager;
+namespace Rossel\MwuSdk\Events\Manager;
 
-use MwuSdk\Events\Event\EventInterface;
-use MwuSdk\Events\Listener\EventListenerInterface;
-use MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
 use Random\RandomException;
+use Rossel\MwuSdk\Events\Event\EventInterface;
+use Rossel\MwuSdk\Events\Listener\EventListenerInterface;
+use Rossel\MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
 
 final class EventManager implements EventManagerInterface
 {

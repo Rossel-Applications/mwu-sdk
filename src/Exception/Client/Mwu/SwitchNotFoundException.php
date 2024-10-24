@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Client\Mwu;
+namespace Rossel\MwuSdk\Exception\Client\Mwu;
 
 final class SwitchNotFoundException extends \RuntimeException implements MwuClientExceptionInterface
 {

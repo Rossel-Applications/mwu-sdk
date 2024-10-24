@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Events\Event;
+namespace Rossel\MwuSdk\Events\Event;
 
-use MwuSdk\Entity\Message\ServerMessage\ServerMessageInterface;
+use Rossel\MwuSdk\Entity\Message\ServerMessage\ServerMessageInterface;
 
 interface MessageReceivedEventInterface extends EventInterface
 {

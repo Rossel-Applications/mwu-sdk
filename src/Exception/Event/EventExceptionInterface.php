@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Event;
+namespace Rossel\MwuSdk\Exception\Event;
 
-use MwuSdk\Events\Event\EventInterface;
+use Rossel\MwuSdk\Events\Event\EventInterface;
 
 interface EventExceptionInterface extends \Throwable
 {

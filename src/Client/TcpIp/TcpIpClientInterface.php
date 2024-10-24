@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Client\TcpIp;
+namespace Rossel\MwuSdk\Client\TcpIp;
 
-use MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
+use Rossel\MwuSdk\Exception\Client\TcpIp\TcpIpClientExceptionInterface;
 
 /**
  * Interface for TCP/IP communication with a Switch.

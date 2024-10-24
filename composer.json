@@ -18,8 +18,8 @@
   ],
   "autoload": {
     "psr-4": {
-      "MwuSdk\\": "src/",
-      "MwuSdkTest\\": "tests/"
+      "Rossel\\MwuSdk\\": "src/",
+      "Rossel\\MwuSdkTest\\": "tests/"
     }
   },
   "require": {
@@ -27,7 +27,7 @@
     "symfony/validator": "^6.4",
     "symfony/yaml": "^6.4",
     "symfony/options-resolver": "^6.4",
-    "ext-sockets": "^8.2",
+    "ext-sockets": ">=8.1",
     "symfony/dependency-injection": "^6.4",
     "symfony/http-kernel": "^6.4",
     "symfony/config": "^6.4",

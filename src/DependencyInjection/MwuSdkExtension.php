@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\DependencyInjection;
+namespace Rossel\MwuSdk\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

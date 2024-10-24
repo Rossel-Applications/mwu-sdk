@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace MwuSdkTest\Serializer\DefaultConfiguration\Content;
+namespace Rossel\MwuSdkTest\Serializer\DefaultConfiguration\Content;
 
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\DisplayConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\LightConfigKeysEnum;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\ScreenConfigKeysEnum;
-use MwuSdk\Model\DisplayStatus;
-use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display\DisplayConfigDenormalizer;
-use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display\LightConfigDenormalizer;
-use MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display\ScreenConfigDenormalizer;
-use MwuSdk\Validator\DefaultConfiguration\Behavior\Display\DisplayConfigValidator;
-use MwuSdk\Validator\DefaultConfiguration\Behavior\Display\LightConfigValidator;
-use MwuSdk\Validator\DefaultConfiguration\Behavior\Display\ScreenConfigValidator;
 use PHPUnit\Framework\TestCase;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\DisplayConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\LightConfigKeysEnum;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Display\ScreenConfigKeysEnum;
+use Rossel\MwuSdk\Model\DisplayStatus;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display\DisplayConfigDenormalizer;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display\LightConfigDenormalizer;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display\ScreenConfigDenormalizer;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\Display\DisplayConfigValidator;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\Display\LightConfigValidator;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\Display\ScreenConfigValidator;
 
 class DisplayConfigDenormalizerTest extends TestCase
 {

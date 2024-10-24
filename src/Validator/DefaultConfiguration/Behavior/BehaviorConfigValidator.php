@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Validator\DefaultConfiguration\Behavior;
+namespace Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior;
 
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\BehaviorConfigKeysEnum;
-use MwuSdk\Validator\DefaultConfiguration\AbstractConfigValidator;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\BehaviorConfigKeysEnum;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\AbstractConfigValidator;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

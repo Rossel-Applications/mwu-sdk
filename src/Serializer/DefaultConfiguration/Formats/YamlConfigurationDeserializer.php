@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Formats;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Formats;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\MwuConfig;
-use MwuSdk\Exception\Configuration\ConfigurationFileNotFoundException;
-use MwuSdk\Exception\Configuration\InvalidConfigurationException;
-use MwuSdk\Exception\Configuration\InvalidConfigurationFileException;
-use MwuSdk\Serializer\AbstractDeserializer;
-use MwuSdk\Serializer\DefaultConfiguration\Content\ConfigDenormalizer;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\MwuConfig;
+use Rossel\MwuSdk\Exception\Configuration\ConfigurationFileNotFoundException;
+use Rossel\MwuSdk\Exception\Configuration\InvalidConfigurationException;
+use Rossel\MwuSdk\Exception\Configuration\InvalidConfigurationFileException;
+use Rossel\MwuSdk\Serializer\AbstractDeserializer;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\ConfigDenormalizer;
 use Symfony\Component\Yaml\Yaml;
 
 /**

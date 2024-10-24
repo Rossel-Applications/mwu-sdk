@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Model;
+namespace Rossel\MwuSdk\Model;
 
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
 
 /**
  * Interface for the display status of a light module.

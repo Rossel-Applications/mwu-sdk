@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Entity\Message\ClientMessage;
+namespace Rossel\MwuSdk\Entity\Message\ClientMessage;
 
-use MwuSdk\Entity\Command\ClientCommand\ClientCommandInterface;
-use MwuSdk\Entity\Message\AbstractMessage;
 use Random\RandomException;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\ClientCommandInterface;
+use Rossel\MwuSdk\Entity\Message\AbstractMessage;
 
 /**
  * Encapsulates a Command into a Message to be transmitted to the MWU switch.

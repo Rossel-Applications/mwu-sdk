@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Factory\Entity\Command\Client\Write;
+namespace Rossel\MwuSdk\Factory\Entity\Command\Client\Write;
 
-use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
-use MwuSdk\Entity\Command\ClientCommand\Write\WriteCommandModeArray;
-use MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
-use MwuSdk\Utils\EncodingConverter;
+use Rossel\MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;
+use Rossel\MwuSdk\Entity\Command\ClientCommand\Write\WriteCommandModeArray;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\ScreenDisplayMode;
+use Rossel\MwuSdk\Utils\EncodingConverter;
 
 /**
  * Factory for creating WriteCommandModeArray instances.

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Buttons;
 
-use MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\FnButtonConfig;
-use MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\FnButtonConfigKeysEnum;
-use MwuSdk\Model\FnButton;
-use MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\FnButtonConfigValidator;
+use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Buttons\FnButtonConfig;
+use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Behavior\Buttons\FnButtonConfigKeysEnum;
+use Rossel\MwuSdk\Model\FnButton;
+use Rossel\MwuSdk\Validator\DefaultConfiguration\Behavior\Buttons\FnButtonConfigValidator;
 
 /**
  * Class FnButtonConfigDenormalizer.

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Events\Event;
+namespace Rossel\MwuSdk\Events\Event;
 
-use MwuSdk\Entity\Message\ClientMessage\ClientMessageInterface;
+use Rossel\MwuSdk\Entity\Message\ClientMessage\ClientMessageInterface;
 
 final readonly class MessageSentEvent implements MessageSentEventInterface
 {

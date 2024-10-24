@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display;
+namespace Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Behavior\Display;
 
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
-use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
+use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
 
 final readonly class LightConfig implements LightConfigInterface
 {

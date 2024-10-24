@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Client\TcpIp;
+namespace Rossel\MwuSdk\Client\TcpIp;
 
-use MwuSdk\Exception\Client\TcpIp\CannotConnectSocketException;
-use MwuSdk\Exception\Client\TcpIp\CannotCreateSocketException;
-use MwuSdk\Exception\Client\TcpIp\SocketClosedException;
-use MwuSdk\Exception\Client\TcpIp\SocketReceiveException;
+use Rossel\MwuSdk\Exception\Client\TcpIp\CannotConnectSocketException;
+use Rossel\MwuSdk\Exception\Client\TcpIp\CannotCreateSocketException;
+use Rossel\MwuSdk\Exception\Client\TcpIp\SocketClosedException;
+use Rossel\MwuSdk\Exception\Client\TcpIp\SocketReceiveException;
 
 /**
  * TCP/IP client to send messages to a specified Switch.

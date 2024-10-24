@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display;
+namespace Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\Behavior\Display;
 
-use MwuSdk\Model\DisplayStatusInterface;
-use MwuSdk\Serializer\DenormalizerInterface;
+use Rossel\MwuSdk\Model\DisplayStatusInterface;
+use Rossel\MwuSdk\Serializer\DenormalizerInterface;
 
 interface DisplayConfigDenormalizerInterface extends DenormalizerInterface
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Configuration;
+namespace Rossel\MwuSdk\Exception\Configuration;
 
 /** Error thrown if a specified configuration is invalid. */
 final class InvalidConfigurationException extends \RuntimeException implements ConfigurationExceptionInterface

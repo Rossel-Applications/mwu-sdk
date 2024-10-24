@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MwuSdk\Exception\Client\Switch;
+namespace Rossel\MwuSdk\Exception\Client\Switch;
 
 class LightModuleNotFoundException extends \RuntimeException implements SwitchClientExceptionInterface
 {
