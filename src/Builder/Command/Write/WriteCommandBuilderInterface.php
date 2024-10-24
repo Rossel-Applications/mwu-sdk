@@ -88,6 +88,13 @@ interface WriteCommandBuilderInterface extends TargetedLightModuleCommandBuilder
     public function withScreenDisplayModeAfterFn(?ScreenDisplayMode $mode): self;
 
     /**
+     * Specify the quantity keys increment mode.
+     *
+     * @param QuantityKeysMode|null $mode the quantity keys increment mode
+     */
+    public function withQuantityKeysMode(?QuantityKeysMode $mode): self;
+
+    /**
      * Get the data to be displayed after pressing the Fn key.
      *
      * @return ?string the data to be displayed, or null if not specified

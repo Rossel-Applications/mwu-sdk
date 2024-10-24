@@ -150,6 +150,16 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
     /**
      * {@inheritDoc}
      */
+    public function withQuantityKeysMode(?QuantityKeysMode $mode): self
+    {
+        $this->quantityKeysMode = $mode;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getFnData(): ?string
     {
         return $this->fnData;
@@ -328,7 +338,7 @@ final class WriteCommandBuilder implements WriteCommandBuilderInterface
         );
 
         return sprintf(
-            '%s%s%s%s%04s%% 5s% 5s',
+            '%s%s%s%s%04s%% 5s%s',
             $staticPrefix,
             self::MWU_COMMAND_OPTION_FN_VALUE_SPECIFIED[$fnDataSpecified],
             $blockNumber,
