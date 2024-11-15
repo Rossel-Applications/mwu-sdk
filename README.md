@@ -22,6 +22,30 @@ This library is compatible with vanilla PHP and provides a Symfony bundle for ea
 
 ## Getting started
 
+### Installation
+
+To install the library in your PHP project, execute the following command:  
+```shell
+composer require rossel/mwu-sdk
+```
+
+#### Symfony integration
+
+This library provides a Symfony bundle, which helps you to integrate this library to your project.  
+Once the composer package installed, create a new `mwu_sdk.yaml` configuration file under the `config/packages/` directory.
+
+> Here is an example configuration file you can use: [config/packages/mwu_sdk.yaml](config/packages/mwu_sdk.yaml).  
+> Don't forget to change the "CHANGE_ME!" values :slightly_smiling_face: !
+
+Once done, you're all set!  
+
+For more information about the configuration file, see [Defining a default configuration](#Defining-a-default-configuration)
+
+#### Manual integration
+
+You'll have to instantiate manually the `Rossel\MwuSdk\Client\Mwu\Mwu` service.  
+Read the phpdoc for more information about dependencies to inject.
+
 ### Overview of most used classes
 
 Below is a class diagram illustrating the relationships between the main classes used in the MWU SDK.  
@@ -29,7 +53,7 @@ Below is a class diagram illustrating the relationships between the main classes
 ```mermaid
 classDiagram
     direction LR
-    class AbstractMwuService {
+    class Mwu {
         -array switches
         +getSwitches() array
         +addSwitch(MwuSwitchInterface $switch) self
@@ -55,94 +79,194 @@ classDiagram
 * **MWU Switch:** Device that groups several light modules, each identified by a unique ID per switch. Each switch is accessible via a specific IP address and port.
 * **MWU Light Module:** Set consisting of a screen with buttons, one of which is equipped with an LED. Each light module has a unique ID when connected to a switch.
 
-### Mwu service creation
+## Defining a configuration
 
-First, you can create a service to group switches in one place, allowing easy retrieval later.  
-To do so, extend the `\MwuSdk\Client\AbstractMwu` class, which provides a ready-to-use MWU client.
+### Configuring Switches
 
-```php
-class MwuService extends \MwuSdk\Client\Mwu\Mwu {
-}
-```
-> **Note:** To prevent resetting the communication between your application and the MWU system, it's essential to always use the same instance of the service.  
-> In Symfony, this can be achieved by configuring the class as a [shared service](https://symfony.com/doc/current/service_container/shared.html), ensuring that the same instance is reused throughout your application.
+Below are the options available to define the configuration of switches, in both YAML and PHP formats.
 
-Once the service is created, you can add your switches :  
-* manually, with the `addSwitch(MwuSwitchInterface $switch)` method;
-* by loading a configuration object, with the `loadConfiguration(MwuConfigInterface $config)` method;
-* by loading a YAML configuration file, with the `loadYamlConfigurationFile(string $path)` method.
+* **YAML format:**
+    ```yaml
+    mwu_sdk:
+      switches:
+        - ip_address: "144.56.46.30"
+          port: 5003
+          light_modules_generator:
+            first_module_id: 1
+            increment_between_module_ids: 1
+            number_of_modules: 4
+    ```
 
-### Defining a default configuration
+* **PHP format:**
+    ```php
+    $config = new \Rossel\MwuSdk\Dto\Client\DefaultConfiguration\MwuConfig(
+        [
+            new \Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\SwitchConfig(
+                ipAddress: '144.56.46.30',
+                port: 5003,
+                lightModulesGeneratorConfig: new \Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure\LightModulesGeneratorConfig(
+                    firstModuleId: 1,
+                    incrementBetweenModuleIds: 1,
+                    numberOfModules: 4,
+                )
+            ),
+        ],
+        // ...
+    );
+    ```
 
-#### YAML configuration file
+#### Explanation of `lightModulesGeneratorConfig` Parameters
 
-##### Example of complete configuration
+The `lightModulesGeneratorConfig` parameters define an arithmetic sequence for generating light module identifiers. The identifiers are calculated as follows:
 
-Below is an example of a complete YAML configuration for setting up your MWU Service.
+- **Formula:**  
+  \( u_{n+1} = u_n + \text{incrementBetweenModuleIds} \)
 
-```yaml
-mwu_default_config:
-  switches:
-    - ip_address: "144.56.46.30"
-      port: 5003
-      light_modules_generator:
-        first_module_id: 1
-        increment_between_module_ids: 1
-        number_of_modules: 4
-    - ip_address: "144.56.46.31"
-      port: 5003
-      light_modules_generator:
-        first_module_id: 1
-        increment_between_module_ids: 1
-        number_of_modules: 4
-  behavior:
-    display_status:
-      light:
-        mode: on
-        color: yellow
-      screen:
-        mode: on
-        text: 0000
-    display_status_after_confirm:
-      light:
-        mode: on
-        color: green
-      screen:
-        mode: on
-        text: 0000
-    display_status_after_fn:
-      light:
-        mode: fast_flash
-        color: red
-      screen:
-        mode: on
-        text: 9999
-    buttons:
-      confirm:
-        enabled: true
-      fn:
-        enabled: true
-        text: ----
-        used_as_decrement: false
-      quantity_keys:
-        mode: off
-```
+- **Initial Term:**  
+  \( u_1 = \text{firstModuleId} \)
 
-##### Retrieving the YAML configuration
+- **Range:**  
+  \( n \in [1, \text{numberOfModules}] \)
 
-To configure your MWU Service using a YAML file, you can simply call `AbstractMwuService::loadYamlConfig(string $path)` with the path to your file.
+This configuration generates a sequence of identifiers starting from `firstModuleId`, where each subsequent module ID is incremented by `incrementBetweenModuleIds` up to the total count specified in `numberOfModules`.
 
-### Sending a Command
+### Behavior Configuration Parameters
+
+=========================
+==== !! TO VERIFY !! ====
+=========================
+
+Each parameter in the `mwu_sdk` behavior configuration is detailed below, specifying possible values, type, default values, and descriptions.
+
+#### `display_status.light.mode`
+
+Controls the light's operational mode.
+
+| Parameter | Type   | Possible Values                  | Default |
+|-----------|--------|----------------------------------|---------|
+| `mode`    | string | `"on"`, `"off"`, `"blink"`      | `"on"`  |
+
+#### `display_status.light.color`
+
+Sets the color of the light.
+
+| Parameter | Type   | Possible Values                  | Default |
+|-----------|--------|----------------------------------|---------|
+| `color`   | string | `"red"`, `"green"`, `"yellow"`  | `"red"` |
+
+#### `display_status.screen.mode`
+
+Controls the screen's operational mode.
+
+| Parameter | Type   | Possible Values                  | Default |
+|-----------|--------|----------------------------------|---------|
+| `mode`    | string | `"on"`, `"off"`                 | `"on"`  |
+
+#### `display_status.screen.text`
+
+Displays a custom 4-character string on screen.
+
+| Parameter | Type   | Possible Values            | Default |
+|-----------|--------|----------------------------|---------|
+| `text`    | string | Any 4-character string     | `"0000"`|
+
+---
+
+#### `display_status_after_confirm.light.mode`
+
+Controls the light's operational mode after confirmation.
+
+| Parameter | Type   | Possible Values                  | Default |
+|-----------|--------|----------------------------------|---------|
+| `mode`    | string | `"on"`, `"off"`, `"blink"`      | `"on"`  |
+
+#### `display_status_after_confirm.light.color`
+
+Sets the color of the light after confirmation.
+
+| Parameter | Type   | Possible Values                  | Default |
+|-----------|--------|----------------------------------|---------|
+| `color`   | string | `"red"`, `"green"`, `"yellow"`  | `"green"`|
+
+#### `display_status_after_confirm.screen.mode`
+
+Controls the screen's operational mode after confirmation.
+
+| Parameter | Type   | Possible Values                  | Default |
+|-----------|--------|----------------------------------|---------|
+| `mode`    | string | `"on"`, `"off"`                 | `"on"`  |
+
+#### `display_status_after_confirm.screen.text`
+
+Displays a custom 4-character string on the screen after confirmation.
+
+| Parameter | Type   | Possible Values            | Default |
+|-----------|--------|----------------------------|---------|
+| `text`    | string | Any 4-character string     | `"0000"`|
+
+---
+
+#### `display_status_after_fn.light.mode`
+
+Controls the light's operational mode after "fn" action.
+
+| Parameter | Type   | Possible Values                          | Default    |
+|-----------|--------|------------------------------------------|------------|
+| `mode`    | string | `"on"`, `"off"`, `"blink"`, `"fast_flash"` | `"on"`     |
+
+#### `display_status_after_fn.light.color`
+
+Sets the color of the light after "fn" action.
+
+| Parameter | Type   | Possible Values                  | Default |
+|-----------|--------|----------------------------------|---------|
+| `color`   | string | `"red"`, `"green"`, `"yellow"`  | `"yellow"` |
+
+#### `display_status_after_fn.screen.mode`
+
+Controls the screen's operational mode after "fn" action.
+
+| Parameter | Type   | Possible Values                  | Default |
+|-----------|--------|----------------------------------|---------|
+| `mode`    | string | `"on"`, `"off"`                 | `"on"`  |
+
+#### `display_status_after_fn.screen.text`
+
+Displays a custom 4-character string on screen after "fn" action.
+
+| Parameter | Type   | Possible Values            | Default |
+|-----------|--------|----------------------------|---------|
+| `text`    | string | Any 4-character string     | `"9999"`|
+
+---
+
+#### `buttons.fn.text`
+
+Custom text shown on "fn" button display.
+
+| Parameter | Type   | Possible Values            | Default |
+|-----------|--------|----------------------------|---------|
+| `text`    | string | Any 4-character string     | `"----"`|
+
+#### `buttons.quantity_keys.mode`
+
+Sets behavior for the quantity keys.
+
+| Parameter | Type   | Possible Values                  | Default      |
+|-----------|--------|----------------------------------|--------------|
+| `mode`    | string | `"increment"`, `"decrement"`, `"off"` | `"increment"` |
+
+## Sending a Command
 
 This section outlines the process of sending commands within the MWU system.
 Commands can be issued from switches, light modules, or the MWU service, allowing flexible control over the system's operations.
 
-#### `Write` command
+### `Write` command
 
 The write command allows you to send text or data instructions to individual or multiple light modules within the MWU system.
 It provides configuration options to customize the light's appearance, such as color and display mode, facilitating communication and signaling in pick-to-light applications.
 
-##### Write text on an individual light module
+#### Write text on an individual light module
 
 ```php
 use MwuSdk\Builder\Command\Write\WriteCommandBuilder;use MwuSdk\Client\MwuLightModule\MwuLightModuleInterface;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;use MwuSdk\Factory\Entity\Command\Client\Write\WriteCommandModeArrayFactory;
@@ -169,7 +293,7 @@ class MyClass {
 }
 ```
 
-##### Write text on multiple light modules, from a specific switch
+#### Write text on multiple light modules, from a specific switch
 
 ```php
 use MwuSdk\Builder\Command\Write\WriteCommandBuilder;use MwuSdk\Client\MwuSwitch\MwuSwitchInterface;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;use MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;use MwuSdk\Factory\Entity\Command\Client\Write\WriteCommandModeArrayFactory;
@@ -203,7 +327,7 @@ class MyClass {
 }
 ```
 
-##### Write text on light modules of multiple switches
+#### Write text on light modules of multiple switches
 
 ```php
 class MwuService extends \MwuSdk\Client\Mwu\Mwu {

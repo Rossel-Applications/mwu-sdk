@@ -9,36 +9,36 @@ use Symfony\Component\Validator\Constraints as Assert;
 class LightModulesGeneratorConfig implements LightModulesGeneratorConfigInterface
 {
     #[Assert\GreaterThanOrEqual(0)]
-    private int $firstLightModuleId;
+    private int $firstModuleId;
 
     #[Assert\GreaterThanOrEqual(0)]
-    private int $numberOfLightModules;
+    private int $numberOfModules;
 
     #[Assert\NotEqualTo(0)]
-    private int $incrementBetweenLightModuleIds;
+    private int $incrementBetweenModuleIds;
 
     public function __construct(
-        int $firstLightModuleId,
-        int $numberOfLightModules,
-        int $incrementBetweenLightModuleIds = 1
+        int $firstModuleId,
+        int $numberOfModules,
+        int $incrementBetweenModuleIds = 1
     ) {
-        $this->firstLightModuleId = $firstLightModuleId;
-        $this->numberOfLightModules = $numberOfLightModules;
-        $this->incrementBetweenLightModuleIds = $incrementBetweenLightModuleIds;
+        $this->firstModuleId = $firstModuleId;
+        $this->numberOfModules = $numberOfModules;
+        $this->incrementBetweenModuleIds = $incrementBetweenModuleIds;
     }
 
-    public function getFirstLightModuleId(): ?int
+    public function getFirstModuleId(): ?int
     {
-        return $this->firstLightModuleId;
+        return $this->firstModuleId;
     }
 
-    public function getNumberOfLightModules(): int
+    public function getNumberOfModules(): int
     {
-        return $this->numberOfLightModules;
+        return $this->numberOfModules;
     }
 
-    public function getIncrementBetweenLightModuleIds(): int
+    public function getIncrementBetweenModuleIds(): int
     {
-        return $this->incrementBetweenLightModuleIds;
+        return $this->incrementBetweenModuleIds;
     }
 }

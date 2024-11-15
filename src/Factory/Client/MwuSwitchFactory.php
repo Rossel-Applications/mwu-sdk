@@ -42,7 +42,7 @@ final readonly class MwuSwitchFactory implements MwuSwitchFactoryInterface
     /**
      * @param array<array-key, SwitchConfigInterface> $switchConfigs
      *
-     * @return array<array-key, MwuSwitch>
+     * @return list<MwuSwitch>
      */
     public function createCollection(array $switchConfigs, ?BehaviorConfigInterface $behaviorConfig): array
     {

@@ -20,7 +20,7 @@ use Rossel\MwuSdk\Serializer\DefaultConfiguration\Formats\YamlConfigurationDeser
 class Mwu implements YamlConfigurableMwuServiceInterface
 {
     /**
-     * @var list<MwuSwitchInterface> list of switches managed by the client
+     * @var array<int, MwuSwitchInterface> list of switches managed by the client
      */
     private array $switches = [];
 

@@ -41,7 +41,7 @@ final readonly class ConfigDenormalizer implements DenormalizerInterface
 
         $this->configValidator->validate($data);
 
-        /** @var array<array-key, array<array-key, mixed>> $normalizedSwitchesConfig */
+        /** @var list<array<array-key, mixed>> $normalizedSwitchesConfig */
         $normalizedSwitchesConfig = $data[ConfigKeysEnum::KEY_SWITCHES->value];
         /** @var array<array-key, array<array-key, mixed>> $normalizedBehaviorConfig */
         $normalizedBehaviorConfig = $data[ConfigKeysEnum::KEY_BEHAVIOR->value];

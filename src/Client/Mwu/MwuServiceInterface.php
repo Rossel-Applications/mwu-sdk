@@ -17,7 +17,7 @@ interface MwuServiceInterface
     /**
      * Gets the list of switches managed by the client.
      *
-     * @return list<MwuSwitchInterface> list of the connected switches
+     * @return array<int, MwuSwitchInterface> list of the connected switches
      */
     public function getSwitches(): array;
 
@@ -75,7 +75,7 @@ interface MwuServiceInterface
      * Sends the specified command to the provided switches.
      *
      * @param BroadcastReadyCommandInterface $command  the command to send to each switch
-     * @param list<MwuSwitchInterface>       $switches list of switches
+     * @param array<int, MwuSwitchInterface> $switches list of switches
      *
      * @return array<array-key, string|null> responses from switches
      */

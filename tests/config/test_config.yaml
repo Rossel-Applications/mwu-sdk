@@ -1,4 +1,4 @@
-mwu_default_config:
+mwu_sdk:
   switches:
     - ip_address: "144.56.46.30"
       port: 5003
@@ -10,7 +10,7 @@ mwu_default_config:
     display_status:
       light:
         mode: on
-        color: yellow
+        color: red
       screen:
         mode: on
         text: "0000"
@@ -23,17 +23,13 @@ mwu_default_config:
         text: "0000"
     display_status_after_fn:
       light:
-        mode: fast_flash
-        color: red
+        mode: on
+        color: yellow
       screen:
         mode: on
         text: "9999"
     buttons:
-      confirm:
-        enabled: true
       fn:
-        enabled: true
         text: "----"
-        use_as_decrement: false
       quantity_keys:
-        mode: off
+        mode: increment

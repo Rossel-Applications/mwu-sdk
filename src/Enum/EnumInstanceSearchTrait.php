@@ -10,7 +10,7 @@ namespace Rossel\MwuSdk\Enum;
  * This trait provides methods to search for enum instances by their string values
  * and to retrieve all possible values of the enum as a list.
  *
- * @method static array<self> cases() Returns an array of all cases of the enum.
+ * @method static list<self> cases() Returns an array of all cases of the enum.
  */
 trait EnumInstanceSearchTrait
 {

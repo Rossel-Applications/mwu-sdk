@@ -6,9 +6,9 @@ namespace Rossel\MwuSdk\Dto\Client\DefaultConfiguration\Infrastructure;
 
 interface LightModulesGeneratorConfigInterface
 {
-    public function getFirstLightModuleId(): ?int;
+    public function getFirstModuleId(): ?int;
 
-    public function getIncrementBetweenLightModuleIds(): ?int;
+    public function getIncrementBetweenModuleIds(): ?int;
 
-    public function getNumberOfLightModules(): ?int;
+    public function getNumberOfModules(): ?int;
 }

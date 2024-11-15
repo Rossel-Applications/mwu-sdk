@@ -26,7 +26,7 @@ final readonly class SwitchesConfigDenormalizer implements SwitchesConfigDenorma
      *
      * Denormalizes the given data into an array of SwitchConfig objects.
      *
-     * @param array<array-key, array<array-key, mixed>> $data the configuration data for switches
+     * @param list<array<array-key, mixed>> $data the configuration data for switches
      *
      * @return list<SwitchConfig> an array of denormalized SwitchConfig objects
      */
@@ -37,10 +37,12 @@ final readonly class SwitchesConfigDenormalizer implements SwitchesConfigDenorma
         /** @var array<array-key, array<array-key, mixed>> $normalizedSwitchesConfigurations */
         $normalizedSwitchesConfigurations = $data;
 
+        /* @var list<SwitchConfig> */
         return array_map(
-            function ($switchConfig) {
+            function ($switchConfig): SwitchConfig {
                 return $this->denormalizeItem($switchConfig);
-            }, $normalizedSwitchesConfigurations
+            },
+            $normalizedSwitchesConfigurations,
         );
     }
 

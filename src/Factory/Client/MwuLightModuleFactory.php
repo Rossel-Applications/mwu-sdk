@@ -39,9 +39,9 @@ final readonly class MwuLightModuleFactory implements MwuLightModuleFactoryInter
         MwuSwitchInterface $switch,
         ?BehaviorConfigInterface $behaviorConfig = null,
     ): array {
-        $firstLightModuleId = $config->getFirstLightModuleId();
-        $increment = $config->getIncrementBetweenLightModuleIds();
-        $numberOfModules = $config->getNumberOfLightModules();
+        $firstLightModuleId = $config->getFirstModuleId();
+        $increment = $config->getIncrementBetweenModuleIds();
+        $numberOfModules = $config->getNumberOfModules();
 
         $lightModules = [];
 
