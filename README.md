@@ -120,13 +120,13 @@ Below are the options available to define the configuration of switches, in both
 The `lightModulesGeneratorConfig` parameters define an arithmetic sequence for generating light module identifiers. The identifiers are calculated as follows:
 
 - **Formula:**  
-  ![](https://latex.codecogs.com/gif.image?\dpi{200}%20u_{n+1}%20=%20u_n%20+%20\text{incrementBetweenModuleIds}%20)
+  ![](https://latex.codecogs.com/svg.image?\dpi{200}%20u_{n+1}%20=%20u_n%20+%20\text{incrementBetweenModuleIds}%20)
 
 - **Initial Term:**  
-  ![](https://latex.codecogs.com/gif.image?\dpi{200}%20u_1%20=%20\text{firstModuleId})
+  ![](https://latex.codecogs.com/svg.image?\dpi{200}%20u_1%20=%20\text{firstModuleId})
 
 - **Range:**  
-  ![](https://latex.codecogs.com/gif.image?\dpi{200}%20n%20\in%20[1,%20\text{numberOfModules}])
+  ![](https://latex.codecogs.com/svg.image?\dpi{200}%20n%20\in%20[1,%20\text{numberOfModules}])
 
 This configuration generates a sequence of identifiers starting from `firstModuleId`, where each subsequent module ID is incremented by `incrementBetweenModuleIds` up to the total count specified in `numberOfModules`.
 
