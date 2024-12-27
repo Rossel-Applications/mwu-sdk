@@ -301,7 +301,11 @@ final class MwuSwitch implements MwuSwitchInterface
         $commands = $commandBuilder->buildCommands($lightModules, $text, $errors);
 
         foreach ($commands as $id => $command) {
-            $responses[$id] = $this->send($command);
+            try {
+                $responses[$id] = $this->send($command);
+            } catch (\Exception $e) {
+                $errors[] = $e;
+            }
         }
 
         return $responses;

@@ -38,11 +38,13 @@ final readonly class SwitchesConfigDenormalizer implements SwitchesConfigDenorma
         $normalizedSwitchesConfigurations = $data;
 
         /* @var list<SwitchConfig> */
-        return array_map(
-            function ($switchConfig): SwitchConfig {
-                return $this->denormalizeItem($switchConfig);
-            },
-            $normalizedSwitchesConfigurations,
+        return array_values(
+            array_map(
+                function ($switchConfig): SwitchConfig {
+                    return $this->denormalizeItem($switchConfig);
+                },
+                $normalizedSwitchesConfigurations,
+            )
         );
     }
 
