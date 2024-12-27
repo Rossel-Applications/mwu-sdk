@@ -32,7 +32,7 @@ composer require rossel/mwu-sdk
 #### Symfony integration
 
 This library provides a Symfony bundle, which helps you to integrate this library to your project.  
-Once the composer package installed, create a new `mwu_sdk.yaml` configuration file under the `config/packages/` directory.
+Once the composer package installed, execute the Symfony Flex recipe, or manually create a new `mwu_sdk.yaml` configuration file under the `config/packages/` directory.
 
 > Here is an example configuration file you can use: [config/packages/mwu_sdk.yaml](config/packages/mwu_sdk.yaml).  
 > Don't forget to change the "CHANGE_ME!" values :slightly_smiling_face: !
@@ -120,13 +120,13 @@ Below are the options available to define the configuration of switches, in both
 The `lightModulesGeneratorConfig` parameters define an arithmetic sequence for generating light module identifiers. The identifiers are calculated as follows:
 
 - **Formula:**  
-  \( u_{n+1} = u_n + \text{incrementBetweenModuleIds} \)
+  ![](https://latex.codecogs.com/gif.image?\dpi{200}%20u_{n+1}%20=%20u_n%20+%20\text{incrementBetweenModuleIds}%20)
 
 - **Initial Term:**  
-  \( u_1 = \text{firstModuleId} \)
+  ![](https://latex.codecogs.com/gif.image?\dpi{200}%20u_1%20=%20\text{firstModuleId})
 
 - **Range:**  
-  \( n \in [1, \text{numberOfModules}] \)
+  ![](https://latex.codecogs.com/gif.image?\dpi{200}%20n%20\in%20[1,%20\text{numberOfModules}])
 
 This configuration generates a sequence of identifiers starting from `firstModuleId`, where each subsequent module ID is incremented by `incrementBetweenModuleIds` up to the total count specified in `numberOfModules`.
 
