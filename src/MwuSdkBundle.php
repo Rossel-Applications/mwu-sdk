@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Rossel\MwuSdk;
 
+use Rossel\MwuSdk\Client\Mwu\Mwu;
 use Rossel\MwuSdk\DependencyInjection\Compiler\AddEventListenerTagPass;
-use Rossel\MwuSdk\DependencyInjection\MwuSdkExtension;
 use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Buttons\QuantityKeysMode;
 use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightColor;
 use Rossel\MwuSdk\Enum\ConfigurationParameterValues\Display\LightMode;
@@ -22,6 +22,7 @@ use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\LightModulesGe
 use Rossel\MwuSdk\Enum\DefaultConfigurationParameterKeys\Switches\SwitchesConfigKeysEnum;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
 final class MwuSdkBundle extends AbstractBundle
@@ -115,11 +116,19 @@ final class MwuSdkBundle extends AbstractBundle
         ->end();
     }
 
+    public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
+    {
+        $container->import('../config/services.yaml');
+
+        $container->services()
+            ->get(Mwu::class)
+            ->arg(0, $config);
+    }
+
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);
 
-        $container->registerExtension(new MwuSdkExtension());
         $container->addCompilerPass(new AddEventListenerTagPass());
     }
 }

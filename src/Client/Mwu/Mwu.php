@@ -10,6 +10,7 @@ use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface;
 use Rossel\MwuSdk\Entity\Command\ClientCommand\BroadcastReadyCommandInterface;
 use Rossel\MwuSdk\Exception\Client\Mwu\SwitchNotFoundException;
 use Rossel\MwuSdk\Factory\Client\MwuSwitchFactoryInterface;
+use Rossel\MwuSdk\Serializer\DefaultConfiguration\Content\ConfigDenormalizer;
 use Rossel\MwuSdk\Serializer\DefaultConfiguration\Formats\YamlConfigurationDeserializerInterface;
 
 /**
@@ -25,21 +26,30 @@ class Mwu implements YamlConfigurableMwuServiceInterface
     private array $switches = [];
 
     public function __construct(
+        array $defaultConfig,
         private readonly MwuSwitchFactoryInterface $switchFactory,
         private readonly YamlConfigurationDeserializerInterface $yamlConfigurationDeserializer,
-        ?string $mwuConfigFilePath = null,
-    ) {
-        if (null !== $mwuConfigFilePath) {
-            $this->loadYamlConfigurationFile($mwuConfigFilePath);
-        }
+        private readonly ConfigDenormalizer $configDenormalizer,
+    ) {dump($defaultConfig);
+        $this->loadConfiguration($defaultConfig);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function loadConfiguration(MwuConfigInterface $config): self
+    public function loadConfiguration(array|MwuConfigInterface $config): self
     {
-        $this->switches = $this->switchFactory->createCollection($config->getSwitches(), $config->getBehavior());
+        if (is_array($config)) {
+            $denormalizedConfig = $this->configDenormalizer->denormalize($config);
+        }
+        else {
+            $denormalizedConfig = $config;
+        }
+
+        $this->switches = $this->switchFactory->createCollection(
+            $denormalizedConfig->getSwitches(),
+            $denormalizedConfig->getBehavior()
+        );
 
         return $this;
     }

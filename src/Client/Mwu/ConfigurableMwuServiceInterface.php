@@ -9,7 +9,9 @@ use Rossel\MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface;
 interface ConfigurableMwuServiceInterface extends MwuServiceInterface
 {
     /**
-     * Generates switches from a `\Rossel\MwuSdk\Dto\Client\DefaultConfiguration\MwuConfigInterface` object.
+     * Generates switches from a configuration object.
+     *
+     * @param array<array-key, mixed>|MwuConfigInterface $config
      */
-    public function loadConfiguration(MwuConfigInterface $config): self;
+    public function loadConfiguration(array|MwuConfigInterface $config): self;
 }
