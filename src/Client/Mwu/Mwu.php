@@ -25,12 +25,15 @@ class Mwu implements YamlConfigurableMwuServiceInterface
      */
     private array $switches = [];
 
+    /**
+     * @param array<string, mixed> $defaultConfig
+     */
     public function __construct(
         array $defaultConfig,
         private readonly MwuSwitchFactoryInterface $switchFactory,
         private readonly YamlConfigurationDeserializerInterface $yamlConfigurationDeserializer,
         private readonly ConfigDenormalizer $configDenormalizer,
-    ) {dump($defaultConfig);
+    ) {
         $this->loadConfiguration($defaultConfig);
     }
 
@@ -39,10 +42,9 @@ class Mwu implements YamlConfigurableMwuServiceInterface
      */
     public function loadConfiguration(array|MwuConfigInterface $config): self
     {
-        if (is_array($config)) {
+        if (\is_array($config)) {
             $denormalizedConfig = $this->configDenormalizer->denormalize($config);
-        }
-        else {
+        } else {
             $denormalizedConfig = $config;
         }
 
