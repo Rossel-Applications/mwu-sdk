@@ -25,6 +25,9 @@ class Mwu implements YamlConfigurableMwuServiceInterface
      */
     private array $switches = [];
 
+    /**
+     * @param array<string, mixed> $defaultConfig
+     */
     public function __construct(
         array $defaultConfig,
         private readonly MwuSwitchFactoryInterface $switchFactory,

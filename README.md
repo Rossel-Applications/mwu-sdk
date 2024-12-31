@@ -132,43 +132,39 @@ This configuration generates a sequence of identifiers starting from `firstModul
 
 ### Behavior Configuration Parameters
 
-=========================
-==== !! TO VERIFY !! ====
-=========================
-
 Each parameter in the `mwu_sdk` behavior configuration is detailed below, specifying possible values, type, default values, and descriptions.
 
 #### `display_status.light.mode`
 
 Controls the light's operational mode.
 
-| Parameter | Type   | Possible Values                  | Default |
-|-----------|--------|----------------------------------|---------|
-| `mode`    | string | `"on"`, `"off"`, `"blink"`      | `"on"`  |
+| Parameter |  Type  | Possible Values                            | Required | Default |
+|:----------|:------:|:-------------------------------------------|:--------:|:-------:|
+| `mode`    | string | `"on"`, `"off"`, `"flash"`, `"fast_flash"` |    ✖️    | `"on"`  |
 
 #### `display_status.light.color`
 
 Sets the color of the light.
 
-| Parameter | Type   | Possible Values                  | Default |
-|-----------|--------|----------------------------------|---------|
-| `color`   | string | `"red"`, `"green"`, `"yellow"`  | `"red"` |
+| Parameter |  Type  | Possible Values                                                            | Required |  Default  |
+|:----------|:------:|:---------------------------------------------------------------------------|:--------:|:---------:|
+| `color`   | string | `"white"`, `"red"`, `"green"`, `"blue"`, `"cyan"`, `"magenta"`, `"yellow"` |    ✖️    | `"white"` |
 
 #### `display_status.screen.mode`
 
 Controls the screen's operational mode.
 
-| Parameter | Type   | Possible Values                  | Default |
-|-----------|--------|----------------------------------|---------|
-| `mode`    | string | `"on"`, `"off"`                 | `"on"`  |
+| Parameter |  Type  | Possible Values                            | Required | Default |
+|:----------|:------:|:-------------------------------------------|:--------:|---------|
+| `mode`    | string | `"on"`, `"off"`, `"flash"`, `"fast_flash"` |    ✖️    | `"on"`  |
 
 #### `display_status.screen.text`
 
 Displays a custom 4-character string on screen.
 
-| Parameter | Type   | Possible Values            | Default |
-|-----------|--------|----------------------------|---------|
-| `text`    | string | Any 4-character string     | `"0000"`|
+| Parameter |  Type  | Possible Values        | Required | Default  |
+|:----------|:------:|:-----------------------|:--------:|:--------:|
+| `text`    | string | Any 4-character string |    ✖️    | `"----"` |
 
 ---
 
@@ -176,33 +172,34 @@ Displays a custom 4-character string on screen.
 
 Controls the light's operational mode after confirmation.
 
-| Parameter | Type   | Possible Values                  | Default |
-|-----------|--------|----------------------------------|---------|
-| `mode`    | string | `"on"`, `"off"`, `"blink"`      | `"on"`  |
+| Parameter |  Type  | Possible Values                            | Required | Default |
+|:----------|:------:|:-------------------------------------------|:--------:|:-------:|
+| `mode`    | string | `"on"`, `"off"`, `"flash"`, `"fast_flash"` |    ✖️    | `"on"`  |
 
 #### `display_status_after_confirm.light.color`
 
 Sets the color of the light after confirmation.
 
-| Parameter | Type   | Possible Values                  | Default |
-|-----------|--------|----------------------------------|---------|
-| `color`   | string | `"red"`, `"green"`, `"yellow"`  | `"green"`|
+
+| Parameter |  Type  | Possible Values                                                            | Required |  Default  |
+|:----------|:------:|:---------------------------------------------------------------------------|:--------:|:---------:|
+| `color`   | string | `"white"`, `"red"`, `"green"`, `"blue"`, `"cyan"`, `"magenta"`, `"yellow"` |    ✖️    | `"white"` |
 
 #### `display_status_after_confirm.screen.mode`
 
 Controls the screen's operational mode after confirmation.
 
-| Parameter | Type   | Possible Values                  | Default |
-|-----------|--------|----------------------------------|---------|
-| `mode`    | string | `"on"`, `"off"`                 | `"on"`  |
+| Parameter |  Type  | Possible Values                            | Required | Default |
+|:----------|:------:|:-------------------------------------------|:--------:|:-------:|
+| `mode`    | string | `"on"`, `"off"`, `"flash"`, `"fast_flash"` |    ✖️    | `"on"`  |
 
 #### `display_status_after_confirm.screen.text`
 
 Displays a custom 4-character string on the screen after confirmation.
 
-| Parameter | Type   | Possible Values            | Default |
-|-----------|--------|----------------------------|---------|
-| `text`    | string | Any 4-character string     | `"0000"`|
+| Parameter |  Type  | Possible Values        | Required | Default  |
+|:----------|:------:|:-----------------------|:--------:|:--------:|
+| `text`    | string | Any 4-character string |    ✖️    | `"----"` |
 
 ---
 
@@ -210,33 +207,33 @@ Displays a custom 4-character string on the screen after confirmation.
 
 Controls the light's operational mode after "fn" action.
 
-| Parameter | Type   | Possible Values                          | Default    |
-|-----------|--------|------------------------------------------|------------|
-| `mode`    | string | `"on"`, `"off"`, `"blink"`, `"fast_flash"` | `"on"`     |
+| Parameter |  Type  | Possible Values                            | Required | Default |
+|:----------|:------:|:-------------------------------------------|:--------:|:-------:|
+| `mode`    | string | `"on"`, `"off"`, `"flash"`, `"fast_flash"` |    ✖️    | `"on"`  |
 
 #### `display_status_after_fn.light.color`
 
 Sets the color of the light after "fn" action.
 
-| Parameter | Type   | Possible Values                  | Default |
-|-----------|--------|----------------------------------|---------|
-| `color`   | string | `"red"`, `"green"`, `"yellow"`  | `"yellow"` |
+| Parameter |  Type  | Possible Values                                                            | Required |  Default  |
+|:----------|:------:|:---------------------------------------------------------------------------|:--------:|:---------:|
+| `color`   | string | `"white"`, `"red"`, `"green"`, `"blue"`, `"cyan"`, `"magenta"`, `"yellow"` |    ✖️    | `"white"` |
 
 #### `display_status_after_fn.screen.mode`
 
 Controls the screen's operational mode after "fn" action.
 
-| Parameter | Type   | Possible Values                  | Default |
-|-----------|--------|----------------------------------|---------|
-| `mode`    | string | `"on"`, `"off"`                 | `"on"`  |
+| Parameter |  Type  | Possible Values                            | Required | Default |
+|:----------|:------:|:-------------------------------------------|:--------:|:-------:|
+| `mode`    | string | `"on"`, `"off"`, `"flash"`, `"fast_flash"` |    ✖️    | `"on"`  |
 
 #### `display_status_after_fn.screen.text`
 
 Displays a custom 4-character string on screen after "fn" action.
 
-| Parameter | Type   | Possible Values            | Default |
-|-----------|--------|----------------------------|---------|
-| `text`    | string | Any 4-character string     | `"9999"`|
+| Parameter |  Type  | Possible Values        | Required | Default  |
+|:----------|:------:|:-----------------------|:--------:|:--------:|
+| `text`    | string | Any 4-character string |    ✖️    | `"----"` |
 
 ---
 
@@ -244,17 +241,17 @@ Displays a custom 4-character string on screen after "fn" action.
 
 Custom text shown on "fn" button display.
 
-| Parameter | Type   | Possible Values            | Default |
-|-----------|--------|----------------------------|---------|
-| `text`    | string | Any 4-character string     | `"----"`|
+| Parameter |  Type  | Possible Values        | Required | Default  |
+|:----------|:------:|:-----------------------|:--------:|:--------:|
+| `text`    | string | Any 4-character string |    ✖️    | `"----"` |
 
 #### `buttons.quantity_keys.mode`
 
 Sets behavior for the quantity keys.
 
-| Parameter | Type   | Possible Values                  | Default      |
-|-----------|--------|----------------------------------|--------------|
-| `mode`    | string | `"increment"`, `"decrement"`, `"off"` | `"increment"` |
+| Parameter |  Type  | Possible Values                    | Required |    Default    |
+|:----------|:------:|:-----------------------------------|:--------:|:-------------:|
+| `mode`    | string | `"increment"`, `"revise"`, `"off"` |    ✖️    | `"increment"` |
 
 ## Sending a Command
 
