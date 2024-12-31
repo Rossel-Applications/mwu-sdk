@@ -75,7 +75,7 @@ classDiagram
     MwuSwitch "0..*" o-- "0..1" MwuLightModule
     ```
 ```
-* **MWU Service:** Entry point for communicating with the MWU pick-to-light system. It aggregates all the switches in the system.
+* **MWU:** Entry point for communicating with the MWU pick-to-light system. It aggregates all the switches in the system.
 * **MWU Switch:** Device that groups several light modules, each identified by a unique ID per switch. Each switch is accessible via a specific IP address and port.
 * **MWU Light Module:** Set consisting of a screen with buttons, one of which is equipped with an LED. Each light module has a unique ID when connected to a switch.
 
